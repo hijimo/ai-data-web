@@ -30,6 +30,15 @@ export default defineConfig({
         useNamedParameters: true,
         // 自动转换日期字符串为 Date 对象
         useDates: true,
+        // 类型生成选项（满足需求 1.4, 1.5, 2.5）
+        // Orval 默认会生成以下类型：
+        // 1. 完整的请求参数类型（路径参数、查询参数、请求体）- 需求 1.4
+        // 2. 完整的响应数据类型 - 需求 1.5
+        // 3. 错误类型（从 OpenAPI responses 中提取）- 需求 2.5
+        // 4. JSDoc 注释（从 OpenAPI description 字段生成）- 需求 2.5
+
+        // 使用 BigInt 类型（如果 OpenAPI 中有 int64 类型）
+        useBigInt: false,
       },
     },
   },

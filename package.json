@@ -31,7 +31,8 @@
     "remove:tailwind": "scripts/remove_tailwind.js",
     "prepare": "husky",
     "api:sync": "node scripts/sync-api-doc.js",
-    "api:generate": "orval --config orval.config.ts"
+    "api:generate": "orval --config orval.config.ts",
+    "api": "npm run api:sync && npm run api:generate"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.89.0",

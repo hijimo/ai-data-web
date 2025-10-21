@@ -2902,7 +2902,7 @@ paths:
           schema:
             $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
         "404":
-          description: ��供商不存在
+          description: 提供商不存在
           schema:
             $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
         "500":
@@ -3309,7 +3309,7 @@ paths:
           schema:
             $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
         "500":
-          description: 服务器内部错误
+          description: ���务器内部错误
           schema:
             $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
       security:

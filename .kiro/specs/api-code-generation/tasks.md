@@ -32,20 +32,20 @@
   - 确保生成的代码符合 TypeScript 严格模式
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 5. 配置类型生成选项
+- [x] 5. 配置类型生成选项
   - 配置生成完整的请求参数类型
   - 配置生成完整的响应数据类型
   - 配置生成错误类型
   - 确保生成的类型包含 JSDoc 注释
   - _Requirements: 1.4, 1.5, 2.5_
 
-- [ ] 6. 添加组合命令
+- [x] 6. 添加组合命令
   - 在 package.json 中添加 `api:sync-and-generate` 命令
   - 配置该命令依次执行文档同步和代码生成
   - 测试命令在 yarn 和 pnpm 下都能正常工作
   - _Requirements: 4.3, 4.5_
 
-- [ ] 7. 验证生成的代码
+- [x] 7. 验证生成的代码
   - 运行 `yarn api:sync` 测试文档同步功能
   - 运行 `yarn api:generate` 测试代码生成功能
   - 运行 `yarn typecheck` 验证生成的代码通过类型检查
