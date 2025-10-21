@@ -1,0 +1,3741 @@
+basePath: /api/v1
+definitions:
+  genkit-ai-service_internal_model.AbortRequest:
+    properties:
+      messageId:
+        description: 消息ID（必填）
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - messageId
+    type: object
+  genkit-ai-service_internal_model.AlertListDataResponse:
+    type: object
+  genkit-ai-service_internal_model.AnyDataResponse:
+    type: object
+  genkit-ai-service_internal_model.AuthAuditItem:
+    properties:
+      createdAt:
+        description: 事件发生时间
+        example: "2024-01-01T12:00:00Z"
+        type: string
+      event:
+        description: 事件类型
+        example: login
+        type: string
+      id:
+        description: 审计日志ID
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      ip:
+        description: 客户端IP地址
+        example: 192.168.1.1
+        type: string
+      meta:
+        description: 事件元数据
+      tenantId:
+        description: 租户ID
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      userAgent:
+        description: 用户代理字符串
+        example: Mozilla/5.0
+        type: string
+      userId:
+        description: 用户ID
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  genkit-ai-service_internal_model.AuthAuditListResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_AuthAuditItem'
+        description: 分页数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.ChatOptions:
+    properties:
+      maxTokens:
+        description: 最大token数
+        example: 2048
+        type: integer
+      temperature:
+        description: 温度值，控制输出的随机性（0-2）
+        example: 0.7
+        maximum: 2
+        minimum: 0
+        type: number
+      topK:
+        description: Top-K采样参数
+        example: 40
+        type: integer
+      topP:
+        description: Top-P采样参数（0-1）
+        example: 0.9
+        maximum: 1
+        minimum: 0
+        type: number
+    type: object
+  genkit-ai-service_internal_model.ChatRequest:
+    properties:
+      message:
+        description: 用户消息内容
+        example: 你好，请介绍一下你自己
+        type: string
+      messageId:
+        description: 消息ID（可选，用于继续对话）
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      options:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.ChatOptions'
+        description: AI高级参数（可选）
+    required:
+    - message
+    type: object
+  genkit-ai-service_internal_model.ChatResponse:
+    properties:
+      message:
+        description: AI生成的消息内容
+        example: 你好！我是一个 AI 助手...
+        type: string
+      model:
+        description: 使用的模型名称
+        example: gemini-1.5-flash
+        type: string
+      sessionId:
+        description: 会话ID
+        example: session-123456
+        type: string
+      usage:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Usage'
+        description: Token使用情况
+    type: object
+  genkit-ai-service_internal_model.ChatResponseData:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.ChatResponse'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.CreateSessionRequest:
+    properties:
+      meta:
+        additionalProperties: true
+        description: 元数据（可选）
+        type: object
+      modelName:
+        description: 模型名称
+        example: gpt-4
+        maxLength: 128
+        type: string
+      systemPrompt:
+        description: 系统提示词（可选）
+        example: 你是一个有帮助的AI助手
+        type: string
+      temperature:
+        description: 温度参数（可选，0-2）
+        example: 0.7
+        maximum: 2
+        minimum: 0
+        type: number
+      title:
+        description: 会话标题
+        example: 我的第一个会话
+        maxLength: 255
+        type: string
+      topP:
+        description: TopP参数（可选，0-1）
+        example: 0.9
+        maximum: 1
+        minimum: 0
+        type: number
+    required:
+    - modelName
+    - title
+    type: object
+  genkit-ai-service_internal_model.CredentialFormSchema:
+    properties:
+      default:
+        description: 默认值
+        type: string
+      label:
+        additionalProperties:
+          type: string
+        description: 标签（多语言）
+        type: object
+      options:
+        description: 选项列表
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.FormOption'
+        type: array
+      placeholder:
+        additionalProperties:
+          type: string
+        description: 占位符（多语言）
+        type: object
+      required:
+        description: 是否必填
+        type: boolean
+      type:
+        description: 类型
+        type: string
+      variable:
+        description: 变量名
+        type: string
+    type: object
+  genkit-ai-service_internal_model.CredentialSchema:
+    properties:
+      credential_form_schemas:
+        description: 凭证表单配置列表
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.CredentialFormSchema'
+        type: array
+    type: object
+  genkit-ai-service_internal_model.ErrorResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 400
+        type: integer
+      message:
+        description: 响应信息
+        example: 请求参数错误
+        type: string
+    type: object
+  genkit-ai-service_internal_model.FormOption:
+    properties:
+      label:
+        additionalProperties:
+          type: string
+        description: 选项标签（多语言）
+        type: object
+      value:
+        description: 选项值
+        type: string
+    type: object
+  genkit-ai-service_internal_model.HealthDataResponse:
+    type: object
+  genkit-ai-service_internal_model.LoginDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.LoginResponse'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.LoginResponse:
+    properties:
+      accessToken:
+        description: 访问令牌
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+      expiresIn:
+        description: 过期时间（秒）
+        example: 3600
+        type: integer
+      refreshToken:
+        description: 刷新令牌
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      tokenType:
+        description: 令牌类型
+        example: Bearer
+        type: string
+      user:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.User'
+        description: 用户信息
+    type: object
+  genkit-ai-service_internal_model.Message:
+    properties:
+      content:
+        description: 消息内容
+        example: 你好
+        type: string
+      createdAt:
+        description: 创建时间
+        example: "2024-01-01T12:00:00Z"
+        type: string
+      id:
+        description: 消息ID
+        example: msg-123456
+        type: string
+      role:
+        description: 角色
+        example: user
+        type: string
+      sequence:
+        description: 序列号
+        example: 1
+        type: integer
+    type: object
+  genkit-ai-service_internal_model.MessageDetailDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.MessageDetailResponse'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.MessageDetailListResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_MessageDetailResponse'
+        description: 分页数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.MessageDetailResponse:
+    properties:
+      content:
+        description: 消息内容
+        example: 你好
+        type: string
+      createdAt:
+        description: 创建时间
+        example: "2024-01-01T12:00:00Z"
+        type: string
+      error:
+        description: 错误信息
+        example: ""
+        type: string
+      id:
+        description: 消息ID
+        example: msg-123456
+        type: string
+      meta:
+        additionalProperties: true
+        description: 元数据
+        type: object
+      role:
+        description: 角色
+        example: user
+        type: string
+      sequence:
+        description: 序列号
+        example: 1
+        type: integer
+      sessionId:
+        description: 会话ID
+        example: session-123456
+        type: string
+      tokens:
+        description: Token数量
+        example: 10
+        type: integer
+      toolCalls:
+        additionalProperties: true
+        description: 工具调用
+        type: object
+    type: object
+  genkit-ai-service_internal_model.MessagePreview:
+    properties:
+      content:
+        description: 消息内容
+        example: 你好
+        type: string
+      createdAt:
+        description: 创建时间
+        example: "2024-01-01T12:00:00Z"
+        type: string
+      id:
+        description: 消息ID
+        example: msg-123456
+        type: string
+      role:
+        description: 角色
+        example: user
+        type: string
+    type: object
+  genkit-ai-service_internal_model.MessageResponse:
+    properties:
+      aiMessage:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Message'
+        description: AI消息
+      messageId:
+        description: 消息ID
+        example: msg-123456
+        type: string
+      model:
+        description: 模型名称
+        example: gpt-4
+        type: string
+      sessionId:
+        description: 会话ID
+        example: session-123456
+        type: string
+      usage:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Usage'
+        description: 使用统计
+      userMessage:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Message'
+        description: 用户消息
+    type: object
+  genkit-ai-service_internal_model.MessageResponseData:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.MessageResponse'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.MetricsDataResponse:
+    type: object
+  genkit-ai-service_internal_model.Model:
+    properties:
+      deprecated:
+        description: 是否已弃用
+        example: false
+        type: boolean
+      features:
+        description: 特性列表
+        example:
+        - tool-call
+        - multi-tool-call
+        - stream-tool-call
+        items:
+          type: string
+        type: array
+      label:
+        additionalProperties:
+          type: string
+        description: 多语言标签
+        example:
+          en_US: Gemini 1.5 Flash
+          zh_Hans: Gemini 1.5 Flash
+        type: object
+      model:
+        description: 模型标识
+        example: gemini-1.5-flash
+        type: string
+      model_properties:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.ModelProperties'
+        description: 模型属性
+      model_type:
+        description: 模型类型（llm、tts、text_embedding等）
+        example: llm
+        type: string
+      parameter_rules:
+        description: 参数规则
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.ParameterRule'
+        type: array
+      pricing:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Pricing'
+        description: 定价信息
+    type: object
+  genkit-ai-service_internal_model.ModelDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Model'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.ModelListDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        description: 响应数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.Model'
+        type: array
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.ModelProperties:
+    properties:
+      context_size:
+        description: 上下文大小
+        type: integer
+      mode:
+        description: 模式（chat、completion等）
+        type: string
+    type: object
+  genkit-ai-service_internal_model.ModelTypeInfo:
+    properties:
+      position:
+        description: 位置文件路径
+        type: string
+      predefined:
+        description: 预定义模型列表
+        items:
+          type: string
+        type: array
+    type: object
+  genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_AuthAuditItem:
+    properties:
+      data:
+        description: 数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.AuthAuditItem'
+        type: array
+      pageNo:
+        description: 当前页码
+        example: 1
+        type: integer
+      pageSize:
+        description: 每页大小
+        example: 10
+        type: integer
+      totalCount:
+        description: 总记录数
+        example: 100
+        type: integer
+      totalPage:
+        description: 总页数
+        example: 10
+        type: integer
+    type: object
+  genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_MessageDetailResponse:
+    properties:
+      data:
+        description: 数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.MessageDetailResponse'
+        type: array
+      pageNo:
+        description: 当前页码
+        example: 1
+        type: integer
+      pageSize:
+        description: 每页大小
+        example: 10
+        type: integer
+      totalCount:
+        description: 总记录数
+        example: 100
+        type: integer
+      totalPage:
+        description: 总页数
+        example: 10
+        type: integer
+    type: object
+  genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_SessionResponse:
+    properties:
+      data:
+        description: 数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.SessionResponse'
+        type: array
+      pageNo:
+        description: 当前页码
+        example: 1
+        type: integer
+      pageSize:
+        description: 每页大小
+        example: 10
+        type: integer
+      totalCount:
+        description: 总记录数
+        example: 100
+        type: integer
+      totalPage:
+        description: 总页数
+        example: 10
+        type: integer
+    type: object
+  genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_Tenant:
+    properties:
+      data:
+        description: 数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.Tenant'
+        type: array
+      pageNo:
+        description: 当前页码
+        example: 1
+        type: integer
+      pageSize:
+        description: 每页大小
+        example: 10
+        type: integer
+      totalCount:
+        description: 总记录数
+        example: 100
+        type: integer
+      totalPage:
+        description: 总页数
+        example: 10
+        type: integer
+    type: object
+  genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_User:
+    properties:
+      data:
+        description: 数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.User'
+        type: array
+      pageNo:
+        description: 当前页码
+        example: 1
+        type: integer
+      pageSize:
+        description: 每页大小
+        example: 10
+        type: integer
+      totalCount:
+        description: 总记录数
+        example: 100
+        type: integer
+      totalPage:
+        description: 总页数
+        example: 10
+        type: integer
+    type: object
+  genkit-ai-service_internal_model.ParameterRule:
+    properties:
+      default:
+        description: 默认值
+      help:
+        additionalProperties:
+          type: string
+        description: 帮助信息（多语言）
+        type: object
+      label:
+        additionalProperties:
+          type: string
+        description: 标签（多语言）
+        type: object
+      max:
+        description: 最大值
+      min:
+        description: 最小值
+      name:
+        description: 参数名称
+        example: temperature
+        type: string
+      options:
+        description: 选项列表
+        items:
+          type: string
+        type: array
+      required:
+        description: 是否必填
+        example: false
+        type: boolean
+      type:
+        description: 类型
+        example: float
+        type: string
+      use_template:
+        description: 使用的模板
+        example: temperature
+        type: string
+    type: object
+  genkit-ai-service_internal_model.ParameterRuleListDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        description: 响应数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.ParameterRule'
+        type: array
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.Pricing:
+    properties:
+      currency:
+        description: 货币
+        type: string
+      input:
+        description: 输入价格
+        type: string
+      output:
+        description: 输出价格
+        type: string
+      unit:
+        description: 单位
+        type: string
+    type: object
+  genkit-ai-service_internal_model.Provider:
+    properties:
+      background:
+        description: 背景色
+        example: '#4285F4'
+        type: string
+      configurate_methods:
+        description: 配置方法列表
+        example:
+        - predefined-model
+        - customizable-model
+        items:
+          type: string
+        type: array
+      help:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.ProviderHelp'
+        description: 帮助信息
+      icon_large:
+        additionalProperties:
+          type: string
+        description: 大图标（多语言）
+        type: object
+      icon_small:
+        additionalProperties:
+          type: string
+        description: 小图标（多语言）
+        type: object
+      id:
+        description: 提供商ID（从文件夹名称获取）
+        example: gemini
+        type: string
+      label:
+        additionalProperties:
+          type: string
+        description: 多语言标签
+        example:
+          en_US: Google Gemini
+          zh_Hans: 谷歌 Gemini
+        type: object
+      model_credential_schema:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.CredentialSchema'
+        description: 模型凭证配置
+      models:
+        additionalProperties:
+          $ref: '#/definitions/genkit-ai-service_internal_model.ModelTypeInfo'
+        description: 模型类型配置
+        type: object
+      provider:
+        description: 提供商标识
+        example: gemini
+        type: string
+      provider_credential_schema:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.CredentialSchema'
+        description: 提供商凭证配置
+      supported_model_types:
+        description: 支持的模型类型列表
+        example:
+        - llm
+        - text-embedding
+        items:
+          type: string
+        type: array
+    type: object
+  genkit-ai-service_internal_model.ProviderDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Provider'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.ProviderHelp:
+    properties:
+      title:
+        additionalProperties:
+          type: string
+        description: 帮助标题（多语言）
+        type: object
+      url:
+        additionalProperties:
+          type: string
+        description: 帮助链接（多语言）
+        type: object
+    type: object
+  genkit-ai-service_internal_model.ProviderListDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        description: 响应数据
+        items:
+          $ref: '#/definitions/genkit-ai-service_internal_model.Provider'
+        type: array
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.SendMessageRequest:
+    properties:
+      message:
+        description: 消息内容
+        example: 你好，请介绍一下你自己
+        type: string
+      options:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.ChatOptions'
+        description: AI高级参数（可选）
+      sessionId:
+        description: 会话ID
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - message
+    - sessionId
+    type: object
+  genkit-ai-service_internal_model.SessionDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.SessionResponse'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.SessionListResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_SessionResponse'
+        description: 分页数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.SessionResponse:
+    properties:
+      createdAt:
+        description: 创建时间
+        example: "2024-01-01T12:00:00Z"
+        type: string
+      id:
+        description: 会话ID
+        example: session-123456
+        type: string
+      isArchived:
+        description: 是否归档
+        example: false
+        type: boolean
+      isPinned:
+        description: 是否置顶
+        example: false
+        type: boolean
+      lastMessage:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.MessagePreview'
+        description: 最后一条消息
+      messageCount:
+        description: 消息数量
+        example: 10
+        type: integer
+      meta:
+        additionalProperties: true
+        description: 元数据
+        type: object
+      modelName:
+        description: 模型名称
+        example: gpt-4
+        type: string
+      systemPrompt:
+        description: 系统提示词
+        example: 你是一个有帮助的AI助手
+        type: string
+      temperature:
+        description: 温度参数
+        example: 0.7
+        type: number
+      title:
+        description: 会话标题
+        example: 我的第一个会话
+        type: string
+      topP:
+        description: TopP参数
+        example: 0.9
+        type: number
+      updatedAt:
+        description: 更新时间
+        example: "2024-01-01T12:00:00Z"
+        type: string
+      userId:
+        description: 用户ID
+        example: user-123456
+        type: string
+    type: object
+  genkit-ai-service_internal_model.SuccessResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      message:
+        description: 响应信息
+        example: 操作成功
+        type: string
+    type: object
+  genkit-ai-service_internal_model.Tenant:
+    description: 租户信息，包含租户的基本信息和状态
+    properties:
+      createdAt:
+        description: 创建时间
+        example: "2025-01-20T10:00:00Z"
+        type: string
+      createdBy:
+        description: 创建者用户ID
+        example: 660e8400-e29b-41d4-a716-446655440000
+        type: string
+      domain:
+        description: 租户域名，用于子域识别
+        example: acme.example.com
+        type: string
+      id:
+        description: 租户ID
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      isDeleted:
+        description: 软删除标记
+        example: false
+        type: boolean
+      metadata:
+        description: 租户元数据，存储租户的自定义信息
+        type: object
+      name:
+        description: 租户名称
+        example: Acme Corporation
+        type: string
+      status:
+        description: |-
+          租户状态：true=启用，false=禁用
+          禁用的租户下的所有用户将无法登录
+        example: true
+        type: boolean
+      type:
+        description: |-
+          租户类型：system=平台租户，tenant=业务租户
+          可选值：system（平台租户，系统级租户，只能有一个）, tenant（业务租户，普通租户）
+        enum:
+        - system
+        - tenant
+        example: tenant
+        type: string
+      updatedAt:
+        description: 更新时间
+        example: "2025-01-20T10:00:00Z"
+        type: string
+    type: object
+  genkit-ai-service_internal_model.TenantDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Tenant'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.TenantListResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_Tenant'
+        description: 分页数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.UpdateSessionRequest:
+    properties:
+      modelName:
+        description: 模型名称（可选）
+        example: gpt-4-turbo
+        maxLength: 128
+        type: string
+      systemPrompt:
+        description: 系统提示词（可选）
+        example: 你是一个专业的编程助手
+        type: string
+      temperature:
+        description: 温度参数（可选，0-2）
+        example: 0.8
+        maximum: 2
+        minimum: 0
+        type: number
+      title:
+        description: 会话标题（可选）
+        example: 更新后的标题
+        maxLength: 255
+        type: string
+      topP:
+        description: TopP参数（可选，0-1）
+        example: 0.95
+        maximum: 1
+        minimum: 0
+        type: number
+    type: object
+  genkit-ai-service_internal_model.Usage:
+    properties:
+      completionTokens:
+        description: 生成内容token数
+        example: 50
+        type: integer
+      promptTokens:
+        description: 提示词token数
+        example: 10
+        type: integer
+      totalTokens:
+        description: 总token数
+        example: 60
+        type: integer
+    type: object
+  genkit-ai-service_internal_model.User:
+    description: 用户信息，包含用户的基本信息、角色和状态
+    properties:
+      createdAt:
+        description: 创建时间
+        example: "2025-01-20T10:00:00Z"
+        type: string
+      createdBy:
+        description: 创建者用户ID
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      displayName:
+        description: 显示名称
+        example: 张三
+        type: string
+      email:
+        description: 用户邮箱，在租户内唯一
+        example: user@example.com
+        type: string
+      emailVerified:
+        description: 邮箱是否已验证
+        example: false
+        type: boolean
+      failedLoginAttempts:
+        description: 登录失败次数，用于账户锁定策略
+        example: 0
+        type: integer
+      id:
+        description: 用户ID
+        example: 660e8400-e29b-41d4-a716-446655440001
+        type: string
+      isActive:
+        description: 账户是否激活，禁用的用户无法登录
+        example: true
+        type: boolean
+      isAdmin:
+        description: 是否为管理员（租户管理员或平台管理员）
+        example: false
+        type: boolean
+      isDeleted:
+        description: 软删除标记
+        example: false
+        type: boolean
+      lastLoginAt:
+        description: 最后登录时间
+        example: "2025-01-20T10:00:00Z"
+        type: string
+      lockedUntil:
+        description: 账户锁定时间，锁定期间无法登录
+        example: "2025-01-20T10:00:00Z"
+        type: string
+      meta:
+        description: 用户元数据，存储用户的自定义信息
+        type: object
+      phone:
+        description: 手机号码
+        example: "13800138000"
+        type: string
+      roles:
+        description: |-
+          用户角色列表，支持多角色
+          可选值：system_admin（平台管理员）, tenant_admin（租户管理员）, user（普通用户）
+          示例：["user"], ["tenant_admin"], ["system_admin"]
+        example:
+        - '["user"]'
+        items:
+          type: string
+        type: array
+      tenantId:
+        description: 所属租户ID
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      updatedAt:
+        description: 更新时间
+        example: "2025-01-20T10:00:00Z"
+        type: string
+    type: object
+  genkit-ai-service_internal_model.UserDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.User'
+        description: 响应数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_model.UserListResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 200
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.PaginationData-array_genkit-ai-service_internal_model_User'
+        description: 分页数据
+      message:
+        description: 响应信息
+        example: success
+        type: string
+    type: object
+  genkit-ai-service_internal_service_health.HealthStatus:
+    properties:
+      dependencies:
+        additionalProperties:
+          type: string
+        description: 依赖服务状态
+        example:
+          database: connected
+          genkit: connected
+        type: object
+      status:
+        description: 整体状态：healthy, unhealthy
+        example: healthy
+        type: string
+      uptime:
+        description: 运行时间
+        example: 2h30m15s
+        type: string
+      version:
+        description: 服务版本
+        example: 1.0.0
+        type: string
+    type: object
+  internal_api_handler.ChangePasswordRequest:
+    properties:
+      newPassword:
+        example: newpassword123
+        minLength: 8
+        type: string
+      oldPassword:
+        example: oldpassword123
+        type: string
+    required:
+    - newPassword
+    - oldPassword
+    type: object
+  internal_api_handler.CreateTenantRequest:
+    properties:
+      createdBy:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      domain:
+        example: example.com
+        maxLength: 255
+        type: string
+      metadata:
+        type: object
+      name:
+        example: 示例租户
+        maxLength: 255
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
+  internal_api_handler.CreateTenantWithAdminDataResponse:
+    properties:
+      code:
+        description: 响应代码
+        example: 201
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/internal_api_handler.CreateTenantWithAdminResponse'
+        description: 创建租户响应数据
+      message:
+        description: 响应信息
+        example: 租户创建成功
+        type: string
+    type: object
+  internal_api_handler.CreateTenantWithAdminRequest:
+    properties:
+      adminDisplayName:
+        description: 管理员显示名称（可选，最多255字符）
+        example: 管理员
+        maxLength: 255
+        type: string
+      adminEmail:
+        description: 管理员邮箱（可选，默认为 admin@{tenantDomain}）
+        example: admin@example.com
+        type: string
+      tenantDomain:
+        description: 租户域名（必填，最多255字符）
+        example: example.com
+        maxLength: 255
+        type: string
+      tenantMetadata:
+        description: 租户元数据（可选，JSON对象）
+        type: object
+      tenantName:
+        description: 租户名称（必填，1-255字符）
+        example: 示例公司
+        maxLength: 255
+        minLength: 1
+        type: string
+    required:
+    - tenantDomain
+    - tenantName
+    type: object
+  internal_api_handler.CreateTenantWithAdminResponse:
+    properties:
+      adminPassword:
+        description: 管理员初始密码（请妥善保管并建议首次登录后修改）
+        example: Xy9#mK2$pL5@qR8!
+        type: string
+      adminUser:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.User'
+        description: 管理员用户信息
+      tenant:
+        allOf:
+        - $ref: '#/definitions/genkit-ai-service_internal_model.Tenant'
+        description: 租户信息
+    type: object
+  internal_api_handler.CreateUserRequest:
+    properties:
+      createdBy:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      displayName:
+        example: 张三
+        type: string
+      email:
+        example: user@example.com
+        type: string
+      isAdmin:
+        example: false
+        type: boolean
+      meta:
+        type: object
+      password:
+        example: password123
+        minLength: 8
+        type: string
+      phone:
+        example: "13800138000"
+        type: string
+      roles:
+        example:
+        - '["user"]'
+        items:
+          type: string
+        type: array
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - email
+    - password
+    - tenantId
+    type: object
+  internal_api_handler.HealthStatusResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/genkit-ai-service_internal_service_health.HealthStatus'
+      message:
+        example: success
+        type: string
+    type: object
+  internal_api_handler.LoginRequest:
+    properties:
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  internal_api_handler.LogoutRequest:
+    properties:
+      refreshToken:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - refreshToken
+    type: object
+  internal_api_handler.RefreshRequest:
+    properties:
+      refreshToken:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - refreshToken
+    type: object
+  internal_api_handler.RegisterRequest:
+    properties:
+      displayName:
+        example: 张三
+        type: string
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        minLength: 8
+        type: string
+      phone:
+        example: "13800138000"
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - email
+    - password
+    - tenantId
+    type: object
+  internal_api_handler.ResendVerificationRequest:
+    properties:
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - tenantId
+    - userId
+    type: object
+  internal_api_handler.UnlockAccountRequest:
+    properties:
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - tenantId
+    - userId
+    type: object
+  internal_api_handler.UpdateTenantRequest:
+    properties:
+      domain:
+        example: updated.com
+        maxLength: 255
+        type: string
+      metadata:
+        type: object
+      name:
+        example: 更新后的租户名
+        maxLength: 255
+        minLength: 1
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  internal_api_handler.UpdateTenantStatusRequest:
+    properties:
+      status:
+        description: '租户状态（true: 启用, false: 禁用）'
+        example: true
+        type: boolean
+    type: object
+  internal_api_handler.UpdateUserRequest:
+    properties:
+      displayName:
+        example: 李四
+        type: string
+      email:
+        example: newemail@example.com
+        type: string
+      isActive:
+        example: true
+        type: boolean
+      isAdmin:
+        example: false
+        type: boolean
+      meta:
+        type: object
+      phone:
+        example: "13900139000"
+        type: string
+      roles:
+        example:
+        - '["user"'
+        - '"moderator"]'
+        items:
+          type: string
+        type: array
+    type: object
+  internal_api_handler.UpdateUserStatusRequest:
+    properties:
+      isActive:
+        example: true
+        type: boolean
+    required:
+    - isActive
+    type: object
+  internal_api_handler.VerifyEmailRequest:
+    properties:
+      token:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    required:
+    - token
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: |-
+    AI 模型提供商管理服务 API 文档
+    提供模型提供商、模型信息和参数规则的查询接口
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Genkit AI Service API
+  version: 1.0.0
+paths:
+  /api/v1/platform/tenants:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        获取所有租户列表，支持分页和类型过滤。需要平台管理员权限（system_admin角色）。
+
+        **权限要求：** system_admin
+
+        **功能说明：**
+        - 支持分页查询（默认每页10条，最多100条）
+        - 支持按租户类型过滤（system: 平台租户, tenant: 业务租户）
+        - 返回租户的完整信息，包括名称、域名、类型、状态等
+
+        **租户类型：**
+        - system: 平台租户（系统级租户，用于承载平台管理员）
+        - tenant: 业务租户（普通租户，用于实际业务使用）
+      parameters:
+      - default: 1
+        description: 页码（从1开始）
+        example: 1
+        in: query
+        minimum: 1
+        name: pageNo
+        type: integer
+      - default: 10
+        description: 每页大小（1-100）
+        example: 10
+        in: query
+        maximum: 100
+        minimum: 1
+        name: pageSize
+        type: integer
+      - description: 租户类型过滤
+        enum:
+        - system
+        - tenant
+        example: tenant
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.TenantListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足（需要 system_admin 角色）
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 获取租户列表
+      tags:
+      - Platform Management
+    post:
+      consumes:
+      - application/json
+      description: |-
+        创建新的业务租户并自动生成租户管理员账户。系统会自动为租户创建一个管理员账户，并生成随机强密码。需要平台管理员权限（system_admin角色）。
+
+        **权限要求：** system_admin
+
+        **功能说明：**
+        - 创建类型为 "tenant" 的业务租户
+        - 自动生成租户管理员账户（角色为 tenant_admin）
+        - 生成16位随机强密码（包含大小写字母、数字和特殊字符）
+        - 返回租户信息和管理员初始密码
+
+        **注意事项：**
+        - 管理员邮箱如未指定，默认为 admin@{tenantDomain}
+        - 请妥善保管返回的初始密码，建议首次登录后立即修改
+        - 租户域名必须唯一
+      parameters:
+      - description: 创建租户请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.CreateTenantWithAdminRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 创建成功
+          schema:
+            $ref: '#/definitions/internal_api_handler.CreateTenantWithAdminDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足（需要 system_admin 角色）
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 创建租户（带管理员）
+      tags:
+      - Platform Management
+  /api/v1/platform/tenants/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: |-
+        软删除指定的业务租户。需要平台管理员权限（system_admin角色）。
+
+        **权限要求：** system_admin
+
+        **功能说明：**
+        - 执行软删除操作，设置 is_deleted = true
+        - 不会物理删除数据库记录，保留数据用于审计和恢复
+        - 删除后的租户不会出现在租户列表中
+
+        **限制条件：**
+        - 不允许删除平台租户（type = "system"）
+        - 删除租户时会级联处理相关数据（根据数据库外键约束）
+
+        **注意事项：**
+        - 删除操作不可逆（除非通过数据库直接恢复）
+        - 建议在删除前先禁用租户，观察一段时间后再删除
+        - 删除租户会影响该租户下的所有用户和数据
+      parameters:
+      - description: 租户ID（UUID格式）
+        example: '"550e8400-e29b-41d4-a716-446655440000"'
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误（如尝试删除平台租户）
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足（需要 system_admin 角色）
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 租户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 删除租户
+      tags:
+      - Platform Management
+  /api/v1/platform/tenants/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      description: |-
+        更新租户的启用/禁用状态。需要平台管理员权限（system_admin角色）。
+
+        **权限要求：** system_admin
+
+        **功能说明：**
+        - 启用租户：设置 status = true，该租户下的用户可以正常登录和访问系统
+        - 禁用租户：设置 status = false，该租户下的所有用户将无法登录和访问系统
+
+        **影响范围：**
+        - 禁用租户后，该租户下所有用户的登录请求将被拒绝
+        - 禁用租户后，该租户下所有用户的 API 访问请求将被拒绝
+        - 启用租户后，该租户下用户恢复正常访问
+
+        **注意事项：**
+        - 不允许禁用平台租户（type = "system"）
+        - 禁用操作会立即生效
+      parameters:
+      - description: 租户ID（UUID格式）
+        example: '"550e8400-e29b-41d4-a716-446655440000"'
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 更新租户状态请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.UpdateTenantStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.TenantDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足（需要 system_admin 角色）
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 租户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 启用/禁用租户
+      tags:
+      - Platform Management
+  /audit/auth:
+    get:
+      consumes:
+      - application/json
+      description: 查询认证审计日志，支持多条件过滤和分页
+      parameters:
+      - description: 租户ID
+        in: query
+        name: tenantId
+        type: string
+      - description: 用户ID
+        in: query
+        name: userId
+        type: string
+      - description: 事件类型（login, logout, refresh, revoke, failed_login）
+        in: query
+        name: event
+        type: string
+      - description: 开始时间（RFC3339格式）
+        in: query
+        name: startTime
+        type: string
+      - description: 结束时间（RFC3339格式）
+        in: query
+        name: endTime
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 查询成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AuthAuditListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 查询审计日志
+      tags:
+      - Audit
+  /auth/change-password:
+    post:
+      consumes:
+      - application/json
+      description: 修改当前用户的密码
+      parameters:
+      - description: 修改密码请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SuccessResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证或旧密码错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 修改密码
+      tags:
+      - Authentication
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 使用邮箱和密码登录系统
+      parameters:
+      - description: 登录请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登录成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.LoginDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 认证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 用户登录
+      tags:
+      - Authentication
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: 注销用户并撤销 Refresh Token
+      parameters:
+      - description: 注销请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.LogoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注销成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SuccessResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: Token 无效
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 用户注销
+      tags:
+      - Authentication
+  /auth/me:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前登录用户的详细信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserDataResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 获取当前用户信息
+      tags:
+      - Authentication
+  /auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: 使用 Refresh Token 获取新的 Access Token
+      parameters:
+      - description: 刷新请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.RefreshRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 刷新成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.LoginDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: Token 无效或已过期
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 刷新访问令牌
+      tags:
+      - Authentication
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: 注册新用户账户
+      parameters:
+      - description: 注册请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 注册成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 用户注册
+      tags:
+      - Authentication
+  /auth/resend-verification:
+    post:
+      consumes:
+      - application/json
+      description: 重新发送邮箱验证邮件
+      parameters:
+      - description: 重发请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.ResendVerificationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 发送成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SuccessResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 重新发送验证邮件
+      tags:
+      - Authentication
+  /auth/unlock-account:
+    post:
+      consumes:
+      - application/json
+      description: 解锁被锁定的用户账户（需要管理员权限）
+      parameters:
+      - description: 解锁请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.UnlockAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 解锁成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SuccessResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 解锁账户
+      tags:
+      - Authentication
+  /auth/verify-email:
+    post:
+      consumes:
+      - application/json
+      description: 使用验证令牌验证用户邮箱
+      parameters:
+      - description: 验证请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.VerifyEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 验证成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SuccessResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 验证邮箱
+      tags:
+      - Authentication
+  /chat:
+    post:
+      consumes:
+      - application/json
+      description: 向 AI 发送消息并获取回复，支持通过 messageId 继续对话
+      parameters:
+      - description: 对话请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/genkit-ai-service_internal_model.ChatRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回 AI 回复
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ChatResponseData'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "503":
+          description: AI 服务不可用
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 发送对话消息
+      tags:
+      - chat
+  /chat/abort:
+    post:
+      consumes:
+      - application/json
+      description: 中止指定消息的对话处理
+      parameters:
+      - description: 中止请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/genkit-ai-service_internal_model.AbortRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功中止对话
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SuccessResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 消息不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 中止对话
+      tags:
+      - chat
+  /chat/messages/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 根据消息ID获取消息的详细信息
+      parameters:
+      - description: 消息ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回消息详情
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.MessageDetailDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 消息不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取消息详情
+      tags:
+      - messages
+  /chat/messages/{id}/abort:
+    post:
+      consumes:
+      - application/json
+      description: 中止指定消息的AI生成过程
+      parameters:
+      - description: 消息ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功中止消息生成
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 消息不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 中止消息生成
+      tags:
+      - messages
+  /chat/sessions:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户的会话列表，支持分页和过滤
+      parameters:
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: pageNo
+        required: true
+        type: integer
+      - default: 20
+        description: 每页大小
+        in: query
+        maximum: 100
+        minimum: 1
+        name: pageSize
+        required: true
+        type: integer
+      - description: 是否置顶
+        in: query
+        name: isPinned
+        type: boolean
+      - description: 是否归档
+        in: query
+        name: isArchived
+        type: boolean
+      - description: 模型名称
+        in: query
+        name: modelName
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回会话列表
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SessionListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取会话列表
+      tags:
+      - sessions
+    post:
+      consumes:
+      - application/json
+      description: 创建一个新的聊天会话
+      parameters:
+      - description: 创建会话请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/genkit-ai-service_internal_model.CreateSessionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功创建会话
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SessionDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 创建新会话
+      tags:
+      - sessions
+  /chat/sessions/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 软删除指定的会话
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功删除会话
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 会话不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 删除会话
+      tags:
+      - sessions
+    get:
+      consumes:
+      - application/json
+      description: 根据会话ID获取会话的详细信息
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回会话详情
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SessionDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 会话不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取会话详情
+      tags:
+      - sessions
+    patch:
+      consumes:
+      - application/json
+      description: 更新会话的标题、配置等信息
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 更新会话请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/genkit-ai-service_internal_model.UpdateSessionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功更新会话
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SessionDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 会话不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 更新会话
+      tags:
+      - sessions
+  /chat/sessions/{id}/archive:
+    post:
+      consumes:
+      - application/json
+      description: 归档或取消归档指定的会话
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 是否归档
+        in: query
+        name: archived
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功更新归档状态
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 会话不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 归档会话
+      tags:
+      - sessions
+  /chat/sessions/{id}/messages:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定会话的消息历史，支持分页
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: pageNo
+        required: true
+        type: integer
+      - default: 50
+        description: 每页大小
+        in: query
+        maximum: 100
+        minimum: 1
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回消息历史
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.MessageDetailListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 会话不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取消息历史
+      tags:
+      - messages
+    post:
+      consumes:
+      - application/json
+      description: 在指定会话中发送消息并获取AI回复
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 发送消息请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/genkit-ai-service_internal_model.SendMessageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功发送消息
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.MessageResponseData'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 会话不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 发送消息
+      tags:
+      - messages
+  /chat/sessions/{id}/pin:
+    post:
+      consumes:
+      - application/json
+      description: 置顶或取消置顶指定的会话
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 是否置顶
+        in: query
+        name: pinned
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功更新置顶状态
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 无权访问
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 会话不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 置顶会话
+      tags:
+      - sessions
+  /chat/sessions/search:
+    get:
+      consumes:
+      - application/json
+      description: 根据关键词搜索会话
+      parameters:
+      - description: 搜索关键词
+        in: query
+        name: keyword
+        required: true
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: pageNo
+        required: true
+        type: integer
+      - default: 20
+        description: 每页大小
+        in: query
+        maximum: 100
+        minimum: 1
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回搜索结果
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.SessionListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 搜索会话
+      tags:
+      - sessions
+  /chat/stream:
+    post:
+      consumes:
+      - application/json
+      description: 向 AI 发送消息并以流式方式获取回复，支持通过 messageId 继续对话
+      parameters:
+      - description: 对话请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/genkit-ai-service_internal_model.ChatRequest'
+      produces:
+      - text/event-stream
+      responses:
+        "200":
+          description: 流式返回 AI 回复（Server-Sent Events 格式）
+          schema:
+            type: string
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "503":
+          description: AI 服务不可用
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 发送流式对话消息
+      tags:
+      - chat
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: 检查服务及其依赖项的健康状态
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 服务健康
+          schema:
+            $ref: '#/definitions/internal_api_handler.HealthStatusResponse'
+        "500":
+          description: 健康检查失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "503":
+          description: 服务不健康
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 健康检查
+      tags:
+      - health
+  /monitoring/alerts:
+    delete:
+      description: 清空所有活跃告警
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+      summary: 清空告警
+      tags:
+      - Monitoring
+    get:
+      description: 获取当前活跃的告警列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AlertListDataResponse'
+      summary: 获取活跃告警
+      tags:
+      - Monitoring
+  /monitoring/health:
+    get:
+      description: 获取系统健康状态和关键监控指标
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.HealthDataResponse'
+      summary: 健康检查（含监控）
+      tags:
+      - Monitoring
+  /monitoring/metrics:
+    get:
+      description: 获取认证系统的性能监控指标
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.MetricsDataResponse'
+      summary: 获取性能指标
+      tags:
+      - Monitoring
+  /monitoring/metrics/reset:
+    post:
+      description: 重置所有性能监控指标
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+      summary: 重置指标
+      tags:
+      - Monitoring
+  /providers:
+    get:
+      consumes:
+      - application/json
+      description: 获取系统中所有可用的模型提供商列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回提供商列表
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ProviderListDataResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取所有提供商列表
+      tags:
+      - providers
+  /providers/{providerId}:
+    get:
+      consumes:
+      - application/json
+      description: 根据提供商ID获取详细信息
+      parameters:
+      - description: 提供商ID
+        example: gemini
+        in: path
+        name: providerId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回提供商详情
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ProviderDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: ��供商不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取提供商详情
+      tags:
+      - providers
+  /providers/{providerId}/models:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定提供商的所有可用模型列表
+      parameters:
+      - description: 提供商ID
+        example: gemini
+        in: path
+        name: providerId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回模型列表
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ModelListDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 提供商不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取提供商的模型列表
+      tags:
+      - providers
+  /providers/{providerId}/models/{modelId}:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定提供商的指定模型的详细信息
+      parameters:
+      - description: 提供商ID
+        example: gemini
+        in: path
+        name: providerId
+        required: true
+        type: string
+      - description: 模型ID
+        example: gemini-1.5-flash
+        in: path
+        name: modelId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回模型详情
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ModelDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 提供商或模型不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取模型详情
+      tags:
+      - providers
+  /providers/{providerId}/models/{modelId}/parameter-rules:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定模型的所有参数配置规则
+      parameters:
+      - description: 提供商ID
+        example: gemini
+        in: path
+        name: providerId
+        required: true
+        type: string
+      - description: 模型ID
+        example: gemini-1.5-flash
+        in: path
+        name: modelId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回参数规则列表
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ParameterRuleListDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 提供商或模型不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      summary: 获取模型参数规则
+      tags:
+      - providers
+  /tenants:
+    get:
+      consumes:
+      - application/json
+      description: 获取租户列表，支持分页（需要管理员权限）
+      parameters:
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: pageNo
+        required: true
+        type: integer
+      - default: 20
+        description: 每页大小
+        in: query
+        maximum: 100
+        minimum: 1
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.TenantListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 获取租户列表
+      tags:
+      - Tenant Management
+    post:
+      consumes:
+      - application/json
+      description: 创建新的租户（需要管理员权限）
+      parameters:
+      - description: 创建租户请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.CreateTenantRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 创建成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.TenantDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 创建租户
+      tags:
+      - Tenant Management
+  /tenants/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 软删除指定的租户（需要管理员权限）
+      parameters:
+      - description: 租户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 租户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 删除租户
+      tags:
+      - Tenant Management
+    get:
+      consumes:
+      - application/json
+      description: 根据租户ID获取租户详细信息（需要管理员权限）
+      parameters:
+      - description: 租户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.TenantDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 租户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 获取租户详情
+      tags:
+      - Tenant Management
+    put:
+      consumes:
+      - application/json
+      description: 更新租户信息（需要管理员权限）
+      parameters:
+      - description: 租户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 更新租户请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.UpdateTenantRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.TenantDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 租户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 更新租户
+      tags:
+      - Tenant Management
+  /tenants/{tenantId}/users:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定租户下的用户列表，支持分页（需要租户管理员或平台管理员权限）
+      parameters:
+      - description: 租户ID
+        in: path
+        name: tenantId
+        required: true
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: pageNo
+        required: true
+        type: integer
+      - default: 20
+        description: 每页大小
+        in: query
+        maximum: 100
+        minimum: 1
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 获取租户用户列表
+      tags:
+      - Tenant User Management
+    post:
+      consumes:
+      - application/json
+      description: 在指定租户下创建新用户（需要租户管理员或平台管理员权限）
+      parameters:
+      - description: 租户ID
+        in: path
+        name: tenantId
+        required: true
+        type: string
+      - description: 创建用户请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 创建成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 在租户下创建用户
+      tags:
+      - Tenant User Management
+  /tenants/{tenantId}/users/{userId}:
+    delete:
+      consumes:
+      - application/json
+      description: 软删除指定租户下的用户（需要租户管理员或平台管理员权限）
+      parameters:
+      - description: 租户ID
+        in: path
+        name: tenantId
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 删除用户
+      tags:
+      - Tenant User Management
+  /tenants/{tenantId}/users/{userId}/status:
+    patch:
+      consumes:
+      - application/json
+      description: 启用或禁用指定租户下的用户（需要租户管理员或平台管理员权限）
+      parameters:
+      - description: 租户ID
+        in: path
+        name: tenantId
+        required: true
+        type: string
+      - description: 用户ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: 更新用户状态请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.UpdateUserStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 更新用户状态
+      tags:
+      - Tenant User Management
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前租户下的用户列表，支持分页（需要租户管理员权限）
+      parameters:
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: pageNo
+        required: true
+        type: integer
+      - default: 20
+        description: 每页大小
+        in: query
+        maximum: 100
+        minimum: 1
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserListResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 获取用户列表
+      tags:
+      - User Management
+    post:
+      consumes:
+      - application/json
+      description: 在指定租户下创建新用户（需要租户管理员权限）
+      parameters:
+      - description: 创建用户请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 创建成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 创建用户
+      tags:
+      - User Management
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 软删除指定的用户（需要租户管理员权限）
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.AnyDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 删除用户
+      tags:
+      - User Management
+    get:
+      consumes:
+      - application/json
+      description: 根据用户ID获取用户详细信息（需要租户管理员权限）
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 获取用户详情
+      tags:
+      - User Management
+    put:
+      consumes:
+      - application/json
+      description: 更新用户信息（需要租户管理员权限）
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 更新用户请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_handler.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.UserDataResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "401":
+          description: 未认证
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "403":
+          description: 权限不足
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "422":
+          description: 参数验证失败
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/genkit-ai-service_internal_model.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: 更新用户
+      tags:
+      - User Management
+schemes:
+- http
+- https
+securityDefinitions:
+  BearerAuth:
+    description: 输入 "Bearer {token}" 格式的 JWT 令牌进行身份认证
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
+tags:
+- description: 用户认证相关接口（注册、登录、Token 刷新、注销等）
+  name: Authentication
+- description: 租户管理接口（需要管理员权限）
+  name: Tenant Management
+- description: 用户管理接口（需要租户管理员权限）
+  name: User Management
+- description: 租户用户管理接口（需要租户管理员或平台管理员权限）
+  name: Tenant User Management
+- description: 平台管理接口（需要平台管理员权限）
+  name: Platform Management
+- description: 审计日志接口
+  name: Audit
+- description: 监控接口
+  name: Monitoring
+- description: 模型提供商管理接口
+  name: providers
+- description: AI 对话接口
+  name: chat
+- description: 会话管理接口
+  name: sessions
+- description: 消息管理接口
+  name: messages
+- description: 健康检查接口
+  name: health

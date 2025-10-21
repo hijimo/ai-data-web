@@ -29,7 +29,9 @@
     "clean": "rimraf node_modules pnpm-lock.yaml dist",
     "validate": "./scripts/validate",
     "remove:tailwind": "scripts/remove_tailwind.js",
-    "prepare": "husky"
+    "prepare": "husky",
+    "api:sync": "node scripts/sync-api-doc.js",
+    "api:generate": "orval --config orval.config.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.89.0",
