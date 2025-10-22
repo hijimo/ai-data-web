@@ -1,0 +1,32 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+定义Ant Design Table 的 columns 拆分规则
+
+# 拆分规则
+
+1. **简单表格**： 如果列定义简单且只在一个地方使用，不拆分
+2. **中等复杂度的表格**：可以创建一个 `tableColumns.js` 文件按功能模块组织
+   ```javascript
+   // src/components/UserManagement/columns.js
+   export const userColumns = [
+     { title: '姓名', dataIndex: 'name' },
+     { title: '年龄', dataIndex: 'age' },
+     // ...
+   ];
+   ```
+
+3. **比较复杂的表格**：可以按领域划分建立 columns 目录结构
+   ```
+   src/
+     components/
+       tables/
+         columns/
+           userColumns.js
+           productColumns.js
+           orderColumns.js
+   ```
+
+4. **动态列**：如果列是动态生成的，可以将生成逻辑提取为独立函数
