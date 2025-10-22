@@ -7,15 +7,15 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
+  AnyDataResponse,
+  CreateTenantRequest,
   DeleteTenantsIdPathParameters,
-  GenkitAiServiceInternalModelAnyDataResponse,
-  GenkitAiServiceInternalModelTenantDataResponse,
-  GenkitAiServiceInternalModelTenantListResponse,
   GetTenantsIdPathParameters,
   GetTenantsParams,
-  InternalApiHandlerCreateTenantRequest,
-  InternalApiHandlerUpdateTenantRequest,
   PutTenantsIdPathParameters,
+  TenantDataResponse,
+  TenantListResponse,
+  UpdateTenantRequest,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -26,7 +26,7 @@ export const getTenantManagement = () => {
    * @summary 获取租户列表
    */
   const getTenants = (params: GetTenantsParams) => {
-    return orvalMutator<GenkitAiServiceInternalModelTenantListResponse>({
+    return orvalMutator<TenantListResponse>({
       url: `/tenants`,
       method: 'GET',
       params,
@@ -36,14 +36,12 @@ export const getTenantManagement = () => {
    * 创建新的租户（需要管理员权限）
    * @summary 创建租户
    */
-  const postTenants = (
-    internalApiHandlerCreateTenantRequest: InternalApiHandlerCreateTenantRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelTenantDataResponse>({
+  const postTenants = (createTenantRequest: CreateTenantRequest) => {
+    return orvalMutator<TenantDataResponse>({
       url: `/tenants`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerCreateTenantRequest,
+      data: createTenantRequest,
     })
   }
   /**
@@ -51,7 +49,7 @@ export const getTenantManagement = () => {
    * @summary 删除租户
    */
   const deleteTenantsId = ({ id }: DeleteTenantsIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/tenants/${id}`,
       method: 'DELETE',
     })
@@ -61,7 +59,7 @@ export const getTenantManagement = () => {
    * @summary 获取租户详情
    */
   const getTenantsId = ({ id }: GetTenantsIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelTenantDataResponse>({
+    return orvalMutator<TenantDataResponse>({
       url: `/tenants/${id}`,
       method: 'GET',
     })
@@ -72,13 +70,13 @@ export const getTenantManagement = () => {
    */
   const putTenantsId = (
     { id }: PutTenantsIdPathParameters,
-    internalApiHandlerUpdateTenantRequest: InternalApiHandlerUpdateTenantRequest,
+    updateTenantRequest: UpdateTenantRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelTenantDataResponse>({
+    return orvalMutator<TenantDataResponse>({
       url: `/tenants/${id}`,
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerUpdateTenantRequest,
+      data: updateTenantRequest,
     })
   }
   return {

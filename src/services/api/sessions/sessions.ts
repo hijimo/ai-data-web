@@ -7,12 +7,9 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
+  AnyDataResponse,
+  CreateSessionRequest,
   DeleteChatSessionsIdPathParameters,
-  GenkitAiServiceInternalModelAnyDataResponse,
-  GenkitAiServiceInternalModelCreateSessionRequest,
-  GenkitAiServiceInternalModelSessionDataResponse,
-  GenkitAiServiceInternalModelSessionListResponse,
-  GenkitAiServiceInternalModelUpdateSessionRequest,
   GetChatSessionsIdPathParameters,
   GetChatSessionsParams,
   GetChatSessionsSearchParams,
@@ -21,6 +18,9 @@ import type {
   PostChatSessionsIdArchivePathParameters,
   PostChatSessionsIdPinParams,
   PostChatSessionsIdPinPathParameters,
+  SessionDataResponse,
+  SessionListResponse,
+  UpdateSessionRequest,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -31,7 +31,7 @@ export const getSessions = () => {
    * @summary 获取会话列表
    */
   const getChatSessions = (params: GetChatSessionsParams) => {
-    return orvalMutator<GenkitAiServiceInternalModelSessionListResponse>({
+    return orvalMutator<SessionListResponse>({
       url: `/chat/sessions`,
       method: 'GET',
       params,
@@ -41,14 +41,12 @@ export const getSessions = () => {
    * 创建一个新的聊天会话
    * @summary 创建新会话
    */
-  const postChatSessions = (
-    genkitAiServiceInternalModelCreateSessionRequest: GenkitAiServiceInternalModelCreateSessionRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSessionDataResponse>({
+  const postChatSessions = (createSessionRequest: CreateSessionRequest) => {
+    return orvalMutator<SessionDataResponse>({
       url: `/chat/sessions`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: genkitAiServiceInternalModelCreateSessionRequest,
+      data: createSessionRequest,
     })
   }
   /**
@@ -56,7 +54,7 @@ export const getSessions = () => {
    * @summary 删除会话
    */
   const deleteChatSessionsId = ({ id }: DeleteChatSessionsIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/chat/sessions/${id}`,
       method: 'DELETE',
     })
@@ -66,7 +64,7 @@ export const getSessions = () => {
    * @summary 获取会话详情
    */
   const getChatSessionsId = ({ id }: GetChatSessionsIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelSessionDataResponse>({
+    return orvalMutator<SessionDataResponse>({
       url: `/chat/sessions/${id}`,
       method: 'GET',
     })
@@ -77,13 +75,13 @@ export const getSessions = () => {
    */
   const patchChatSessionsId = (
     { id }: PatchChatSessionsIdPathParameters,
-    genkitAiServiceInternalModelUpdateSessionRequest: GenkitAiServiceInternalModelUpdateSessionRequest,
+    updateSessionRequest: UpdateSessionRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSessionDataResponse>({
+    return orvalMutator<SessionDataResponse>({
       url: `/chat/sessions/${id}`,
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      data: genkitAiServiceInternalModelUpdateSessionRequest,
+      data: updateSessionRequest,
     })
   }
   /**
@@ -94,7 +92,7 @@ export const getSessions = () => {
     { id }: PostChatSessionsIdArchivePathParameters,
     params: PostChatSessionsIdArchiveParams,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/chat/sessions/${id}/archive`,
       method: 'POST',
       params,
@@ -108,7 +106,7 @@ export const getSessions = () => {
     { id }: PostChatSessionsIdPinPathParameters,
     params: PostChatSessionsIdPinParams,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/chat/sessions/${id}/pin`,
       method: 'POST',
       params,
@@ -119,7 +117,7 @@ export const getSessions = () => {
    * @summary 搜索会话
    */
   const getChatSessionsSearch = (params: GetChatSessionsSearchParams) => {
-    return orvalMutator<GenkitAiServiceInternalModelSessionListResponse>({
+    return orvalMutator<SessionListResponse>({
       url: `/chat/sessions/search`,
       method: 'GET',
       params,

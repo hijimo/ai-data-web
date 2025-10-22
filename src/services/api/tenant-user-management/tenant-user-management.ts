@@ -7,16 +7,16 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
+  AnyDataResponse,
+  CreateUserRequestBody,
   DeleteTenantsTenantIdUsersUserIdPathParameters,
-  GenkitAiServiceInternalModelAnyDataResponse,
-  GenkitAiServiceInternalModelUserDataResponse,
-  GenkitAiServiceInternalModelUserListResponse,
   GetTenantsTenantIdUsersParams,
   GetTenantsTenantIdUsersPathParameters,
-  InternalApiHandlerCreateUserRequestBody,
-  InternalApiHandlerUpdateUserStatusRequest,
   PatchTenantsTenantIdUsersUserIdStatusPathParameters,
   PostTenantsTenantIdUsersPathParameters,
+  UpdateUserStatusRequest,
+  UserDataResponse,
+  UserListResponse,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -30,7 +30,7 @@ export const getTenantUserManagement = () => {
     { tenantId }: GetTenantsTenantIdUsersPathParameters,
     params: GetTenantsTenantIdUsersParams,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserListResponse>({
+    return orvalMutator<UserListResponse>({
       url: `/tenants/${tenantId}/users`,
       method: 'GET',
       params,
@@ -42,13 +42,13 @@ export const getTenantUserManagement = () => {
    */
   const postTenantsTenantIdUsers = (
     { tenantId }: PostTenantsTenantIdUsersPathParameters,
-    internalApiHandlerCreateUserRequestBody: InternalApiHandlerCreateUserRequestBody,
+    createUserRequestBody: CreateUserRequestBody,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserDataResponse>({
+    return orvalMutator<UserDataResponse>({
       url: `/tenants/${tenantId}/users`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerCreateUserRequestBody,
+      data: createUserRequestBody,
     })
   }
   /**
@@ -59,7 +59,7 @@ export const getTenantUserManagement = () => {
     tenantId,
     userId,
   }: DeleteTenantsTenantIdUsersUserIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/tenants/${tenantId}/users/${userId}`,
       method: 'DELETE',
     })
@@ -70,13 +70,13 @@ export const getTenantUserManagement = () => {
    */
   const patchTenantsTenantIdUsersUserIdStatus = (
     { tenantId, userId }: PatchTenantsTenantIdUsersUserIdStatusPathParameters,
-    internalApiHandlerUpdateUserStatusRequest: InternalApiHandlerUpdateUserStatusRequest,
+    updateUserStatusRequest: UpdateUserStatusRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserDataResponse>({
+    return orvalMutator<UserDataResponse>({
       url: `/tenants/${tenantId}/users/${userId}/status`,
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerUpdateUserStatusRequest,
+      data: updateUserStatusRequest,
     })
   }
   return {

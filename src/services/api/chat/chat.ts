@@ -7,10 +7,10 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
-  GenkitAiServiceInternalModelAbortRequest,
-  GenkitAiServiceInternalModelChatRequestBody,
-  GenkitAiServiceInternalModelChatResponseData,
-  GenkitAiServiceInternalModelSuccessResponse,
+  AbortRequest,
+  ChatRequestBody,
+  ChatResponseData,
+  SuccessResponse,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -20,42 +20,36 @@ export const getChat = () => {
    * 向 AI 发送消息并获取回复，支持通过 messageId 继续对话
    * @summary 发送对话消息
    */
-  const postChat = (
-    genkitAiServiceInternalModelChatRequestBody: GenkitAiServiceInternalModelChatRequestBody,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelChatResponseData>({
+  const postChat = (chatRequestBody: ChatRequestBody) => {
+    return orvalMutator<ChatResponseData>({
       url: `/chat`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: genkitAiServiceInternalModelChatRequestBody,
+      data: chatRequestBody,
     })
   }
   /**
    * 中止指定消息的对话处理
    * @summary 中止对话
    */
-  const postChatAbort = (
-    genkitAiServiceInternalModelAbortRequest: GenkitAiServiceInternalModelAbortRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSuccessResponse>({
+  const postChatAbort = (abortRequest: AbortRequest) => {
+    return orvalMutator<SuccessResponse>({
       url: `/chat/abort`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: genkitAiServiceInternalModelAbortRequest,
+      data: abortRequest,
     })
   }
   /**
    * 向 AI 发送消息并以流式方式获取回复，支持通过 messageId 继续对话
    * @summary 发送流式对话消息
    */
-  const postChatStream = (
-    genkitAiServiceInternalModelChatRequestBody: GenkitAiServiceInternalModelChatRequestBody,
-  ) => {
+  const postChatStream = (chatRequestBody: ChatRequestBody) => {
     return orvalMutator<string>({
       url: `/chat/stream`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: genkitAiServiceInternalModelChatRequestBody,
+      data: chatRequestBody,
     })
   }
   return { postChat, postChatAbort, postChatStream }

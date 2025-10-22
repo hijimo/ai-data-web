@@ -7,17 +7,17 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
-  GenkitAiServiceInternalModelLoginDataResponse,
-  GenkitAiServiceInternalModelSuccessResponse,
-  GenkitAiServiceInternalModelUserDataResponse,
-  InternalApiHandlerChangePasswordRequest,
-  InternalApiHandlerLoginRequest,
-  InternalApiHandlerLogoutRequest,
-  InternalApiHandlerRefreshRequest,
-  InternalApiHandlerRegisterRequest,
-  InternalApiHandlerResendVerificationRequest,
-  InternalApiHandlerUnlockAccountRequest,
-  InternalApiHandlerVerifyEmailRequest,
+  ChangePasswordRequest,
+  LoginDataResponse,
+  LoginRequest,
+  LogoutRequest,
+  RefreshRequest,
+  RegisterRequest,
+  ResendVerificationRequest,
+  SuccessResponse,
+  UnlockAccountRequest,
+  UserDataResponse,
+  VerifyEmailRequest,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -28,41 +28,37 @@ export const getAuthentication = () => {
    * @summary 修改密码
    */
   const postAuthChangePassword = (
-    internalApiHandlerChangePasswordRequest: InternalApiHandlerChangePasswordRequest,
+    changePasswordRequest: ChangePasswordRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSuccessResponse>({
+    return orvalMutator<SuccessResponse>({
       url: `/auth/change-password`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerChangePasswordRequest,
+      data: changePasswordRequest,
     })
   }
   /**
    * 使用邮箱和密码登录系统
    * @summary 用户登录
    */
-  const postAuthLogin = (
-    internalApiHandlerLoginRequest: InternalApiHandlerLoginRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelLoginDataResponse>({
+  const postAuthLogin = (loginRequest: LoginRequest) => {
+    return orvalMutator<LoginDataResponse>({
       url: `/auth/login`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerLoginRequest,
+      data: loginRequest,
     })
   }
   /**
    * 注销用户并撤销 Refresh Token
    * @summary 用户注销
    */
-  const postAuthLogout = (
-    internalApiHandlerLogoutRequest: InternalApiHandlerLogoutRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSuccessResponse>({
+  const postAuthLogout = (logoutRequest: LogoutRequest) => {
+    return orvalMutator<SuccessResponse>({
       url: `/auth/logout`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerLogoutRequest,
+      data: logoutRequest,
     })
   }
   /**
@@ -70,37 +66,30 @@ export const getAuthentication = () => {
    * @summary 获取当前用户信息
    */
   const getAuthMe = () => {
-    return orvalMutator<GenkitAiServiceInternalModelUserDataResponse>({
-      url: `/auth/me`,
-      method: 'GET',
-    })
+    return orvalMutator<UserDataResponse>({ url: `/auth/me`, method: 'GET' })
   }
   /**
    * 使用 Refresh Token 获取新的 Access Token
    * @summary 刷新访问令牌
    */
-  const postAuthRefresh = (
-    internalApiHandlerRefreshRequest: InternalApiHandlerRefreshRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelLoginDataResponse>({
+  const postAuthRefresh = (refreshRequest: RefreshRequest) => {
+    return orvalMutator<LoginDataResponse>({
       url: `/auth/refresh`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerRefreshRequest,
+      data: refreshRequest,
     })
   }
   /**
    * 注册新用户账户
    * @summary 用户注册
    */
-  const postAuthRegister = (
-    internalApiHandlerRegisterRequest: InternalApiHandlerRegisterRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserDataResponse>({
+  const postAuthRegister = (registerRequest: RegisterRequest) => {
+    return orvalMutator<UserDataResponse>({
       url: `/auth/register`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerRegisterRequest,
+      data: registerRequest,
     })
   }
   /**
@@ -108,13 +97,13 @@ export const getAuthentication = () => {
    * @summary 重新发送验证邮件
    */
   const postAuthResendVerification = (
-    internalApiHandlerResendVerificationRequest: InternalApiHandlerResendVerificationRequest,
+    resendVerificationRequest: ResendVerificationRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSuccessResponse>({
+    return orvalMutator<SuccessResponse>({
       url: `/auth/resend-verification`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerResendVerificationRequest,
+      data: resendVerificationRequest,
     })
   }
   /**
@@ -122,27 +111,25 @@ export const getAuthentication = () => {
    * @summary 解锁账户
    */
   const postAuthUnlockAccount = (
-    internalApiHandlerUnlockAccountRequest: InternalApiHandlerUnlockAccountRequest,
+    unlockAccountRequest: UnlockAccountRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSuccessResponse>({
+    return orvalMutator<SuccessResponse>({
       url: `/auth/unlock-account`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerUnlockAccountRequest,
+      data: unlockAccountRequest,
     })
   }
   /**
    * 使用验证令牌验证用户邮箱
    * @summary 验证邮箱
    */
-  const postAuthVerifyEmail = (
-    internalApiHandlerVerifyEmailRequest: InternalApiHandlerVerifyEmailRequest,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelSuccessResponse>({
+  const postAuthVerifyEmail = (verifyEmailRequest: VerifyEmailRequest) => {
+    return orvalMutator<SuccessResponse>({
       url: `/auth/verify-email`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerVerifyEmailRequest,
+      data: verifyEmailRequest,
     })
   }
   return {

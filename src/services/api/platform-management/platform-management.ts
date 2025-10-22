@@ -7,15 +7,15 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
+  AnyDataResponse,
+  CreateTenantWithAdminDataResponse,
+  CreateTenantWithAdminRequest,
   DeleteApiV1PlatformTenantsIdPathParameters,
-  GenkitAiServiceInternalModelAnyDataResponse,
-  GenkitAiServiceInternalModelTenantDataResponse,
-  GenkitAiServiceInternalModelTenantListResponse,
   GetApiV1PlatformTenantsParams,
-  InternalApiHandlerCreateTenantWithAdminDataResponse,
-  InternalApiHandlerCreateTenantWithAdminRequest,
-  InternalApiHandlerUpdateTenantStatusRequest,
   PatchApiV1PlatformTenantsIdStatusPathParameters,
+  TenantDataResponse,
+  TenantListResponse,
+  UpdateTenantStatusRequest,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -37,7 +37,7 @@ export const getPlatformManagement = () => {
  * @summary 获取租户列表
  */
   const getApiV1PlatformTenants = (params?: GetApiV1PlatformTenantsParams) => {
-    return orvalMutator<GenkitAiServiceInternalModelTenantListResponse>({
+    return orvalMutator<TenantListResponse>({
       url: `/api/v1/platform/tenants`,
       method: 'GET',
       params,
@@ -61,13 +61,13 @@ export const getPlatformManagement = () => {
  * @summary 创建租户（带管理员）
  */
   const postApiV1PlatformTenants = (
-    internalApiHandlerCreateTenantWithAdminRequest: InternalApiHandlerCreateTenantWithAdminRequest,
+    createTenantWithAdminRequest: CreateTenantWithAdminRequest,
   ) => {
-    return orvalMutator<InternalApiHandlerCreateTenantWithAdminDataResponse>({
+    return orvalMutator<CreateTenantWithAdminDataResponse>({
       url: `/api/v1/platform/tenants`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerCreateTenantWithAdminRequest,
+      data: createTenantWithAdminRequest,
     })
   }
   /**
@@ -93,7 +93,7 @@ export const getPlatformManagement = () => {
   const deleteApiV1PlatformTenantsId = ({
     id,
   }: DeleteApiV1PlatformTenantsIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/api/v1/platform/tenants/${id}`,
       method: 'DELETE',
     })
@@ -119,13 +119,13 @@ export const getPlatformManagement = () => {
  */
   const patchApiV1PlatformTenantsIdStatus = (
     { id }: PatchApiV1PlatformTenantsIdStatusPathParameters,
-    internalApiHandlerUpdateTenantStatusRequest: InternalApiHandlerUpdateTenantStatusRequest,
+    updateTenantStatusRequest: UpdateTenantStatusRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelTenantDataResponse>({
+    return orvalMutator<TenantDataResponse>({
       url: `/api/v1/platform/tenants/${id}/status`,
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerUpdateTenantStatusRequest,
+      data: updateTenantStatusRequest,
     })
   }
   return {

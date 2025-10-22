@@ -7,15 +7,15 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
+  AnyDataResponse,
+  CreateUserRequestBody,
   DeleteUsersIdPathParameters,
-  GenkitAiServiceInternalModelAnyDataResponse,
-  GenkitAiServiceInternalModelUserDataResponse,
-  GenkitAiServiceInternalModelUserListResponse,
   GetUsersIdPathParameters,
   GetUsersParams,
-  InternalApiHandlerCreateUserRequestBody,
-  InternalApiHandlerUpdateUserRequest,
   PutUsersIdPathParameters,
+  UpdateUserRequest,
+  UserDataResponse,
+  UserListResponse,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -26,7 +26,7 @@ export const getUserManagement = () => {
    * @summary 获取用户列表
    */
   const getUsers = (params: GetUsersParams) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserListResponse>({
+    return orvalMutator<UserListResponse>({
       url: `/users`,
       method: 'GET',
       params,
@@ -36,14 +36,12 @@ export const getUserManagement = () => {
    * 在指定租户下创建新用户（需要租户管理员权限）
    * @summary 创建用户
    */
-  const postUsers = (
-    internalApiHandlerCreateUserRequestBody: InternalApiHandlerCreateUserRequestBody,
-  ) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserDataResponse>({
+  const postUsers = (createUserRequestBody: CreateUserRequestBody) => {
+    return orvalMutator<UserDataResponse>({
       url: `/users`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerCreateUserRequestBody,
+      data: createUserRequestBody,
     })
   }
   /**
@@ -51,7 +49,7 @@ export const getUserManagement = () => {
    * @summary 删除用户
    */
   const deleteUsersId = ({ id }: DeleteUsersIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/users/${id}`,
       method: 'DELETE',
     })
@@ -61,7 +59,7 @@ export const getUserManagement = () => {
    * @summary 获取用户详情
    */
   const getUsersId = ({ id }: GetUsersIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserDataResponse>({
+    return orvalMutator<UserDataResponse>({
       url: `/users/${id}`,
       method: 'GET',
     })
@@ -72,13 +70,13 @@ export const getUserManagement = () => {
    */
   const putUsersId = (
     { id }: PutUsersIdPathParameters,
-    internalApiHandlerUpdateUserRequest: InternalApiHandlerUpdateUserRequest,
+    updateUserRequest: UpdateUserRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelUserDataResponse>({
+    return orvalMutator<UserDataResponse>({
       url: `/users/${id}`,
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      data: internalApiHandlerUpdateUserRequest,
+      data: updateUserRequest,
     })
   }
   return { getUsers, postUsers, deleteUsersId, getUsersId, putUsersId }

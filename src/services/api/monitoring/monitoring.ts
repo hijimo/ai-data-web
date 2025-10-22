@@ -7,10 +7,10 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
-  GenkitAiServiceInternalModelAlertListDataResponse,
-  GenkitAiServiceInternalModelAnyDataResponse,
-  GenkitAiServiceInternalModelHealthDataResponse,
-  GenkitAiServiceInternalModelMetricsDataResponse,
+  AlertListDataResponse,
+  AnyDataResponse,
+  HealthDataResponse,
+  MetricsDataResponse,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -21,7 +21,7 @@ export const getMonitoring = () => {
    * @summary 清空告警
    */
   const deleteMonitoringAlerts = () => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/monitoring/alerts`,
       method: 'DELETE',
     })
@@ -31,7 +31,7 @@ export const getMonitoring = () => {
    * @summary 获取活跃告警
    */
   const getMonitoringAlerts = () => {
-    return orvalMutator<GenkitAiServiceInternalModelAlertListDataResponse>({
+    return orvalMutator<AlertListDataResponse>({
       url: `/monitoring/alerts`,
       method: 'GET',
     })
@@ -41,7 +41,7 @@ export const getMonitoring = () => {
    * @summary 健康检查（含监控）
    */
   const getMonitoringHealth = () => {
-    return orvalMutator<GenkitAiServiceInternalModelHealthDataResponse>({
+    return orvalMutator<HealthDataResponse>({
       url: `/monitoring/health`,
       method: 'GET',
     })
@@ -51,7 +51,7 @@ export const getMonitoring = () => {
    * @summary 获取性能指标
    */
   const getMonitoringMetrics = () => {
-    return orvalMutator<GenkitAiServiceInternalModelMetricsDataResponse>({
+    return orvalMutator<MetricsDataResponse>({
       url: `/monitoring/metrics`,
       method: 'GET',
     })
@@ -61,7 +61,7 @@ export const getMonitoring = () => {
    * @summary 重置指标
    */
   const postMonitoringMetricsReset = () => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/monitoring/metrics/reset`,
       method: 'POST',
     })

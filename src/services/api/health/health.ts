@@ -6,7 +6,7 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { InternalApiHandlerHealthStatusResponse } from '../../../types/api'
+import type { HealthStatusResponse } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
 
@@ -16,10 +16,7 @@ export const getHealth = () => {
    * @summary 健康检查
    */
   const getHealth = () => {
-    return orvalMutator<InternalApiHandlerHealthStatusResponse>({
-      url: `/health`,
-      method: 'GET',
-    })
+    return orvalMutator<HealthStatusResponse>({ url: `/health`, method: 'GET' })
   }
   return { getHealth }
 }

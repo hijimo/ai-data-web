@@ -7,15 +7,15 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
-  GenkitAiServiceInternalModelModelDataResponse,
-  GenkitAiServiceInternalModelModelListDataResponse,
-  GenkitAiServiceInternalModelParameterRuleListDataResponse,
-  GenkitAiServiceInternalModelProviderDataResponse,
-  GenkitAiServiceInternalModelProviderListDataResponse,
   GetProvidersProviderIdModelsModelIdParameterRulesPathParameters,
   GetProvidersProviderIdModelsModelIdPathParameters,
   GetProvidersProviderIdModelsPathParameters,
   GetProvidersProviderIdPathParameters,
+  ModelDataResponse,
+  ModelListDataResponse,
+  ParameterRuleListDataResponse,
+  ProviderDataResponse,
+  ProviderListDataResponse,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -26,7 +26,7 @@ export const getProviders = () => {
    * @summary 获取所有提供商列表
    */
   const getProviders = () => {
-    return orvalMutator<GenkitAiServiceInternalModelProviderListDataResponse>({
+    return orvalMutator<ProviderListDataResponse>({
       url: `/providers`,
       method: 'GET',
     })
@@ -38,7 +38,7 @@ export const getProviders = () => {
   const getProvidersProviderId = ({
     providerId,
   }: GetProvidersProviderIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelProviderDataResponse>({
+    return orvalMutator<ProviderDataResponse>({
       url: `/providers/${providerId}`,
       method: 'GET',
     })
@@ -50,7 +50,7 @@ export const getProviders = () => {
   const getProvidersProviderIdModels = ({
     providerId,
   }: GetProvidersProviderIdModelsPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelModelListDataResponse>({
+    return orvalMutator<ModelListDataResponse>({
       url: `/providers/${providerId}/models`,
       method: 'GET',
     })
@@ -63,7 +63,7 @@ export const getProviders = () => {
     providerId,
     modelId,
   }: GetProvidersProviderIdModelsModelIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelModelDataResponse>({
+    return orvalMutator<ModelDataResponse>({
       url: `/providers/${providerId}/models/${modelId}`,
       method: 'GET',
     })
@@ -76,12 +76,10 @@ export const getProviders = () => {
     providerId,
     modelId,
   }: GetProvidersProviderIdModelsModelIdParameterRulesPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelParameterRuleListDataResponse>(
-      {
-        url: `/providers/${providerId}/models/${modelId}/parameter-rules`,
-        method: 'GET',
-      },
-    )
+    return orvalMutator<ParameterRuleListDataResponse>({
+      url: `/providers/${providerId}/models/${modelId}/parameter-rules`,
+      method: 'GET',
+    })
   }
   return {
     getProviders,

@@ -7,16 +7,16 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
-  GenkitAiServiceInternalModelAnyDataResponse,
-  GenkitAiServiceInternalModelMessageDetailDataResponse,
-  GenkitAiServiceInternalModelMessageDetailListResponse,
-  GenkitAiServiceInternalModelMessageResponseData,
-  GenkitAiServiceInternalModelSendMessageRequest,
+  AnyDataResponse,
   GetChatMessagesIdPathParameters,
   GetChatSessionsIdMessagesParams,
   GetChatSessionsIdMessagesPathParameters,
+  MessageDetailDataResponse,
+  MessageDetailListResponse,
+  MessageResponseData,
   PostChatMessagesIdAbortPathParameters,
   PostChatSessionsIdMessagesPathParameters,
+  SendMessageRequest,
 } from '../../../types/api'
 
 import { orvalMutator } from '../../../utils/orval-mutator'
@@ -27,7 +27,7 @@ export const getMessages = () => {
    * @summary 获取消息详情
    */
   const getChatMessagesId = ({ id }: GetChatMessagesIdPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelMessageDetailDataResponse>({
+    return orvalMutator<MessageDetailDataResponse>({
       url: `/chat/messages/${id}`,
       method: 'GET',
     })
@@ -39,7 +39,7 @@ export const getMessages = () => {
   const postChatMessagesIdAbort = ({
     id,
   }: PostChatMessagesIdAbortPathParameters) => {
-    return orvalMutator<GenkitAiServiceInternalModelAnyDataResponse>({
+    return orvalMutator<AnyDataResponse>({
       url: `/chat/messages/${id}/abort`,
       method: 'POST',
     })
@@ -52,7 +52,7 @@ export const getMessages = () => {
     { id }: GetChatSessionsIdMessagesPathParameters,
     params: GetChatSessionsIdMessagesParams,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelMessageDetailListResponse>({
+    return orvalMutator<MessageDetailListResponse>({
       url: `/chat/sessions/${id}/messages`,
       method: 'GET',
       params,
@@ -64,13 +64,13 @@ export const getMessages = () => {
    */
   const postChatSessionsIdMessages = (
     { id }: PostChatSessionsIdMessagesPathParameters,
-    genkitAiServiceInternalModelSendMessageRequest: GenkitAiServiceInternalModelSendMessageRequest,
+    sendMessageRequest: SendMessageRequest,
   ) => {
-    return orvalMutator<GenkitAiServiceInternalModelMessageResponseData>({
+    return orvalMutator<MessageResponseData>({
       url: `/chat/sessions/${id}/messages`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: genkitAiServiceInternalModelSendMessageRequest,
+      data: sendMessageRequest,
     })
   }
   return {

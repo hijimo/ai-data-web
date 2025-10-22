@@ -7,7 +7,7 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
-  GenkitAiServiceInternalModelAuthAuditListResponse,
+  AuthAuditListResponse,
   GetAuditAuthParams,
 } from '../../../types/api'
 
@@ -19,7 +19,7 @@ export const getAudit = () => {
    * @summary 查询审计日志
    */
   const getAuditAuth = (params?: GetAuditAuthParams) => {
-    return orvalMutator<GenkitAiServiceInternalModelAuthAuditListResponse>({
+    return orvalMutator<AuthAuditListResponse>({
       url: `/audit/auth`,
       method: 'GET',
       params,
