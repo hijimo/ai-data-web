@@ -13,8 +13,9 @@ interface Props {}
 const Index: React.FC<Props> = memo(() => {
   return (
     <>
+      12312
       <Box>
-        <h1 className={styles.h1}>I'm REACT_APP_TEXT from .env</h1>
+        <h1 className={styles.h1}>I'm REACT_APP_TEXT from .234</h1>
         <img src={logo} alt="react-logo" className="react-logo" />
       </Box>
       <Box>

@@ -5,6 +5,7 @@ import { logError, parseError } from '@/utils/errorHandler'
 import type { ResponseData } from '@/types'
 
 export const TOKEN_KEY = 'token'
+export const USER_INFO = 'user_info'
 console.log('import.meta.env.VITE_API_BASE_URL', import.meta.env)
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -68,10 +69,15 @@ request.interceptors.request.use((config) => {
   //       'droplet-device-id': cookies.get('droplet-device-id')!,
   // const authorization = cookies.get('Authorization');
   const deviceId = cookies.get('droplet-device-id')
+  const userInfo = localStorage.getItem(USER_INFO)
 
   if (authorization) {
-    config.headers.Authorization = authorization
+    config.headers.Authorization = `Bearer ${authorization}`
   }
+  if (userInfo) {
+    config.headers['X-Tenant-ID'] = JSON.parse(userInfo)?.tenantId
+  }
+
   if (deviceId) {
     config.headers['droplet-device-id'] = deviceId
   }
@@ -86,7 +92,7 @@ request.interceptors.response.use(
       code,
       result,
     } = (res.data as unknown as ResponseData) || {}
-    if (code !== 0) {
+    if (code !== 200) {
       // 创建业务错误
       const error = new Error(messageStr || '业务处理失败')
       ;(error as any).code = code

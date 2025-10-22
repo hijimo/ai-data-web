@@ -26,9 +26,11 @@ export const LoginPage: React.FC = () => {
   const handleLogin = async (values: LoginFormValues) => {
     try {
       // 调用登录 API
+
       const response = await login({
         email: values.username, // 使用 username 作为 email
         password: values.password,
+        // tenantId: 'f98c705a-3bb4-4551-9568-7a607fb25195',
       })
 
       // 检查响应是否成功（code 为 200 表示成功）

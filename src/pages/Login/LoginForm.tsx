@@ -24,6 +24,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       form={form}
       name="login"
       layout="vertical"
+      initialValues={{
+        username: 'admin@system.local',
+      }}
       onFinish={handleFinish}
       autoComplete="off"
       className="space-y-4"

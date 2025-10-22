@@ -7,6 +7,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import type { User } from '@/types/api/user'
+import { TOKEN_KEY, USER_INFO } from '@/utils/request'
 
 /**
  * 认证状态接口
@@ -80,29 +81,67 @@ export const useAuthStore = create<AuthStore>()(
 
       // 登录方法
       login: (token: string, user: User, remember = false) => {
-        set({
+        const authData = {
           isAuthenticated: true,
           token,
           user,
           rememberMe: remember,
-        })
+        }
+
+        // 更新状态
+        set(authData)
+
+        // 手动保存到 localStorage
+        localStorage.setItem(TOKEN_KEY, authData.token)
+        localStorage.setItem(USER_INFO, JSON.stringify(authData.user))
       },
 
       // 登出方法
       logout: () => {
+        // 更新状态
         set(initialState)
+
+        // 清除 localStorage
+        localStorage.removeItem(TOKEN_KEY)
+        localStorage.removeItem(USER_INFO)
       },
 
       // 更新用户信息
       updateUser: (userData: Partial<User>) => {
-        set((state) => ({
-          user: state.user ? { ...state.user, ...userData } : null,
-        }))
+        set((state) => {
+          const updatedUser = state.user ? { ...state.user, ...userData } : null
+
+          // 如果记住登录状态，同步更新 localStorage
+          if (state.rememberMe && updatedUser) {
+            const authData = {
+              isAuthenticated: state.isAuthenticated,
+              token: state.token,
+              user: updatedUser,
+              rememberMe: state.rememberMe,
+            }
+            localStorage.setItem('auth-storage', JSON.stringify(authData))
+          }
+
+          return { user: updatedUser }
+        })
       },
 
       // 更新 token
       updateToken: (token: string) => {
-        set({ token })
+        set((state) => {
+          // 如果记住登录状态，同步更新 localStorage
+          if (state.rememberMe) {
+            const authData = {
+              isAuthenticated: state.isAuthenticated,
+              token,
+              user: state.user,
+              rememberMe: state.rememberMe,
+            }
+            localStorage.setItem('auth-storage', JSON.stringify(authData))
+          }
+
+          return { token }
+        })
       },
     }),
     {
