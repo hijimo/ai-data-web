@@ -1,132 +1,87 @@
-import type { ActionType } from '@ant-design/pro-components'
-import { useMutation } from '@tanstack/react-query'
-import { Button, message, Popconfirm } from 'antd'
-import { produce } from 'immer'
-import { values as _values } from 'lodash-es'
-import React, { useCallback, useMemo, useRef } from 'react'
-
-import CommonTable from '@/components/CommonTable'
-import OptionMenu from '@/components/CommonTable/OptionMenu'
-import { tenantColumns } from '@/configurify/columns/tenantColumns'
+import type { ActionType } from '@ant-design/pro-components';
+import { useMutation } from '@tanstack/react-query';
+import { Button, message, Popconfirm } from 'antd';
+import { produce } from 'immer';
+import { values as _values } from 'lodash-es';
+import React, { useCallback, useMemo, useRef } from 'react';
+import CommonTable from '@/components/CommonTable';
+import OptionMenu from '@/components/CommonTable/OptionMenu';
+import { useTableRequest } from '@/hooks/useTableRequest';
 import type {
   TenantCreateDrawerRef,
   TenantEditDrawerRef,
   TenantTableProps,
-} from '@/pages/tenants/types'
-import { getTenantManagement } from '@/services/api/tenant-management/tenant-management'
-import type { GetTenantsParams, Tenant } from '@/types/api'
-import { handleError } from '@/utils/errorHandler'
-
-import TenantCreateDrawer from '../../Drawer/TenantCreateDrawer'
-import TenantEditDrawer from '../../Drawer/TenantEditDrawer'
-import styles from './index.module.css'
+} from '@/pages/tenants/types';
+import { tenantColumns } from '@/configurify/columns/tenantColumns';
+import { handleError } from '@/utils/errorHandler';
+import { getTenantManagement } from '@/services/api/tenant-management/tenant-management';
+import type { GetTenantsParams, Tenant } from '@/types/api';
+import type { ResponsePaginationData } from '@/types';
+import TenantCreateDrawer from '../../Drawer/TenantCreateDrawer';
+import TenantEditDrawer from '../../Drawer/TenantEditDrawer';
+import styles from './index.module.css';
 
 const TenantTable: React.FC<TenantTableProps> = () => {
-  const actionRef = useRef<ActionType>(null)
-  const createDrawerRef = useRef<TenantCreateDrawerRef>(null)
-  const editDrawerRef = useRef<TenantEditDrawerRef>(null)
+  const actionRef = useRef<ActionType>(null);
+  const createDrawerRef = useRef<TenantCreateDrawerRef>(null);
+  const editDrawerRef = useRef<TenantEditDrawerRef>(null);
 
-  const { getTenants, deleteTenantsId } = getTenantManagement()
+  const { getTenants, deleteTenantsId } = getTenantManagement();
 
   // 删除租户的 mutation
   const { mutate: deleteTenantMutate } = useMutation({
     mutationFn: async (id: string) => deleteTenantsId({ id }),
     onSuccess: (response) => {
       if (response.code === 0) {
-        message.success('删除租户成功')
+        message.success('删除租户成功');
         // 刷新表格
-        actionRef.current?.reload()
+        actionRef.current?.reload();
       } else {
-        const errorMsg = String(response.message || '删除租户失败')
-        message.error(errorMsg)
+        const errorMsg = String(response.message || '删除租户失败');
+        message.error(errorMsg);
         console.error('删除租户失败 - API 响应错误:', {
           code: response.code,
           message: response.message,
-        })
+        });
       }
     },
     onError: (error: unknown) => {
-      const errorMessage = handleError(error, '删除租户')
-      message.error(errorMessage)
+      const errorMessage = handleError(error, '删除租户');
+      message.error(errorMessage);
     },
-  })
+  });
 
   // 处理编辑操作
   const handleEdit = useCallback((record: Tenant) => {
-    editDrawerRef.current?.open(record)
-  }, [])
+    editDrawerRef.current?.open(record);
+  }, []);
 
   // 处理删除操作
   const handleDelete = useCallback(
     (id: string | undefined) => {
       if (!id) {
-        message.error('租户 ID 不存在')
-        return
+        message.error('租户 ID 不存在');
+        return;
       }
-      deleteTenantMutate(id)
+      deleteTenantMutate(id);
     },
     [deleteTenantMutate],
-  )
+  );
 
   // 处理创建操作
   const handleCreate = useCallback(() => {
-    createDrawerRef.current?.open()
-  }, [])
+    createDrawerRef.current?.open();
+  }, []);
 
   // 处理操作成功后的刷新
   const handleSuccess = useCallback(() => {
-    actionRef.current?.reload()
-  }, [])
+    actionRef.current?.reload();
+  }, []);
 
   // 表格数据请求函数
-  const fetchData = useCallback(
-    async (
-      params: GetTenantsParams & { current?: number; pageSize?: number },
-    ) => {
-      try {
-        const { current = 1, pageSize = 10, ...restParams } = params
-
-        // 构建请求参数
-        const requestParams: GetTenantsParams = {
-          pageNo: current,
-          pageSize,
-          ...restParams,
-        }
-
-        const response = await getTenants(requestParams)
-
-        if (response.code === 0 && response.data) {
-          return {
-            data: response.data.data || [],
-            success: true,
-            total: response.data.totalCount || 0,
-          }
-        } else {
-          const errorMsg = response.message || '获取租户列表失败'
-          message.error(errorMsg)
-          console.error('获取租户列表失败 - API 响应错误:', {
-            code: response.code,
-            message: response.message,
-            params: requestParams,
-          })
-          return {
-            data: [],
-            success: false,
-            total: 0,
-          }
-        }
-      } catch (error) {
-        const errorMessage = handleError(error, '获取租户列表')
-        message.error(errorMessage)
-        return {
-          data: [],
-          success: false,
-          total: 0,
-        }
-      }
-    },
-    [getTenants],
-  )
+  const fetchData = useTableRequest(
+    getTenants as unknown as (params: Record<string, unknown>) => Promise<ResponsePaginationData>,
+  );
 
   // 配置表格列
   const columns = useMemo(() => {
@@ -150,11 +105,11 @@ const TenantTable: React.FC<TenantTableProps> = () => {
                 <a className="text-red-500">删除</a>
               </Popconfirm>
             </OptionMenu>
-          )
-        }
+          );
+        };
       }),
-    )
-  }, [handleEdit, handleDelete])
+    );
+  }, [handleEdit, handleDelete]);
 
   return (
     <div className={styles.tenantTable}>
@@ -181,7 +136,7 @@ const TenantTable: React.FC<TenantTableProps> = () => {
       <TenantCreateDrawer ref={createDrawerRef} onSuccess={handleSuccess} />
       <TenantEditDrawer ref={editDrawerRef} onSuccess={handleSuccess} />
     </div>
-  )
-}
+  );
+};
 
-export default TenantTable
+export default TenantTable;

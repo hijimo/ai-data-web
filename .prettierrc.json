@@ -24,8 +24,8 @@
   ],
   "importOrder": [
     "^@(?!/)",
-    "^react$",
     "<THIRD_PARTY_MODULES>",
+    "^react$",
     "^@/components/(.*)$",
     "^@/hooks",
     "^@/hooks/(.*)$",

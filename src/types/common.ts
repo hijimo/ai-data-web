@@ -1,36 +1,36 @@
 export interface ResponseData<T = any> {
-  code: number
-  message: string
+  code: number;
+  message: string;
   result: {
-    data: T
-  }
-  sessionId: string
+    data: T;
+  };
+  sessionId: string;
 }
 export interface ResponseData2<T = any> {
-  code: number
-  message: string
-  result: T
-  sessionId: string
+  code: number;
+  message: string;
+  result: T;
+  sessionId: string;
 }
 
 export interface ResponseData3<T = any> {
-  code: number
-  message: string
-  data: T
+  code: number;
+  message: string;
+  data: T;
 }
 
 export interface ResponsePaginationData<T = any> extends ResponseData<T> {
-  result: {
-    data: T
-    pageNo: number
-    pageSize: number
-    totalCount: number
-    totalPage: number
-  }
-  sessionId: string
+  data: {
+    data: T;
+    pageNo: number;
+    pageSize: number;
+    totalCount: number;
+    totalPage: number;
+  };
+  sessionId: string;
 }
 
 export interface PaginationParams {
-  pageNo: number
-  pageSize: number
+  pageNo: number;
+  pageSize: number;
 }
