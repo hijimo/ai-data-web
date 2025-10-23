@@ -1,50 +1,50 @@
-import { theme } from 'antd';
+import { theme } from 'antd'
 
 // 颜色对象的类型定义
-import type { ThemeConfig } from 'antd';
+import type { ThemeConfig } from 'antd'
 
 type ColorScale = {
-  50: string;
-  100: string;
-  200: string;
-  300: string;
-  400: string;
-  500: string;
-  600: string;
-  700: string;
-  800: string;
-  900: string;
-  950: string;
-};
+  50: string
+  100: string
+  200: string
+  300: string
+  400: string
+  500: string
+  600: string
+  700: string
+  800: string
+  900: string
+  950: string
+}
 
 // 所有颜色系统的类型
 export type ColorPalettes = {
-  red: ColorScale;
-  orange: ColorScale;
-  amber: ColorScale;
-  yellow: ColorScale;
-  lime: ColorScale;
-  green: ColorScale;
-  emerald: ColorScale;
-  teal: ColorScale;
-  cyan: ColorScale;
-  sky: ColorScale;
-  blue: ColorScale;
-  indigo: ColorScale;
-  violet: ColorScale;
-  purple: ColorScale;
-  fuchsia: ColorScale;
-  pink: ColorScale;
-  rose: ColorScale;
-  slate: ColorScale;
-  gray: ColorScale;
-  zinc: ColorScale;
-  neutral: ColorScale;
-  stone: ColorScale;
-};
+  red: ColorScale
+  orange: ColorScale
+  amber: ColorScale
+  yellow: ColorScale
+  lime: ColorScale
+  green: ColorScale
+  emerald: ColorScale
+  teal: ColorScale
+  cyan: ColorScale
+  sky: ColorScale
+  blue: ColorScale
+  indigo: ColorScale
+  violet: ColorScale
+  purple: ColorScale
+  fuchsia: ColorScale
+  pink: ColorScale
+  rose: ColorScale
+  slate: ColorScale
+  gray: ColorScale
+  zinc: ColorScale
+  neutral: ColorScale
+  stone: ColorScale
+}
 
 // 可用的颜色系统名称
-export type ColorName = keyof ColorPalettes;
+export type ColorName = keyof ColorPalettes
 
 // Tailwind颜色系统 - 添加所有22个色系
 export const tailwindColors: ColorPalettes = {
@@ -335,7 +335,7 @@ export const tailwindColors: ColorPalettes = {
     900: '#1c1917',
     950: '#0c0a09',
   },
-};
+}
 
 // 完整的中性色系统
 export const neutralColors = {
@@ -351,7 +351,7 @@ export const neutralColors = {
   gray800: tailwindColors.slate[800],
   gray900: tailwindColors.slate[900],
   gray950: tailwindColors.slate[950],
-};
+}
 
 // 暗色模式下的中性色映射
 export const darkNeutralColors = {
@@ -366,45 +366,47 @@ export const darkNeutralColors = {
   gray800: '#edf2f7',
   gray900: '#f7fafc',
   gray950: '#f8fafc',
-};
+}
 
 // 语义颜色类型
 type SemanticColorsType = {
-  primary: string;
-  primaryHover: string;
-  primaryActive: string;
-  primaryLight: string;
-  primaryLighter: string;
-  primaryLightest: string;
-  success: string;
-  successHover: string;
-  successActive: string;
-  successLight: string;
-  successLighter: string;
-  successLightest: string;
-  warning: string;
-  warningHover: string;
-  warningActive: string;
-  warningLight: string;
-  warningLighter: string;
-  warningLightest: string;
-  error: string;
-  errorHover: string;
-  errorActive: string;
-  errorLight: string;
-  errorLighter: string;
-  errorLightest: string;
-  info: string;
-  infoHover: string;
-  infoActive: string;
-  infoLight: string;
-  infoLighter: string;
-  infoLightest: string;
-};
+  primary: string
+  primaryHover: string
+  primaryActive: string
+  primaryLight: string
+  primaryLighter: string
+  primaryLightest: string
+  success: string
+  successHover: string
+  successActive: string
+  successLight: string
+  successLighter: string
+  successLightest: string
+  warning: string
+  warningHover: string
+  warningActive: string
+  warningLight: string
+  warningLighter: string
+  warningLightest: string
+  error: string
+  errorHover: string
+  errorActive: string
+  errorLight: string
+  errorLighter: string
+  errorLightest: string
+  info: string
+  infoHover: string
+  infoActive: string
+  infoLight: string
+  infoLighter: string
+  infoLightest: string
+}
 
 // 获取语义颜色对象，基于选定主题色
-export const getSemanticColors = (colorName: ColorName = 'teal'): SemanticColorsType => {
-  const colorPalette = tailwindColors[colorName];
+export const getSemanticColors = (
+  colorName: ColorName = 'teal',
+): SemanticColorsType => {
+  const colorPalette = tailwindColors[colorName]
 
   return {
     // 主色
@@ -446,11 +448,11 @@ export const getSemanticColors = (colorName: ColorName = 'teal'): SemanticColors
     infoLight: tailwindColors.blue[300],
     infoLighter: tailwindColors.blue[100],
     infoLightest: tailwindColors.blue[50],
-  };
-};
+  }
+}
 
 // 默认语义颜色(使用teal)
-export const semanticColors = getSemanticColors('teal');
+export const semanticColors = getSemanticColors('teal')
 
 // 扩展的颜色配置 - 完整的中性色色板映射到AntD可用的变量名
 export const extendedNeutralColorTokens = {
@@ -470,10 +472,12 @@ export const extendedNeutralColorTokens = {
 
   // 边框应用
   colorBorderFocus: semanticColors.primary, // 聚焦状态边框颜色
-};
+}
 
 // 生成基础颜色配置
-export const getBaseTokens = (fnSemanticColors: SemanticColorsType): Record<string, string> => ({
+export const getBaseTokens = (
+  fnSemanticColors: SemanticColorsType,
+): Record<string, string> => ({
   // 主色与功能色定义
   colorPrimary: fnSemanticColors.primary,
   colorSuccess: fnSemanticColors.success,
@@ -515,18 +519,18 @@ export const getBaseTokens = (fnSemanticColors: SemanticColorsType): Record<stri
   controlItemBgActiveHover: fnSemanticColors.primaryLighter,
   // 控制项悬浮背景色
   controlItemBgHover: 'rgba(0, 0, 0, 0.04)',
-});
+})
 
 // 默认基础颜色
-export const baseTokens = getBaseTokens(semanticColors);
+export const baseTokens = getBaseTokens(semanticColors)
 
 // 获取主题配置
 export const getThemeTokens = (
   colorName: ColorName = 'teal',
   mode: 'light' | 'dark' = 'light',
 ): ThemeConfig => {
-  const colors = getSemanticColors(colorName);
-  const tokens = getBaseTokens(colors);
+  const colors = getSemanticColors(colorName)
+  const tokens = getBaseTokens(colors)
 
   if (mode === 'light') {
     return {
@@ -542,7 +546,7 @@ export const getThemeTokens = (
         controlItemBgHover: 'rgba(0, 0, 0, 0.04)',
       },
       algorithm: theme.defaultAlgorithm,
-    };
+    }
   }
   // 暗色模式下调整颜色
   return {
@@ -618,18 +622,20 @@ export const getThemeTokens = (
       // colorBorderFocus: tailwindColors[colorName][400],
     },
     algorithm: theme.darkAlgorithm,
-  };
-};
+  }
+}
 
 // 默认亮色主题配置
-export const lightTheme = getThemeTokens('teal', 'light');
+export const lightTheme = getThemeTokens('teal', 'light')
 
 // 暗色主题配置
-export const darkTheme = getThemeTokens('teal', 'dark');
+export const darkTheme = getThemeTokens('teal', 'dark')
 
 // 为组件库设计的色彩应用映射
-export const getColorMap = (colorName: ColorName = 'teal'): Record<string, string> => {
-  const colors = getSemanticColors(colorName);
+export const getColorMap = (
+  colorName: ColorName = 'teal',
+): Record<string, string> => {
+  const colors = getSemanticColors(colorName)
 
   return {
     // 主色应用
@@ -670,11 +676,11 @@ export const getColorMap = (colorName: ColorName = 'teal'): Record<string, strin
     borderBase: neutralColors.gray200,
     borderLight: neutralColors.gray100,
     split: neutralColors.gray100,
-  };
-};
+  }
+}
 
 // 当前颜色映射
-export const colorMap = getColorMap('teal');
+export const colorMap = getColorMap('teal')
 
-export const light = lightTheme;
-export const dark = darkTheme;
+export const light = lightTheme
+export const dark = darkTheme

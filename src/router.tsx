@@ -2,16 +2,19 @@ import { createBrowserRouter, Outlet } from 'react-router'
 
 import { AuthProvider } from './components/AuthProvider'
 import Layout from './components/Layout/Layout'
+import BasicLayout from './layouts/BasicLayout'
 import Index from './pages/Index'
 import Login from './pages/Login'
-// import Tenants from './pages/tenants'
 import Notfound from './pages/Notfound'
+import Tenants from './pages/tenants'
 
 const router = createBrowserRouter([
   {
     element: (
       <AuthProvider>
-        <Outlet />
+        <BasicLayout>
+          <Outlet />
+        </BasicLayout>
       </AuthProvider>
     ),
     children: [
@@ -27,11 +30,10 @@ const router = createBrowserRouter([
         path: '/login',
         element: <Login />,
       },
-      // {
-      //   path: '/tenants',
-      //   element: <Tenants />,
-      // },
-
+      {
+        path: '/tenants',
+        element: <Tenants />,
+      },
       {
         path: '*',
         element: (

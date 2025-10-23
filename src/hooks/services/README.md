@@ -58,10 +58,10 @@ function LoginPage() {
               response.data.user || {},
               values.remember
             )
-            
+
             // 显示成功提示
             message.success('登录成功')
-            
+
             // 跳转到首页
             navigate('/')
           }
@@ -75,8 +75,8 @@ function LoginPage() {
   }
 
   return (
-    <LoginForm 
-      onSubmit={handleSubmit} 
+    <LoginForm
+      onSubmit={handleSubmit}
       loading={isLoading}
     />
   )
@@ -94,12 +94,12 @@ const handleSubmit = async (values: LoginFormValues) => {
       email: values.email,
       password: values.password,
     })
-    
+
     if (response.data) {
       authStore.login(
         response.data.accessToken || '',
         response.data.user || {},
-        values.remember
+        values.remember,
       )
       message.success('登录成功')
       navigate('/')
@@ -134,10 +134,10 @@ function Header() {
         onSuccess: () => {
           // 清除本地认证状态
           authStore.logout()
-          
+
           // 显示提示
           message.success('已退出登录')
-          
+
           // 跳转到登录页
           navigate('/login')
         },
@@ -175,7 +175,7 @@ import { useAuthStore, selectIsAuthenticated } from '@/stores'
 
 function UserProfile() {
   const isAuthenticated = useAuthStore(selectIsAuthenticated)
-  
+
   // 只在已登录时获取用户信息
   const { data, isLoading, error } = useCurrentUser(isAuthenticated)
 
@@ -212,7 +212,7 @@ function UpdateProfile() {
   const handleUpdate = async (newData: Partial<User>) => {
     // 更新用户信息
     await updateUserAPI(newData)
-    
+
     // 重新获取最新的用户信息
     refetch()
   }
@@ -243,7 +243,7 @@ function useTokenRefresh() {
       const response = await refreshToken({
         refreshToken: token || '',
       })
-      
+
       if (response.data?.accessToken) {
         // 更新 token
         updateToken(response.data.accessToken)
@@ -308,7 +308,7 @@ axios.interceptors.response.use(
     }
 
     return Promise.reject(error)
-  }
+  },
 )
 ```
 
@@ -553,8 +553,8 @@ if (error) {
 const { mutate: login, isLoading } = useLogin()
 
 return (
-  <Button 
-    onClick={() => login(data)} 
+  <Button
+    onClick={() => login(data)}
     loading={isLoading}
   >
     登录
@@ -571,10 +571,10 @@ login(data, {
   onSuccess: (response) => {
     // 1. 更新本地状态
     authStore.login(response.data.accessToken, response.data.user)
-    
+
     // 2. 显示提示
     message.success('登录成功')
-    
+
     // 3. 跳转页面
     navigate('/')
   },

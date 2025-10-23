@@ -59,10 +59,9 @@ alwaysApply: true
 #### 2.2 **标准调用链**
 
 1. 在 `src/services/` 中定义 **纯函数请求方法**（基于 axios）。
-
    - 只负责发送请求和返回数据，不做缓存、不做副作用。
-2. 在 `src/hooks/` 中定义对应的 `useQuery` / `useMutation` hook。
 
+2. 在 `src/hooks/` 中定义对应的 `useQuery` / `useMutation` hook。
    - 页面或组件 **只能调用这些 hooks**，禁止直接调用 services。
 
 ```typescript
@@ -71,9 +70,9 @@ const useUserList = (params: UserListParams) => {
   return useQuery({
     queryKey: ['users', params],
     queryFn: () => userService.getList(params),
-    staleTime:  5 * 1000, // 5秒钟
-  });
-};
+    staleTime: 5 * 1000, // 5秒钟
+  })
+}
 ```
 
 #### 2.3 **副作用约束**
@@ -114,15 +113,15 @@ src/
 
 ```typescript
 // 正确的导入顺序
-import React from 'react';
-import { Button, Modal } from 'antd';
-import { useQuery } from '@tanstack/react-query';
+import React from 'react'
+import { Button, Modal } from 'antd'
+import { useQuery } from '@tanstack/react-query'
 
-import type { User } from '@/types/user';
-import { userService } from '@/services/user';
-import { useUserStore } from '@/store/userStore';
+import type { User } from '@/types/user'
+import { userService } from '@/services/user'
+import { useUserStore } from '@/store/userStore'
 
-import './index.css';
+import './index.css'
 ```
 
 ### 3. 命名约定
@@ -179,21 +178,21 @@ export const UserCard: React.FC<UserCardProps> = ({
 ```typescript
 // 自定义 Hook 示例
 export const useUserManagement = () => {
-  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-  
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([])
+
   const handleUserSelect = useCallback((user: User) => {
-    setSelectedUsers(prev => 
-      prev.find(u => u.id === user.id)
-        ? prev.filter(u => u.id !== user.id)
-        : [...prev, user]
-    );
-  }, []);
+    setSelectedUsers((prev) =>
+      prev.find((u) => u.id === user.id)
+        ? prev.filter((u) => u.id !== user.id)
+        : [...prev, user],
+    )
+  }, [])
 
   return {
     selectedUsers,
     handleUserSelect,
-  } as const;
-};
+  } as const
+}
 ```
 
 ### 3. 性能优化指导

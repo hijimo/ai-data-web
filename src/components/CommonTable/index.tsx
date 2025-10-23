@@ -1,20 +1,20 @@
-import React, { useCallback, useState } from 'react';
-import { ProTable } from '@ant-design/pro-components';
-import type { ProTableProps } from '@ant-design/pro-table';
-import type { SearchConfig } from '@ant-design/pro-table/es/components/Form/FormRender';
-import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import styles from './index.module.css';
+import React, { useCallback, useState } from 'react'
+import { ProTable } from '@ant-design/pro-components'
+import type { ProTableProps } from '@ant-design/pro-table'
+import type { SearchConfig } from '@ant-design/pro-table/es/components/Form/FormRender'
+import type { SizeType } from 'antd/es/config-provider/SizeContext'
+import styles from './index.module.css'
 
-export { default as ColumnEllipsisWrap } from './ColumnEllipsisWrap';
+export { default as ColumnEllipsisWrap } from './ColumnEllipsisWrap'
 
 export type CommonTableProps<T, U> = ProTableProps<T, U> & {
   // 一个无用的占位符， @typescript-eslint/no-empty-interface
-  zhanwei?: string;
-};
+  zhanwei?: string
+}
 
-const scroll: { x: true } = { x: true };
+const scroll: { x: true } = { x: true }
 
-const search: SearchConfig = { labelWidth: 'auto', defaultCollapsed: false };
+const search: SearchConfig = { labelWidth: 'auto', defaultCollapsed: false }
 
 const CommonTable = <
   T extends Record<string, unknown> = Record<string, unknown>,
@@ -22,9 +22,9 @@ const CommonTable = <
 >(
   props: CommonTableProps<T, U>,
 ) => {
-  const [size, setSize] = useState<SizeType>('large');
+  const [size, setSize] = useState<SizeType>('large')
 
-  const handleSizeChange = useCallback((s: SizeType) => setSize(s), []);
+  const handleSizeChange = useCallback((s: SizeType) => setSize(s), [])
 
   return (
     <ProTable<T, U>
@@ -40,9 +40,9 @@ const CommonTable = <
       onSizeChange={handleSizeChange}
       {...props}
     />
-  );
-};
+  )
+}
 
-const MemodCommonTable = React.memo(CommonTable) as typeof CommonTable;
+const MemodCommonTable = React.memo(CommonTable) as typeof CommonTable
 
-export default MemodCommonTable;
+export default MemodCommonTable

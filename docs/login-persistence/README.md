@@ -126,11 +126,11 @@ import { useAuthStore } from '@/stores/authStore'
 
 const MyComponent = () => {
   const { isAuthenticated, user, token } = useAuthStore()
-  
+
   if (!isAuthenticated) {
     return <div>请先登录</div>
   }
-  
+
   return <div>欢迎，{user?.displayName}</div>
 }
 ```

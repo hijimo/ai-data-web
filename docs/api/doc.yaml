@@ -7,7 +7,7 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - messageId
+      - messageId
     type: object
   AlertListDataResponse:
     type: object
@@ -17,7 +17,7 @@ definitions:
     properties:
       createdAt:
         description: 事件发生时间
-        example: "2024-01-01T12:00:00Z"
+        example: '2024-01-01T12:00:00Z'
         type: string
       event:
         description: 事件类型
@@ -54,7 +54,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/PaginationData-array_AuthAuditItem'
+          - $ref: '#/definitions/PaginationData-array_AuthAuditItem'
         description: 分页数据
       message:
         description: 响应信息
@@ -96,10 +96,10 @@ definitions:
         type: string
       options:
         allOf:
-        - $ref: '#/definitions/ChatOptions'
+          - $ref: '#/definitions/ChatOptions'
         description: AI高级参数（可选）
     required:
-    - message
+      - message
     type: object
   ChatResponse:
     properties:
@@ -117,7 +117,7 @@ definitions:
         type: string
       usage:
         allOf:
-        - $ref: '#/definitions/Usage'
+          - $ref: '#/definitions/Usage'
         description: Token使用情况
     type: object
   ChatResponseData:
@@ -128,7 +128,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/ChatResponse'
+          - $ref: '#/definitions/ChatResponse'
         description: 响应数据
       message:
         description: 响应信息
@@ -168,8 +168,8 @@ definitions:
         minimum: 0
         type: number
     required:
-    - modelName
-    - title
+      - modelName
+      - title
     type: object
   CredentialFormSchema:
     properties:
@@ -241,7 +241,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/LoginResponse'
+          - $ref: '#/definitions/LoginResponse'
         description: 响应数据
       message:
         description: 响应信息
@@ -268,7 +268,7 @@ definitions:
         type: string
       user:
         allOf:
-        - $ref: '#/definitions/User'
+          - $ref: '#/definitions/User'
         description: 用户信息
     type: object
   Message:
@@ -279,7 +279,7 @@ definitions:
         type: string
       createdAt:
         description: 创建时间
-        example: "2024-01-01T12:00:00Z"
+        example: '2024-01-01T12:00:00Z'
         type: string
       id:
         description: 消息ID
@@ -302,7 +302,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/MessageDetailResponse'
+          - $ref: '#/definitions/MessageDetailResponse'
         description: 响应数据
       message:
         description: 响应信息
@@ -317,7 +317,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/PaginationData-array_MessageDetailResponse'
+          - $ref: '#/definitions/PaginationData-array_MessageDetailResponse'
         description: 分页数据
       message:
         description: 响应信息
@@ -332,11 +332,11 @@ definitions:
         type: string
       createdAt:
         description: 创建时间
-        example: "2024-01-01T12:00:00Z"
+        example: '2024-01-01T12:00:00Z'
         type: string
       error:
         description: 错误信息
-        example: ""
+        example: ''
         type: string
       id:
         description: 消息ID
@@ -375,7 +375,7 @@ definitions:
         type: string
       createdAt:
         description: 创建时间
-        example: "2024-01-01T12:00:00Z"
+        example: '2024-01-01T12:00:00Z'
         type: string
       id:
         description: 消息ID
@@ -390,7 +390,7 @@ definitions:
     properties:
       aiMessage:
         allOf:
-        - $ref: '#/definitions/Message'
+          - $ref: '#/definitions/Message'
         description: AI消息
       messageId:
         description: 消息ID
@@ -406,11 +406,11 @@ definitions:
         type: string
       usage:
         allOf:
-        - $ref: '#/definitions/Usage'
+          - $ref: '#/definitions/Usage'
         description: 使用统计
       userMessage:
         allOf:
-        - $ref: '#/definitions/Message'
+          - $ref: '#/definitions/Message'
         description: 用户消息
     type: object
   MessageResponseData:
@@ -421,7 +421,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/MessageResponse'
+          - $ref: '#/definitions/MessageResponse'
         description: 响应数据
       message:
         description: 响应信息
@@ -439,9 +439,9 @@ definitions:
       features:
         description: 特性列表
         example:
-        - tool-call
-        - multi-tool-call
-        - stream-tool-call
+          - tool-call
+          - multi-tool-call
+          - stream-tool-call
         items:
           type: string
         type: array
@@ -459,7 +459,7 @@ definitions:
         type: string
       model_properties:
         allOf:
-        - $ref: '#/definitions/ModelProperties'
+          - $ref: '#/definitions/ModelProperties'
         description: 模型属性
       model_type:
         description: 模型类型（llm、tts、text_embedding等）
@@ -472,7 +472,7 @@ definitions:
         type: array
       pricing:
         allOf:
-        - $ref: '#/definitions/Pricing'
+          - $ref: '#/definitions/Pricing'
         description: 定价信息
     type: object
   ModelDataResponse:
@@ -483,7 +483,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/Model'
+          - $ref: '#/definitions/Model'
         description: 响应数据
       message:
         description: 响应信息
@@ -726,14 +726,14 @@ definitions:
       configurate_methods:
         description: 配置方法列表
         example:
-        - predefined-model
-        - customizable-model
+          - predefined-model
+          - customizable-model
         items:
           type: string
         type: array
       help:
         allOf:
-        - $ref: '#/definitions/ProviderHelp'
+          - $ref: '#/definitions/ProviderHelp'
         description: 帮助信息
       icon_large:
         additionalProperties:
@@ -759,7 +759,7 @@ definitions:
         type: object
       model_credential_schema:
         allOf:
-        - $ref: '#/definitions/CredentialSchema'
+          - $ref: '#/definitions/CredentialSchema'
         description: 模型凭证配置
       models:
         additionalProperties:
@@ -772,13 +772,13 @@ definitions:
         type: string
       provider_credential_schema:
         allOf:
-        - $ref: '#/definitions/CredentialSchema'
+          - $ref: '#/definitions/CredentialSchema'
         description: 提供商凭证配置
       supported_model_types:
         description: 支持的模型类型列表
         example:
-        - llm
-        - text-embedding
+          - llm
+          - text-embedding
         items:
           type: string
         type: array
@@ -791,7 +791,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/Provider'
+          - $ref: '#/definitions/Provider'
         description: 响应数据
       message:
         description: 响应信息
@@ -835,15 +835,15 @@ definitions:
         type: string
       options:
         allOf:
-        - $ref: '#/definitions/ChatOptions'
+          - $ref: '#/definitions/ChatOptions'
         description: AI高级参数（可选）
       sessionId:
         description: 会话ID
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - message
-    - sessionId
+      - message
+      - sessionId
     type: object
   SessionDataResponse:
     properties:
@@ -853,7 +853,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/SessionResponse'
+          - $ref: '#/definitions/SessionResponse'
         description: 响应数据
       message:
         description: 响应信息
@@ -868,7 +868,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/PaginationData-array_SessionResponse'
+          - $ref: '#/definitions/PaginationData-array_SessionResponse'
         description: 分页数据
       message:
         description: 响应信息
@@ -879,7 +879,7 @@ definitions:
     properties:
       createdAt:
         description: 创建时间
-        example: "2024-01-01T12:00:00Z"
+        example: '2024-01-01T12:00:00Z'
         type: string
       id:
         description: 会话ID
@@ -895,7 +895,7 @@ definitions:
         type: boolean
       lastMessage:
         allOf:
-        - $ref: '#/definitions/MessagePreview'
+          - $ref: '#/definitions/MessagePreview'
         description: 最后一条消息
       messageCount:
         description: 消息数量
@@ -927,7 +927,7 @@ definitions:
         type: number
       updatedAt:
         description: 更新时间
-        example: "2024-01-01T12:00:00Z"
+        example: '2024-01-01T12:00:00Z'
         type: string
       userId:
         description: 用户ID
@@ -950,7 +950,7 @@ definitions:
     properties:
       createdAt:
         description: 创建时间
-        example: "2025-01-20T10:00:00Z"
+        example: '2025-01-20T10:00:00Z'
         type: string
       createdBy:
         description: 创建者用户ID
@@ -986,13 +986,13 @@ definitions:
           租户类型：system=平台租户，tenant=业务租户
           可选值：system（平台租户，系统级租户，只能有一个）, tenant（业务租户，普通租户）
         enum:
-        - system
-        - tenant
+          - system
+          - tenant
         example: tenant
         type: string
       updatedAt:
         description: 更新时间
-        example: "2025-01-20T10:00:00Z"
+        example: '2025-01-20T10:00:00Z'
         type: string
     type: object
   TenantDataResponse:
@@ -1003,7 +1003,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/Tenant'
+          - $ref: '#/definitions/Tenant'
         description: 响应数据
       message:
         description: 响应信息
@@ -1018,7 +1018,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/PaginationData-array_Tenant'
+          - $ref: '#/definitions/PaginationData-array_Tenant'
         description: 分页数据
       message:
         description: 响应信息
@@ -1074,7 +1074,7 @@ definitions:
     properties:
       createdAt:
         description: 创建时间
-        example: "2025-01-20T10:00:00Z"
+        example: '2025-01-20T10:00:00Z'
         type: string
       createdBy:
         description: 创建者用户ID
@@ -1114,18 +1114,18 @@ definitions:
         type: boolean
       lastLoginAt:
         description: 最后登录时间
-        example: "2025-01-20T10:00:00Z"
+        example: '2025-01-20T10:00:00Z'
         type: string
       lockedUntil:
         description: 账户锁定时间，锁定期间无法登录
-        example: "2025-01-20T10:00:00Z"
+        example: '2025-01-20T10:00:00Z'
         type: string
       meta:
         description: 用户元数据，存储用户的自定义信息
         type: object
       phone:
         description: 手机号码
-        example: "13800138000"
+        example: '13800138000'
         type: string
       roles:
         description: |-
@@ -1133,7 +1133,7 @@ definitions:
           可选值：system_admin（平台管理员）, tenant_admin（租户管理员）, user（普通用户）
           示例：["user"], ["tenant_admin"], ["system_admin"]
         example:
-        - '["user"]'
+          - '["user"]'
         items:
           type: string
         type: array
@@ -1143,7 +1143,7 @@ definitions:
         type: string
       updatedAt:
         description: 更新时间
-        example: "2025-01-20T10:00:00Z"
+        example: '2025-01-20T10:00:00Z'
         type: string
     type: object
   UserDataResponse:
@@ -1154,7 +1154,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/User'
+          - $ref: '#/definitions/User'
         description: 响应数据
       message:
         description: 响应信息
@@ -1169,7 +1169,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/PaginationData-array_User'
+          - $ref: '#/definitions/PaginationData-array_User'
         description: 分页数据
       message:
         description: 响应信息
@@ -1209,8 +1209,8 @@ definitions:
         example: oldpassword123
         type: string
     required:
-    - newPassword
-    - oldPassword
+      - newPassword
+      - oldPassword
     type: object
   CreateTenantRequest:
     properties:
@@ -1229,7 +1229,7 @@ definitions:
         minLength: 1
         type: string
     required:
-    - name
+      - name
     type: object
   CreateTenantWithAdminDataResponse:
     properties:
@@ -1239,7 +1239,7 @@ definitions:
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/CreateTenantWithAdminResponse'
+          - $ref: '#/definitions/CreateTenantWithAdminResponse'
         description: 创建租户响应数据
       message:
         description: 响应信息
@@ -1272,8 +1272,8 @@ definitions:
         minLength: 1
         type: string
     required:
-    - tenantDomain
-    - tenantName
+      - tenantDomain
+      - tenantName
     type: object
   CreateTenantWithAdminResponse:
     properties:
@@ -1283,11 +1283,11 @@ definitions:
         type: string
       adminUser:
         allOf:
-        - $ref: '#/definitions/User'
+          - $ref: '#/definitions/User'
         description: 管理员用户信息
       tenant:
         allOf:
-        - $ref: '#/definitions/Tenant'
+          - $ref: '#/definitions/Tenant'
         description: 租户信息
     type: object
   CreateUserRequest:
@@ -1311,11 +1311,11 @@ definitions:
         minLength: 8
         type: string
       phone:
-        example: "13800138000"
+        example: '13800138000'
         type: string
       roles:
         example:
-        - '["user"]'
+          - '["user"]'
         items:
           type: string
         type: array
@@ -1323,9 +1323,9 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - email
-    - password
-    - tenantId
+      - email
+      - password
+      - tenantId
     type: object
   HealthStatusResponse:
     properties:
@@ -1350,8 +1350,8 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - email
-    - password
+      - email
+      - password
     type: object
   LogoutRequest:
     properties:
@@ -1359,7 +1359,7 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - refreshToken
+      - refreshToken
     type: object
   RefreshRequest:
     properties:
@@ -1367,7 +1367,7 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - refreshToken
+      - refreshToken
     type: object
   RegisterRequest:
     properties:
@@ -1382,15 +1382,15 @@ definitions:
         minLength: 8
         type: string
       phone:
-        example: "13800138000"
+        example: '13800138000'
         type: string
       tenantId:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - email
-    - password
-    - tenantId
+      - email
+      - password
+      - tenantId
     type: object
   ResendVerificationRequest:
     properties:
@@ -1401,8 +1401,8 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - tenantId
-    - userId
+      - tenantId
+      - userId
     type: object
   UnlockAccountRequest:
     properties:
@@ -1413,8 +1413,8 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - tenantId
-    - userId
+      - tenantId
+      - userId
     type: object
   UpdateTenantRequest:
     properties:
@@ -1457,12 +1457,12 @@ definitions:
       meta:
         type: object
       phone:
-        example: "13900139000"
+        example: '13900139000'
         type: string
       roles:
         example:
-        - '["user"'
-        - '"moderator"]'
+          - '["user"'
+          - '"moderator"]'
         items:
           type: string
         type: array
@@ -1473,7 +1473,7 @@ definitions:
         example: true
         type: boolean
     required:
-    - isActive
+      - isActive
     type: object
   VerifyEmailRequest:
     properties:
@@ -1481,7 +1481,7 @@ definitions:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
     required:
-    - token
+      - token
     type: object
 host: localhost:8080
 info:
@@ -1500,7 +1500,7 @@ paths:
   /api/v1/platform/tenants:
     get:
       consumes:
-      - application/json
+        - application/json
       description: |-
         获取所有租户列表，支持分页和类型过滤。需要平台管理员权限（system_admin角色）。
 
@@ -1515,60 +1515,60 @@ paths:
         - system: 平台租户（系统级租户，用于承载平台管理员）
         - tenant: 业务租户（普通租户，用于实际业务使用）
       parameters:
-      - default: 1
-        description: 页码（从1开始）
-        example: 1
-        in: query
-        minimum: 1
-        name: pageNo
-        type: integer
-      - default: 10
-        description: 每页大小（1-100）
-        example: 10
-        in: query
-        maximum: 100
-        minimum: 1
-        name: pageSize
-        type: integer
-      - description: 租户类型过滤
-        enum:
-        - system
-        - tenant
-        example: tenant
-        in: query
-        name: type
-        type: string
+        - default: 1
+          description: 页码（从1开始）
+          example: 1
+          in: query
+          minimum: 1
+          name: pageNo
+          type: integer
+        - default: 10
+          description: 每页大小（1-100）
+          example: 10
+          in: query
+          maximum: 100
+          minimum: 1
+          name: pageSize
+          type: integer
+        - description: 租户类型过滤
+          enum:
+            - system
+            - tenant
+          example: tenant
+          in: query
+          name: type
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 获取成功
           schema:
             $ref: '#/definitions/TenantListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足（需要 system_admin 角色）
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 获取租户列表
       tags:
-      - Platform Management
+        - Platform Management
     post:
       consumes:
-      - application/json
+        - application/json
       description: |-
         创建新的业务租户并自动生成租户管理员账户。系统会自动为租户创建一个管理员账户，并生成随机强密码。需要平台管理员权限（system_admin角色）。
 
@@ -1585,48 +1585,48 @@ paths:
         - 请妥善保管返回的初始密码，建议首次登录后立即修改
         - 租户域名必须唯一
       parameters:
-      - description: 创建租户请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/CreateTenantWithAdminRequest'
+        - description: 创建租户请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/CreateTenantWithAdminRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: 创建成功
           schema:
             $ref: '#/definitions/CreateTenantWithAdminDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足（需要 system_admin 角色）
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 创建租户（带管理员）
       tags:
-      - Platform Management
+        - Platform Management
   /api/v1/platform/tenants/{id}:
     delete:
       consumes:
-      - application/json
+        - application/json
       description: |-
         软删除指定的业务租户。需要平台管理员权限（system_admin角色）。
 
@@ -1646,48 +1646,48 @@ paths:
         - 建议在删除前先禁用租户，观察一段时间后再删除
         - 删除租户会影响该租户下的所有用户和数据
       parameters:
-      - description: 租户ID（UUID格式）
-        example: '"550e8400-e29b-41d4-a716-446655440000"'
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 租户ID（UUID格式）
+          example: '"550e8400-e29b-41d4-a716-446655440000"'
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 删除成功
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误（如尝试删除平台租户）
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足（需要 system_admin 角色）
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 租户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 删除租户
       tags:
-      - Platform Management
+        - Platform Management
   /api/v1/platform/tenants/{id}/status:
     patch:
       consumes:
-      - application/json
+        - application/json
       description: |-
         更新租户的启用/禁用状态。需要平台管理员权限（system_admin角色）。
 
@@ -1706,2036 +1706,2036 @@ paths:
         - 不允许禁用平台租户（type = "system"）
         - 禁用操作会立即生效
       parameters:
-      - description: 租户ID（UUID格式）
-        example: '"550e8400-e29b-41d4-a716-446655440000"'
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 更新租户状态请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/UpdateTenantStatusRequest'
+        - description: 租户ID（UUID格式）
+          example: '"550e8400-e29b-41d4-a716-446655440000"'
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: 更新租户状态请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateTenantStatusRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 更新成功
           schema:
             $ref: '#/definitions/TenantDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足（需要 system_admin 角色）
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 租户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 启用/禁用租户
       tags:
-      - Platform Management
+        - Platform Management
   /audit/auth:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 查询认证审计日志，支持多条件过滤和分页
       parameters:
-      - description: 租户ID
-        in: query
-        name: tenantId
-        type: string
-      - description: 用户ID
-        in: query
-        name: userId
-        type: string
-      - description: 事件类型（login, logout, refresh, revoke, failed_login）
-        in: query
-        name: event
-        type: string
-      - description: 开始时间（RFC3339格式）
-        in: query
-        name: startTime
-        type: string
-      - description: 结束时间（RFC3339格式）
-        in: query
-        name: endTime
-        type: string
-      - default: 1
-        description: 页码
-        in: query
-        name: page
-        type: integer
-      - default: 10
-        description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
+        - description: 租户ID
+          in: query
+          name: tenantId
+          type: string
+        - description: 用户ID
+          in: query
+          name: userId
+          type: string
+        - description: 事件类型（login, logout, refresh, revoke, failed_login）
+          in: query
+          name: event
+          type: string
+        - description: 开始时间（RFC3339格式）
+          in: query
+          name: startTime
+          type: string
+        - description: 结束时间（RFC3339格式）
+          in: query
+          name: endTime
+          type: string
+        - default: 1
+          description: 页码
+          in: query
+          name: page
+          type: integer
+        - default: 10
+          description: 每页大小
+          in: query
+          name: pageSize
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 查询成功
           schema:
             $ref: '#/definitions/AuthAuditListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未授权
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 查询审计日志
       tags:
-      - Audit
+        - Audit
   /auth/change-password:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 修改当前用户的密码
       parameters:
-      - description: 修改密码请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/ChangePasswordRequest'
+        - description: 修改密码请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/ChangePasswordRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 修改成功
           schema:
             $ref: '#/definitions/SuccessResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证或旧密码错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 修改密码
       tags:
-      - Authentication
+        - Authentication
   /auth/login:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 使用邮箱和密码登录系统
       parameters:
-      - description: 登录请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/LoginRequest'
+        - description: 登录请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/LoginRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 登录成功
           schema:
             $ref: '#/definitions/LoginDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 认证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 用户登录
       tags:
-      - Authentication
+        - Authentication
   /auth/logout:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 注销用户并撤销 Refresh Token
       parameters:
-      - description: 注销请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/LogoutRequest'
+        - description: 注销请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/LogoutRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 注销成功
           schema:
             $ref: '#/definitions/SuccessResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: Token 无效
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 用户注销
       tags:
-      - Authentication
+        - Authentication
   /auth/me:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取当前登录用户的详细信息
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 获取成功
           schema:
             $ref: '#/definitions/UserDataResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 用户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 获取当前用户信息
       tags:
-      - Authentication
+        - Authentication
   /auth/refresh:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 使用 Refresh Token 获取新的 Access Token
       parameters:
-      - description: 刷新请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/RefreshRequest'
+        - description: 刷新请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/RefreshRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 刷新成功
           schema:
             $ref: '#/definitions/LoginDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: Token 无效或已过期
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 刷新访问令牌
       tags:
-      - Authentication
+        - Authentication
   /auth/register:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 注册新用户账户
       parameters:
-      - description: 注册请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/RegisterRequest'
+        - description: 注册请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: 注册成功
           schema:
             $ref: '#/definitions/UserDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 用户注册
       tags:
-      - Authentication
+        - Authentication
   /auth/resend-verification:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 重新发送邮箱验证邮件
       parameters:
-      - description: 重发请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/ResendVerificationRequest'
+        - description: 重发请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/ResendVerificationRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 发送成功
           schema:
             $ref: '#/definitions/SuccessResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 重新发送验证邮件
       tags:
-      - Authentication
+        - Authentication
   /auth/unlock-account:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 解锁被锁定的用户账户（需要管理员权限）
       parameters:
-      - description: 解锁请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/UnlockAccountRequest'
+        - description: 解锁请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/UnlockAccountRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 解锁成功
           schema:
             $ref: '#/definitions/SuccessResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 解锁账户
       tags:
-      - Authentication
+        - Authentication
   /auth/verify-email:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 使用验证令牌验证用户邮箱
       parameters:
-      - description: 验证请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/VerifyEmailRequest'
+        - description: 验证请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/VerifyEmailRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 验证成功
           schema:
             $ref: '#/definitions/SuccessResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 验证邮箱
       tags:
-      - Authentication
+        - Authentication
   /chat:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 向 AI 发送消息并获取回复，支持通过 messageId 继续对话
       parameters:
-      - description: 对话请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/ChatRequest'
+        - description: 对话请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/ChatRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回 AI 回复
           schema:
             $ref: '#/definitions/ChatResponseData'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "503":
+        '503':
           description: AI 服务不可用
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 发送对话消息
       tags:
-      - chat
+        - chat
   /chat/abort:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 中止指定消息的对话处理
       parameters:
-      - description: 中止请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/AbortRequest'
+        - description: 中止请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/AbortRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功中止对话
           schema:
             $ref: '#/definitions/SuccessResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 消息不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 中止对话
       tags:
-      - chat
+        - chat
   /chat/messages/{id}:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 根据消息ID获取消息的详细信息
       parameters:
-      - description: 消息ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 消息ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回消息详情
           schema:
             $ref: '#/definitions/MessageDetailDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 消息不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取消息详情
       tags:
-      - messages
+        - messages
   /chat/messages/{id}/abort:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 中止指定消息的AI生成过程
       parameters:
-      - description: 消息ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 消息ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功中止消息生成
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 消息不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 中止消息生成
       tags:
-      - messages
+        - messages
   /chat/sessions:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取用户的会话列表，支持分页和过滤
       parameters:
-      - default: 1
-        description: 页码
-        in: query
-        minimum: 1
-        name: pageNo
-        required: true
-        type: integer
-      - default: 20
-        description: 每页大小
-        in: query
-        maximum: 100
-        minimum: 1
-        name: pageSize
-        required: true
-        type: integer
-      - description: 是否置顶
-        in: query
-        name: isPinned
-        type: boolean
-      - description: 是否归档
-        in: query
-        name: isArchived
-        type: boolean
-      - description: 模型名称
-        in: query
-        name: modelName
-        type: string
+        - default: 1
+          description: 页码
+          in: query
+          minimum: 1
+          name: pageNo
+          required: true
+          type: integer
+        - default: 20
+          description: 每页大小
+          in: query
+          maximum: 100
+          minimum: 1
+          name: pageSize
+          required: true
+          type: integer
+        - description: 是否置顶
+          in: query
+          name: isPinned
+          type: boolean
+        - description: 是否归档
+          in: query
+          name: isArchived
+          type: boolean
+        - description: 模型名称
+          in: query
+          name: modelName
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回会话列表
           schema:
             $ref: '#/definitions/SessionListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取会话列表
       tags:
-      - sessions
+        - sessions
     post:
       consumes:
-      - application/json
+        - application/json
       description: 创建一个新的聊天会话
       parameters:
-      - description: 创建会话请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/CreateSessionRequest'
+        - description: 创建会话请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/CreateSessionRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功创建会话
           schema:
             $ref: '#/definitions/SessionDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 创建新会话
       tags:
-      - sessions
+        - sessions
   /chat/sessions/{id}:
     delete:
       consumes:
-      - application/json
+        - application/json
       description: 软删除指定的会话
       parameters:
-      - description: 会话ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 会话ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功删除会话
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 会话不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 删除会话
       tags:
-      - sessions
+        - sessions
     get:
       consumes:
-      - application/json
+        - application/json
       description: 根据会话ID获取会话的详细信息
       parameters:
-      - description: 会话ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 会话ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回会话详情
           schema:
             $ref: '#/definitions/SessionDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 会话不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取会话详情
       tags:
-      - sessions
+        - sessions
     patch:
       consumes:
-      - application/json
+        - application/json
       description: 更新会话的标题、配置等信息
       parameters:
-      - description: 会话ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 更新会话请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/UpdateSessionRequest'
+        - description: 会话ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: 更新会话请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateSessionRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功更新会话
           schema:
             $ref: '#/definitions/SessionDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 会话不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 更新会话
       tags:
-      - sessions
+        - sessions
   /chat/sessions/{id}/archive:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 归档或取消归档指定的会话
       parameters:
-      - description: 会话ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 是否归档
-        in: query
-        name: archived
-        required: true
-        type: boolean
+        - description: 会话ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: 是否归档
+          in: query
+          name: archived
+          required: true
+          type: boolean
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功更新归档状态
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 会话不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 归档会话
       tags:
-      - sessions
+        - sessions
   /chat/sessions/{id}/messages:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取指定会话的消息历史，支持分页
       parameters:
-      - description: 会话ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - default: 1
-        description: 页码
-        in: query
-        minimum: 1
-        name: pageNo
-        required: true
-        type: integer
-      - default: 50
-        description: 每页大小
-        in: query
-        maximum: 100
-        minimum: 1
-        name: pageSize
-        required: true
-        type: integer
+        - description: 会话ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - default: 1
+          description: 页码
+          in: query
+          minimum: 1
+          name: pageNo
+          required: true
+          type: integer
+        - default: 50
+          description: 每页大小
+          in: query
+          maximum: 100
+          minimum: 1
+          name: pageSize
+          required: true
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回消息历史
           schema:
             $ref: '#/definitions/MessageDetailListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 会话不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取消息历史
       tags:
-      - messages
+        - messages
     post:
       consumes:
-      - application/json
+        - application/json
       description: 在指定会话中发送消息并获取AI回复
       parameters:
-      - description: 会话ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 发送消息请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/SendMessageRequest'
+        - description: 会话ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: 发送消息请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/SendMessageRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功发送消息
           schema:
             $ref: '#/definitions/MessageResponseData'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 会话不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 发送消息
       tags:
-      - messages
+        - messages
   /chat/sessions/{id}/pin:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 置顶或取消置顶指定的会话
       parameters:
-      - description: 会话ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 是否置顶
-        in: query
-        name: pinned
-        required: true
-        type: boolean
+        - description: 会话ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: 是否置顶
+          in: query
+          name: pinned
+          required: true
+          type: boolean
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功更新置顶状态
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 无权访问
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 会话不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 置顶会话
       tags:
-      - sessions
+        - sessions
   /chat/sessions/search:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 根据关键词搜索会话
       parameters:
-      - description: 搜索关键词
-        in: query
-        name: keyword
-        required: true
-        type: string
-      - default: 1
-        description: 页码
-        in: query
-        minimum: 1
-        name: pageNo
-        required: true
-        type: integer
-      - default: 20
-        description: 每页大小
-        in: query
-        maximum: 100
-        minimum: 1
-        name: pageSize
-        required: true
-        type: integer
+        - description: 搜索关键词
+          in: query
+          name: keyword
+          required: true
+          type: string
+        - default: 1
+          description: 页码
+          in: query
+          minimum: 1
+          name: pageNo
+          required: true
+          type: integer
+        - default: 20
+          description: 每页大小
+          in: query
+          maximum: 100
+          minimum: 1
+          name: pageSize
+          required: true
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回搜索结果
           schema:
             $ref: '#/definitions/SessionListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 搜索会话
       tags:
-      - sessions
+        - sessions
   /chat/stream:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 向 AI 发送消息并以流式方式获取回复，支持通过 messageId 继续对话
       parameters:
-      - description: 对话请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/ChatRequest'
+        - description: 对话请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/ChatRequest'
       produces:
-      - text/event-stream
+        - text/event-stream
       responses:
-        "200":
+        '200':
           description: 流式返回 AI 回复（Server-Sent Events 格式）
           schema:
             type: string
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "503":
+        '503':
           description: AI 服务不可用
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 发送流式对话消息
       tags:
-      - chat
+        - chat
   /health:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 检查服务及其依赖项的健康状态
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 服务健康
           schema:
             $ref: '#/definitions/HealthStatusResponse'
-        "500":
+        '500':
           description: 健康检查失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "503":
+        '503':
           description: 服务不健康
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 健康检查
       tags:
-      - health
+        - health
   /monitoring/alerts:
     delete:
       description: 清空所有活跃告警
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/AnyDataResponse'
       summary: 清空告警
       tags:
-      - Monitoring
+        - Monitoring
     get:
       description: 获取当前活跃的告警列表
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/AlertListDataResponse'
       summary: 获取活跃告警
       tags:
-      - Monitoring
+        - Monitoring
   /monitoring/health:
     get:
       description: 获取系统健康状态和关键监控指标
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/HealthDataResponse'
       summary: 健康检查（含监控）
       tags:
-      - Monitoring
+        - Monitoring
   /monitoring/metrics:
     get:
       description: 获取认证系统的性能监控指标
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/MetricsDataResponse'
       summary: 获取性能指标
       tags:
-      - Monitoring
+        - Monitoring
   /monitoring/metrics/reset:
     post:
       description: 重置所有性能监控指标
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/AnyDataResponse'
       summary: 重置指标
       tags:
-      - Monitoring
+        - Monitoring
   /providers:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取系统中所有可用的模型提供商列表
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回提供商列表
           schema:
             $ref: '#/definitions/ProviderListDataResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取所有提供商列表
       tags:
-      - providers
+        - providers
   /providers/{providerId}:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 根据提供商ID获取详细信息
       parameters:
-      - description: 提供商ID
-        example: gemini
-        in: path
-        name: providerId
-        required: true
-        type: string
+        - description: 提供商ID
+          example: gemini
+          in: path
+          name: providerId
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回提供商详情
           schema:
             $ref: '#/definitions/ProviderDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 提供商不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取提供商详情
       tags:
-      - providers
+        - providers
   /providers/{providerId}/models:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取指定提供商的所有可用模型列表
       parameters:
-      - description: 提供商ID
-        example: gemini
-        in: path
-        name: providerId
-        required: true
-        type: string
+        - description: 提供商ID
+          example: gemini
+          in: path
+          name: providerId
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回模型列表
           schema:
             $ref: '#/definitions/ModelListDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 提供商不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取提供商的模型列表
       tags:
-      - providers
+        - providers
   /providers/{providerId}/models/{modelId}:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取指定提供商的指定模型的详细信息
       parameters:
-      - description: 提供商ID
-        example: gemini
-        in: path
-        name: providerId
-        required: true
-        type: string
-      - description: 模型ID
-        example: gemini-1.5-flash
-        in: path
-        name: modelId
-        required: true
-        type: string
+        - description: 提供商ID
+          example: gemini
+          in: path
+          name: providerId
+          required: true
+          type: string
+        - description: 模型ID
+          example: gemini-1.5-flash
+          in: path
+          name: modelId
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回模型详情
           schema:
             $ref: '#/definitions/ModelDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 提供商或模型不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取模型详情
       tags:
-      - providers
+        - providers
   /providers/{providerId}/models/{modelId}/parameter-rules:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取指定模型的所有参数配置规则
       parameters:
-      - description: 提供商ID
-        example: gemini
-        in: path
-        name: providerId
-        required: true
-        type: string
-      - description: 模型ID
-        example: gemini-1.5-flash
-        in: path
-        name: modelId
-        required: true
-        type: string
+        - description: 提供商ID
+          example: gemini
+          in: path
+          name: providerId
+          required: true
+          type: string
+        - description: 模型ID
+          example: gemini-1.5-flash
+          in: path
+          name: modelId
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 成功返回参数规则列表
           schema:
             $ref: '#/definitions/ParameterRuleListDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 提供商或模型不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: 获取模型参数规则
       tags:
-      - providers
+        - providers
   /tenants:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取租户列表，支持分页（需要管理员权限）
       parameters:
-      - default: 1
-        description: 页码
-        in: query
-        minimum: 1
-        name: pageNo
-        required: true
-        type: integer
-      - default: 20
-        description: 每页大小
-        in: query
-        maximum: 100
-        minimum: 1
-        name: pageSize
-        required: true
-        type: integer
+        - default: 1
+          description: 页码
+          in: query
+          minimum: 1
+          name: pageNo
+          required: true
+          type: integer
+        - default: 20
+          description: 每页大小
+          in: query
+          maximum: 100
+          minimum: 1
+          name: pageSize
+          required: true
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 获取成功
           schema:
             $ref: '#/definitions/TenantListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 获取租户列表
       tags:
-      - Tenant Management
+        - Tenant Management
     post:
       consumes:
-      - application/json
+        - application/json
       description: 创建新的租户（需要管理员权限）
       parameters:
-      - description: 创建租户请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/CreateTenantRequest'
+        - description: 创建租户请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/CreateTenantRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: 创建成功
           schema:
             $ref: '#/definitions/TenantDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 创建租户
       tags:
-      - Tenant Management
+        - Tenant Management
   /tenants/{id}:
     delete:
       consumes:
-      - application/json
+        - application/json
       description: 软删除指定的租户（需要管理员权限）
       parameters:
-      - description: 租户ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 租户ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 删除成功
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 租户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 删除租户
       tags:
-      - Tenant Management
+        - Tenant Management
     get:
       consumes:
-      - application/json
+        - application/json
       description: 根据租户ID获取租户详细信息（需要管理员权限）
       parameters:
-      - description: 租户ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 租户ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 获取成功
           schema:
             $ref: '#/definitions/TenantDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 租户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 获取租户详情
       tags:
-      - Tenant Management
+        - Tenant Management
     put:
       consumes:
-      - application/json
+        - application/json
       description: 更新租户信息（需要管理员权限）
       parameters:
-      - description: 租户ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 更新租户请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/UpdateTenantRequest'
+        - description: 租户ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: 更新租户请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateTenantRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 更新成功
           schema:
             $ref: '#/definitions/TenantDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 租户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 更新租户
       tags:
-      - Tenant Management
+        - Tenant Management
   /tenants/{tenantId}/users:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取指定租户下的用户列表，支持分页（需要租户管理员或平台管理员权限）
       parameters:
-      - description: 租户ID
-        in: path
-        name: tenantId
-        required: true
-        type: string
-      - default: 1
-        description: 页码
-        in: query
-        minimum: 1
-        name: pageNo
-        required: true
-        type: integer
-      - default: 20
-        description: 每页大小
-        in: query
-        maximum: 100
-        minimum: 1
-        name: pageSize
-        required: true
-        type: integer
+        - description: 租户ID
+          in: path
+          name: tenantId
+          required: true
+          type: string
+        - default: 1
+          description: 页码
+          in: query
+          minimum: 1
+          name: pageNo
+          required: true
+          type: integer
+        - default: 20
+          description: 每页大小
+          in: query
+          maximum: 100
+          minimum: 1
+          name: pageSize
+          required: true
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 获取成功
           schema:
             $ref: '#/definitions/UserListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 获取租户用户列表
       tags:
-      - Tenant User Management
+        - Tenant User Management
     post:
       consumes:
-      - application/json
+        - application/json
       description: 在指定租户下创建新用户（需要租户管理员或平台管理员权限）
       parameters:
-      - description: 租户ID
-        in: path
-        name: tenantId
-        required: true
-        type: string
-      - description: 创建用户请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/CreateUserRequest'
+        - description: 租户ID
+          in: path
+          name: tenantId
+          required: true
+          type: string
+        - description: 创建用户请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/CreateUserRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: 创建成功
           schema:
             $ref: '#/definitions/UserDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 在租户下创建用户
       tags:
-      - Tenant User Management
+        - Tenant User Management
   /tenants/{tenantId}/users/{userId}:
     delete:
       consumes:
-      - application/json
+        - application/json
       description: 软删除指定租户下的用户（需要租户管理员或平台管理员权限）
       parameters:
-      - description: 租户ID
-        in: path
-        name: tenantId
-        required: true
-        type: string
-      - description: 用户ID
-        in: path
-        name: userId
-        required: true
-        type: string
+        - description: 租户ID
+          in: path
+          name: tenantId
+          required: true
+          type: string
+        - description: 用户ID
+          in: path
+          name: userId
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 删除成功
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 用户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 删除用户
       tags:
-      - Tenant User Management
+        - Tenant User Management
   /tenants/{tenantId}/users/{userId}/status:
     patch:
       consumes:
-      - application/json
+        - application/json
       description: 启用或禁用指定租户下的用户（需要租户管理员或平台管理员权限）
       parameters:
-      - description: 租户ID
-        in: path
-        name: tenantId
-        required: true
-        type: string
-      - description: 用户ID
-        in: path
-        name: userId
-        required: true
-        type: string
-      - description: 更新用户状态请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/UpdateUserStatusRequest'
+        - description: 租户ID
+          in: path
+          name: tenantId
+          required: true
+          type: string
+        - description: 用户ID
+          in: path
+          name: userId
+          required: true
+          type: string
+        - description: 更新用户状态请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUserStatusRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 更新成功
           schema:
             $ref: '#/definitions/UserDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 用户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 更新用户状态
       tags:
-      - Tenant User Management
+        - Tenant User Management
   /users:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取当前租户下的用户列表，支持分页（需要租户管理员权限）
       parameters:
-      - default: 1
-        description: 页码
-        in: query
-        minimum: 1
-        name: pageNo
-        required: true
-        type: integer
-      - default: 20
-        description: 每页大小
-        in: query
-        maximum: 100
-        minimum: 1
-        name: pageSize
-        required: true
-        type: integer
+        - default: 1
+          description: 页码
+          in: query
+          minimum: 1
+          name: pageNo
+          required: true
+          type: integer
+        - default: 20
+          description: 每页大小
+          in: query
+          maximum: 100
+          minimum: 1
+          name: pageSize
+          required: true
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 获取成功
           schema:
             $ref: '#/definitions/UserListResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 获取用户列表
       tags:
-      - User Management
+        - User Management
     post:
       consumes:
-      - application/json
+        - application/json
       description: 在指定租户下创建新用户（需要租户管理员权限）
       parameters:
-      - description: 创建用户请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/CreateUserRequest'
+        - description: 创建用户请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/CreateUserRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: 创建成功
           schema:
             $ref: '#/definitions/UserDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 创建用户
       tags:
-      - User Management
+        - User Management
   /users/{id}:
     delete:
       consumes:
-      - application/json
+        - application/json
       description: 软删除指定的用户（需要租户管理员权限）
       parameters:
-      - description: 用户ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 用户ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 删除成功
           schema:
             $ref: '#/definitions/AnyDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 用户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 删除用户
       tags:
-      - User Management
+        - User Management
     get:
       consumes:
-      - application/json
+        - application/json
       description: 根据用户ID获取用户详细信息（需要租户管理员权限）
       parameters:
-      - description: 用户ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 用户ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 获取成功
           schema:
             $ref: '#/definitions/UserDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 用户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 获取用户详情
       tags:
-      - User Management
+        - User Management
     put:
       consumes:
-      - application/json
+        - application/json
       description: 更新用户信息（需要租户管理员权限）
       parameters:
-      - description: 用户ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 更新用户请求
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/UpdateUserRequest'
+        - description: 用户ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: 更新用户请求
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUserRequest'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: 更新成功
           schema:
             $ref: '#/definitions/UserDataResponse'
-        "400":
+        '400':
           description: 请求参数错误
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: 未认证
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "403":
+        '403':
           description: 权限不足
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: 用户不存在
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "422":
+        '422':
           description: 参数验证失败
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: 服务器内部错误
           schema:
             $ref: '#/definitions/ErrorResponse'
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       summary: 更新用户
       tags:
-      - User Management
+        - User Management
 schemes:
-- http
-- https
+  - http
+  - https
 securityDefinitions:
   BearerAuth:
     description: 输入 "Bearer {token}" 格式的 JWT 令牌进行身份认证
     in: header
     name: Authorization
     type: apiKey
-swagger: "2.0"
+swagger: '2.0'
 tags:
-- description: 用户认证相关接口（注册、登录、Token 刷新、注销等）
-  name: Authentication
-- description: 租户管理接口（需要管理员权限）
-  name: Tenant Management
-- description: 用户管理接口（需要租户管理员权限）
-  name: User Management
-- description: 租户用户管理接口（需要租户管理员或平台管理员权限）
-  name: Tenant User Management
-- description: 平台管理接口（需要平台管理员权限）
-  name: Platform Management
-- description: 审计日志接口
-  name: Audit
-- description: 监控接口
-  name: Monitoring
-- description: 模型提供商管理接口
-  name: providers
-- description: AI 对话接口
-  name: chat
-- description: 会话管理接口
-  name: sessions
-- description: 消息管理接口
-  name: messages
-- description: 健康检查接口
-  name: health
+  - description: 用户认证相关接口（注册、登录、Token 刷新、注销等）
+    name: Authentication
+  - description: 租户管理接口（需要管理员权限）
+    name: Tenant Management
+  - description: 用户管理接口（需要租户管理员权限）
+    name: User Management
+  - description: 租户用户管理接口（需要租户管理员或平台管理员权限）
+    name: Tenant User Management
+  - description: 平台管理接口（需要平台管理员权限）
+    name: Platform Management
+  - description: 审计日志接口
+    name: Audit
+  - description: 监控接口
+    name: Monitoring
+  - description: 模型提供商管理接口
+    name: providers
+  - description: AI 对话接口
+    name: chat
+  - description: 会话管理接口
+    name: sessions
+  - description: 消息管理接口
+    name: messages
+  - description: 健康检查接口
+    name: health

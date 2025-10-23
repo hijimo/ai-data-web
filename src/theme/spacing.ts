@@ -35,7 +35,8 @@ export const spacingTokens = {
   controlHeightSM: 32, // 小型控件高度
   controlHeightLG: 44, // 大型控件高度
   controlHeightXL: 52, // 超大控件高度
-};
+}
 
 // 创建间距工具函数
-export const spacing = (multiplier: number): number => spacingTokens.sizeUnit * multiplier;
+export const spacing = (multiplier: number): number =>
+  spacingTokens.sizeUnit * multiplier

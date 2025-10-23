@@ -1,8 +1,6 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
-const { generateTailwindTheme } = require('./src/theme/tailwind-bridge');
-
-console.log('import.meta.env.VITE_THEME_COLOR', import.meta.env.VITE_THEME_COLOR);
+const { generateTailwindTheme } = require('./src/theme/tailwind-bridge')
 
 const config: Config = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,.css}'],
@@ -20,6 +18,6 @@ const config: Config = {
   corePlugins: {
     preflight: false,
   },
-};
+}
 
-export default config;
+export default config

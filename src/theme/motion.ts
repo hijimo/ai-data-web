@@ -19,7 +19,7 @@ export const motionTokens = {
   motionLeave: '0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19)', // 元素离开过渡
   motionExpand: '0.3s cubic-bezier(0.645, 0.045, 0.355, 1)', // 展开过渡
   motionCollapse: '0.3s cubic-bezier(0.645, 0.045, 0.355, 1)', // 折叠过渡
-};
+}
 
 // 为组件提供默认动画配置
 export const componentMotions = {
@@ -59,4 +59,4 @@ export const componentMotions = {
   list: {
     itemMotion: `${motionTokens.motionDurationMid} ${motionTokens.motionEaseOut}`,
   },
-};
+}

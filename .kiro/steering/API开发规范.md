@@ -1,6 +1,6 @@
 ---
 inclusion: fileMatch
-fileMatchPattern: "src/**/{api,services,hooks}/**/*.{ts,tsx}"
+fileMatchPattern: 'src/**/{api,services,hooks}/**/*.{ts,tsx}'
 ---
 
 # API 开发规范
@@ -10,8 +10,8 @@ fileMatchPattern: "src/**/{api,services,hooks}/**/*.{ts,tsx}"
 ### Axios 实例配置
 
 ```typescript
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const apiClient = axios.create({
   baseURL: '/api',
@@ -19,19 +19,19 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-});
+})
 
 // 请求拦截器
 apiClient.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('token');
+    const token = Cookies.get('token')
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
+    return config
   },
-  (error) => Promise.reject(error)
-);
+  (error) => Promise.reject(error),
+)
 
 // 响应拦截器
 apiClient.interceptors.response.use(
@@ -41,9 +41,9 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       // 处理未授权
     }
-    return Promise.reject(error);
-  }
-);
+    return Promise.reject(error)
+  },
+)
 ```
 
 ## API 服务层
@@ -66,35 +66,35 @@ src/
 
 ```typescript
 // src/services/api/user.ts
-import { apiClient } from './client';
-import type { User, UserCreateInput } from '../types/user';
+import { apiClient } from './client'
+import type { User, UserCreateInput } from '../types/user'
 
 export const userApi = {
   // 获取用户列表
   getUsers: async (): Promise<User[]> => {
-    return apiClient.get('/users');
+    return apiClient.get('/users')
   },
 
   // 获取单个用户
   getUser: async (id: string): Promise<User> => {
-    return apiClient.get(`/users/${id}`);
+    return apiClient.get(`/users/${id}`)
   },
 
   // 创建用户
   createUser: async (data: UserCreateInput): Promise<User> => {
-    return apiClient.post('/users', data);
+    return apiClient.post('/users', data)
   },
 
   // 更新用户
   updateUser: async (id: string, data: Partial<User>): Promise<User> => {
-    return apiClient.put(`/users/${id}`, data);
+    return apiClient.put(`/users/${id}`, data)
   },
 
   // 删除用户
   deleteUser: async (id: string): Promise<void> => {
-    return apiClient.delete(`/users/${id}`);
+    return apiClient.delete(`/users/${id}`)
   },
-};
+}
 ```
 
 ## React Query 集成
@@ -103,9 +103,9 @@ export const userApi = {
 
 ```typescript
 // src/hooks/useUsers.ts
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { userApi } from '@/services/api/user';
-import type { User, UserCreateInput } from '@/services/types/user';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { userApi } from '@/services/api/user'
+import type { User, UserCreateInput } from '@/services/types/user'
 
 // 查询键工厂
 export const userKeys = {
@@ -114,15 +114,15 @@ export const userKeys = {
   list: (filters: string) => [...userKeys.lists(), { filters }] as const,
   details: () => [...userKeys.all, 'detail'] as const,
   detail: (id: string) => [...userKeys.details(), id] as const,
-};
+}
 
 // 获取用户列表
 export const useUsers = () => {
   return useQuery({
     queryKey: userKeys.lists(),
     queryFn: userApi.getUsers,
-  });
-};
+  })
+}
 
 // 获取单个用户
 export const useUser = (id: string) => {
@@ -130,46 +130,46 @@ export const useUser = (id: string) => {
     queryKey: userKeys.detail(id),
     queryFn: () => userApi.getUser(id),
     enabled: !!id,
-  });
-};
+  })
+}
 
 // 创建用户
 export const useCreateUser = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: userApi.createUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: userKeys.lists() })
     },
-  });
-};
+  })
+}
 
 // 更新用户
 export const useUpdateUser = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<User> }) =>
       userApi.updateUser(id, data),
     onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries({ queryKey: userKeys.detail(id) });
-      queryClient.invalidateQueries({ queryKey: userKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: userKeys.detail(id) })
+      queryClient.invalidateQueries({ queryKey: userKeys.lists() })
     },
-  });
-};
+  })
+}
 
 // 删除用户
 export const useDeleteUser = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: userApi.deleteUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: userKeys.lists() })
     },
-  });
-};
+  })
+}
 ```
 
 ### 在组件中使用
@@ -211,16 +211,16 @@ const UserList = () => {
 ```typescript
 // src/services/types/common.ts
 export interface ApiResponse<T> {
-  code: number;
-  message: string;
-  data: T;
+  code: number
+  message: string
+  data: T
 }
 
 export interface PaginatedResponse<T> {
-  items: T[];
-  total: number;
-  page: number;
-  pageSize: number;
+  items: T[]
+  total: number
+  page: number
+  pageSize: number
 }
 ```
 
@@ -229,24 +229,24 @@ export interface PaginatedResponse<T> {
 ```typescript
 // src/services/types/user.ts
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name: string
+  email: string
+  avatar?: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface UserCreateInput {
-  name: string;
-  email: string;
-  password: string;
+  name: string
+  email: string
+  password: string
 }
 
 export interface UserUpdateInput {
-  name?: string;
-  email?: string;
-  avatar?: string;
+  name?: string
+  email?: string
+  avatar?: string
 }
 ```
 
@@ -255,41 +255,41 @@ export interface UserUpdateInput {
 ### 统一错误处理
 
 ```typescript
-import { message } from 'antd';
+import { message } from 'antd'
 
 export const handleApiError = (error: any) => {
   if (error.response) {
     // 服务器返回错误
-    const { status, data } = error.response;
-    
+    const { status, data } = error.response
+
     switch (status) {
       case 400:
-        message.error(data.message || '请求参数错误');
-        break;
+        message.error(data.message || '请求参数错误')
+        break
       case 401:
-        message.error('未授权，请重新登录');
+        message.error('未授权，请重新登录')
         // 跳转到登录页
-        break;
+        break
       case 403:
-        message.error('没有权限访问');
-        break;
+        message.error('没有权限访问')
+        break
       case 404:
-        message.error('请求的资源不存在');
-        break;
+        message.error('请求的资源不存在')
+        break
       case 500:
-        message.error('服务器错误');
-        break;
+        message.error('服务器错误')
+        break
       default:
-        message.error(data.message || '请求失败');
+        message.error(data.message || '请求失败')
     }
   } else if (error.request) {
     // 请求已发送但没有收到响应
-    message.error('网络错误，请检查网络连接');
+    message.error('网络错误，请检查网络连接')
   } else {
     // 其他错误
-    message.error(error.message || '未知错误');
+    message.error(error.message || '未知错误')
   }
-};
+}
 ```
 
 ## 最佳实践

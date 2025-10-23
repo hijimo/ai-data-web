@@ -1,8 +1,8 @@
-import type { ThemeConfig } from 'antd';
+import type { ThemeConfig } from 'antd'
 
-import { neutralColors, tailwindColors, type ColorName } from './tokens';
+import { neutralColors, tailwindColors, type ColorName } from './tokens'
 
-type ComponentsConfig = NonNullable<ThemeConfig['components']>;
+type ComponentsConfig = NonNullable<ThemeConfig['components']>
 
 // 组件级样式覆盖配置
 export const componentTokens = {
@@ -226,15 +226,17 @@ export const componentTokens = {
     labelHeight: 40,
     itemMarginBottom: 24,
   },
-};
+}
 
 /**
  * 获取带主题色的组件配置
  * @param colorName 主题颜色名称
  * @returns 带主题色的组件配置
  */
-export const getThemedComponentTokens = (colorName: ColorName): ComponentsConfig => {
-  const color = tailwindColors[colorName] || tailwindColors.teal;
+export const getThemedComponentTokens = (
+  colorName: ColorName,
+): ComponentsConfig => {
+  const color = tailwindColors[colorName] || tailwindColors.teal
 
   return {
     ...componentTokens,
@@ -295,5 +297,5 @@ export const getThemedComponentTokens = (colorName: ColorName): ComponentsConfig
       ...componentTokens.Pagination,
       itemActiveBg: color[50],
     },
-  };
-};
+  }
+}

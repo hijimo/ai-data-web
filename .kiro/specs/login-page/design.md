@@ -77,14 +77,14 @@ interface LoginPageProps {
 
 ```typescript
 interface LoginFormProps {
-  onSubmit: (values: LoginFormValues) => Promise<void>;
-  loading?: boolean;
+  onSubmit: (values: LoginFormValues) => Promise<void>
+  loading?: boolean
 }
 
 interface LoginFormValues {
-  username: string;
-  password: string;
-  remember?: boolean;
+  username: string
+  password: string
+  remember?: boolean
 }
 ```
 
@@ -102,12 +102,12 @@ interface LoginFormValues {
 const validationRules = {
   username: [
     { required: true, message: '请输入用户名' },
-    { min: 3, message: '用户名至少 3 个字符' }
+    { min: 3, message: '用户名至少 3 个字符' },
   ],
   password: [
     { required: true, message: '请输入密码' },
-    { min: 6, message: '密码至少 6 个字符' }
-  ]
+    { min: 6, message: '密码至少 6 个字符' },
+  ],
 }
 ```
 
@@ -130,8 +130,8 @@ const validationRules = {
 
 ```typescript
 interface LoginHeaderProps {
-  title?: string;
-  subtitle?: string;
+  title?: string
+  subtitle?: string
 }
 ```
 
@@ -158,10 +158,10 @@ interface LoginHeaderProps {
 
 ```typescript
 interface LoginFooterProps {
-  showForgotPassword?: boolean;
-  showRegister?: boolean;
-  onForgotPassword?: () => void;
-  onRegister?: () => void;
+  showForgotPassword?: boolean
+  showRegister?: boolean
+  onForgotPassword?: () => void
+  onRegister?: () => void
 }
 ```
 
@@ -184,9 +184,9 @@ interface LoginFooterProps {
 
 ```typescript
 interface LoginFormValues {
-  username: string;      // 用户名，3-50 个字符
-  password: string;      // 密码，6-50 个字符
-  remember?: boolean;    // 记住我选项，默认 false
+  username: string // 用户名，3-50 个字符
+  password: string // 密码，6-50 个字符
+  remember?: boolean // 记住我选项，默认 false
 }
 ```
 
@@ -194,16 +194,16 @@ interface LoginFormValues {
 
 ```typescript
 interface LoginResponse {
-  success: boolean;
-  message?: string;
+  success: boolean
+  message?: string
   data?: {
-    token: string;
+    token: string
     user: {
-      id: string;
-      username: string;
-      email?: string;
-    };
-  };
+      id: string
+      username: string
+      email?: string
+    }
+  }
 }
 ```
 
@@ -211,9 +211,9 @@ interface LoginResponse {
 
 ```typescript
 interface LoginState {
-  isLoading: boolean;
-  error: string | null;
-  isAuthenticated: boolean;
+  isLoading: boolean
+  error: string | null
+  isAuthenticated: boolean
 }
 ```
 
@@ -230,13 +230,13 @@ interface LoginState {
 
 ```typescript
 const errorMessages: Record<string, string> = {
-  'INVALID_CREDENTIALS': '用户名或密码错误',
-  'ACCOUNT_LOCKED': '账号已被锁定，请联系管理员',
-  'ACCOUNT_DISABLED': '账号已被禁用',
-  'NETWORK_ERROR': '网络连接失败，请检查网络设置',
-  'SERVER_ERROR': '服务器错误，请稍后重试',
-  'UNKNOWN_ERROR': '登录失败，请重试'
-};
+  INVALID_CREDENTIALS: '用户名或密码错误',
+  ACCOUNT_LOCKED: '账号已被锁定，请联系管理员',
+  ACCOUNT_DISABLED: '账号已被禁用',
+  NETWORK_ERROR: '网络连接失败，请检查网络设置',
+  SERVER_ERROR: '服务器错误，请稍后重试',
+  UNKNOWN_ERROR: '登录失败，请重试',
+}
 ```
 
 **错误处理流程**:
@@ -321,36 +321,36 @@ const errorMessages: Record<string, string> = {
 
 ```typescript
 const colors = {
-  primary: 'bg-blue-500',        // 主色调
+  primary: 'bg-blue-500', // 主色调
   primaryHover: 'hover:bg-blue-600',
-  background: 'bg-gray-50',      // 页面背景
-  cardBg: 'bg-white',            // 卡片背景
-  text: 'text-gray-900',         // 主文字
+  background: 'bg-gray-50', // 页面背景
+  cardBg: 'bg-white', // 卡片背景
+  text: 'text-gray-900', // 主文字
   textSecondary: 'text-gray-500', // 次要文字
-  border: 'border-gray-200',     // 边框
-  error: 'text-red-500',         // 错误提示
-};
+  border: 'border-gray-200', // 边框
+  error: 'text-red-500', // 错误提示
+}
 ```
 
 ### 间距规范
 
 ```typescript
 const spacing = {
-  cardPadding: 'p-8 md:p-12',    // 卡片内边距
-  formGap: 'space-y-4',          // 表单项间距
-  sectionGap: 'space-y-6',       // 区块间距
-  buttonHeight: 'h-12',          // 按钮高度
-};
+  cardPadding: 'p-8 md:p-12', // 卡片内边距
+  formGap: 'space-y-4', // 表单项间距
+  sectionGap: 'space-y-6', // 区块间距
+  buttonHeight: 'h-12', // 按钮高度
+}
 ```
 
 ### 响应式断点
 
 ```typescript
 const breakpoints = {
-  mobile: '< 640px',    // 移动端
-  tablet: '640px - 1024px',  // 平板
-  desktop: '≥ 1024px',  // 桌面
-};
+  mobile: '< 640px', // 移动端
+  tablet: '640px - 1024px', // 平板
+  desktop: '≥ 1024px', // 桌面
+}
 ```
 
 ### 卡片样式
@@ -370,7 +370,7 @@ const animations = {
   fadeIn: 'animate-fade-in',
   slideUp: 'animate-slide-up',
   transition: 'transition-all duration-300',
-};
+}
 ```
 
 ## 性能优化
@@ -402,7 +402,7 @@ const ariaLabels = {
   username: 'aria-label="用户名输入框"',
   password: 'aria-label="密码输入框"',
   submit: 'aria-label="提交登录"',
-};
+}
 ```
 
 ### 键盘导航
@@ -457,11 +457,11 @@ const ariaLabels = {
 
 ```typescript
 // 登录成功后跳转到首页或之前访问的页面
-const navigate = useNavigate();
-const location = useLocation();
+const navigate = useNavigate()
+const location = useLocation()
 
-const from = location.state?.from?.pathname || '/';
-navigate(from, { replace: true });
+const from = location.state?.from?.pathname || '/'
+navigate(from, { replace: true })
 ```
 
 ### 路由守卫
@@ -485,11 +485,11 @@ navigate(from, { replace: true });
 ```typescript
 // src/stores/authStore.ts
 interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  token: string | null;
-  login: (token: string, user: User) => void;
-  logout: () => void;
+  isAuthenticated: boolean
+  user: User | null
+  token: string | null
+  login: (token: string, user: User) => void
+  logout: () => void
 }
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -498,7 +498,7 @@ const useAuthStore = create<AuthState>((set) => ({
   token: null,
   login: (token, user) => set({ isAuthenticated: true, token, user }),
   logout: () => set({ isAuthenticated: false, token: null, user: null }),
-}));
+}))
 ```
 
 ## API 集成
@@ -507,13 +507,15 @@ const useAuthStore = create<AuthState>((set) => ({
 
 ```typescript
 // src/services/auth.ts
-export const loginAPI = async (credentials: LoginFormValues): Promise<LoginResponse> => {
+export const loginAPI = async (
+  credentials: LoginFormValues,
+): Promise<LoginResponse> => {
   const response = await axios.post('/api/auth/login', {
     username: credentials.username,
     password: credentials.password,
-  });
-  return response.data;
-};
+  })
+  return response.data
+}
 ```
 
 ### 请求拦截器
@@ -521,12 +523,12 @@ export const loginAPI = async (credentials: LoginFormValues): Promise<LoginRespo
 ```typescript
 // 添加 Token 到请求头
 axios.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().token;
+  const token = useAuthStore.getState().token
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`
   }
-  return config;
-});
+  return config
+})
 ```
 
 ### 响应拦截器
@@ -537,12 +539,12 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      useAuthStore.getState().logout();
-      window.location.href = '/login';
+      useAuthStore.getState().logout()
+      window.location.href = '/login'
     }
-    return Promise.reject(error);
-  }
-);
+    return Promise.reject(error)
+  },
+)
 ```
 
 ## 文件结构

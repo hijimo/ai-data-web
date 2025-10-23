@@ -59,10 +59,10 @@ src/pages/roles/
 
 ```typescript
 interface RoleData {
-  id: string;           // 角色 ID
-  name: string;         // 角色名称
-  description: string;  // 角色描述
-  createdAt: string;    // 创建时间
+  id: string // 角色 ID
+  name: string // 角色名称
+  description: string // 角色描述
+  createdAt: string // 创建时间
 }
 ```
 
@@ -70,8 +70,8 @@ interface RoleData {
 
 ```typescript
 interface RoleListResponse {
-  data: RoleData[];     // 角色列表
-  total: number;        // 总数
+  data: RoleData[] // 角色列表
+  total: number // 总数
 }
 ```
 
@@ -84,12 +84,12 @@ interface RoleListResponse {
 ```typescript
 // src/services/role.ts
 export const getRoles = async (params?: {
-  page?: number;
-  pageSize?: number;
-  keyword?: string;
+  page?: number
+  pageSize?: number
+  keyword?: string
 }): Promise<RoleListResponse> => {
   // 实现 API 调用
-};
+}
 ```
 
 ### 其他 API
@@ -132,16 +132,16 @@ export const getRoles = async (params?: {
 
 ```tsx
 // src/router.tsx
-import { lazy } from 'react';
+import { lazy } from 'react'
 
-const RoleManagement = lazy(() => import('@/pages/roles'));
+const RoleManagement = lazy(() => import('@/pages/roles'))
 
 export const routes = [
   {
     path: '/roles',
     element: <RoleManagement />,
   },
-];
+]
 ```
 
 ### 自定义样式

@@ -28,11 +28,11 @@ function LoginPage() {
   const handleLogin = async (values: LoginFormValues) => {
     // 调用登录 API
     const response = await loginAPI(values)
-    
+
     if (response.success && response.data) {
       // 保存认证状态
       login(response.data.token, response.data.user, values.remember)
-      
+
       // 跳转到首页
       navigate('/')
     }
@@ -129,7 +129,7 @@ function UpdateProfile() {
   const handleUpdate = async (newData: Partial<User>) => {
     // 调用更新 API
     await updateUserAPI(newData)
-    
+
     // 更新本地状态
     updateUser(newData)
   }
@@ -142,30 +142,30 @@ function UpdateProfile() {
 
 #### State（状态）
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `isAuthenticated` | `boolean` | 是否已认证 |
-| `user` | `User \| null` | 用户信息 |
-| `token` | `string \| null` | 认证令牌 |
-| `rememberMe` | `boolean` | 是否记住登录状态 |
+| 属性              | 类型             | 说明             |
+| ----------------- | ---------------- | ---------------- |
+| `isAuthenticated` | `boolean`        | 是否已认证       |
+| `user`            | `User \| null`   | 用户信息         |
+| `token`           | `string \| null` | 认证令牌         |
+| `rememberMe`      | `boolean`        | 是否记住登录状态 |
 
 #### Actions（操作）
 
-| 方法 | 参数 | 说明 |
-|------|------|------|
-| `login` | `(token: string, user: User, remember?: boolean)` | 登录并保存认证信息 |
-| `logout` | `()` | 登出并清除所有认证信息 |
-| `updateUser` | `(user: Partial<User>)` | 更新用户信息 |
-| `updateToken` | `(token: string)` | 更新认证令牌 |
+| 方法          | 参数                                              | 说明                   |
+| ------------- | ------------------------------------------------- | ---------------------- |
+| `login`       | `(token: string, user: User, remember?: boolean)` | 登录并保存认证信息     |
+| `logout`      | `()`                                              | 登出并清除所有认证信息 |
+| `updateUser`  | `(user: Partial<User>)`                           | 更新用户信息           |
+| `updateToken` | `(token: string)`                                 | 更新认证令牌           |
 
 #### Selectors（选择器）
 
-| 选择器 | 返回类型 | 说明 |
-|--------|----------|------|
-| `selectIsAuthenticated` | `boolean` | 获取认证状态 |
-| `selectUser` | `User \| null` | 获取用户信息 |
-| `selectToken` | `string \| null` | 获取认证令牌 |
-| `selectRememberMe` | `boolean` | 获取记住我状态 |
+| 选择器                  | 返回类型         | 说明           |
+| ----------------------- | ---------------- | -------------- |
+| `selectIsAuthenticated` | `boolean`        | 获取认证状态   |
+| `selectUser`            | `User \| null`   | 获取用户信息   |
+| `selectToken`           | `string \| null` | 获取认证令牌   |
+| `selectRememberMe`      | `boolean`        | 获取记住我状态 |
 
 ### 持久化说明
 
@@ -181,7 +181,7 @@ function UpdateProfile() {
    ```typescript
    // ✅ 推荐
    const user = useAuthStore(selectUser)
-   
+
    // ❌ 不推荐
    const { user } = useAuthStore()
    ```
@@ -191,7 +191,7 @@ function UpdateProfile() {
    ```typescript
    // ✅ 只在 user 变化时重渲染
    const user = useAuthStore((state) => state.user)
-   
+
    // ❌ 任何状态变化都会重渲染
    const store = useAuthStore()
    ```
@@ -200,7 +200,7 @@ function UpdateProfile() {
 
    ```typescript
    import { useAuthStore } from '@/stores'
-   
+
    axios.interceptors.request.use((config) => {
      const token = useAuthStore.getState().token
      if (token) {
@@ -221,7 +221,7 @@ function UpdateProfile() {
          window.location.href = '/login'
        }
        return Promise.reject(error)
-     }
+     },
    )
    ```
 

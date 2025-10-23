@@ -18,8 +18,8 @@
 ### 基本使用
 
 ```tsx
-import { ConfigProvider } from 'antd';
-import { getThemeConfig } from './theme';
+import { ConfigProvider } from 'antd'
+import { getThemeConfig } from './theme'
 
 // 在应用根组件中配置主题
 const App = () => {
@@ -27,42 +27,42 @@ const App = () => {
     <ConfigProvider theme={getThemeConfig('light')}>
       <YourApp />
     </ConfigProvider>
-  );
-};
+  )
+}
 ```
 
 ### 主题切换
 
 ```tsx
-import { useState } from 'react';
-import { ConfigProvider, Switch } from 'antd';
-import { getSwitchableTheme } from './theme';
+import { useState } from 'react'
+import { ConfigProvider, Switch } from 'antd'
+import { getSwitchableTheme } from './theme'
 
 const App = () => {
-  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
-  
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light')
+
   return (
     <>
-      <Switch 
-        checked={themeMode === 'dark'} 
+      <Switch
+        checked={themeMode === 'dark'}
         onChange={(checked) => setThemeMode(checked ? 'dark' : 'light')}
         checkedChildren="暗色"
         unCheckedChildren="亮色"
       />
-      
+
       <ConfigProvider theme={getSwitchableTheme(themeMode)}>
         <YourApp />
       </ConfigProvider>
     </>
-  );
-};
+  )
+}
 ```
 
 ### 自定义主题
 
 ```tsx
-import { ConfigProvider } from 'antd';
-import { getSwitchableTheme } from './theme';
+import { ConfigProvider } from 'antd'
+import { getSwitchableTheme } from './theme'
 
 // 自定义部分主题配置
 const customTheme = {
@@ -72,17 +72,17 @@ const customTheme = {
   components: {
     Button: {
       borderRadius: 8, // 自定义按钮圆角
-    }
-  }
-};
+    },
+  },
+}
 
 const App = () => {
   return (
     <ConfigProvider theme={getSwitchableTheme('light', customTheme)}>
       <YourApp />
     </ConfigProvider>
-  );
-};
+  )
+}
 ```
 
 ## 主题切换原理
@@ -132,49 +132,51 @@ const App = () => {
 ### 1. 切换主题模式
 
 ```tsx
-import useTheme from '@/hooks/useTheme';
+import useTheme from '@/hooks/useTheme'
 
 const MyComponent = () => {
-  const { themeMode, setThemeMode } = useTheme();
-  
+  const { themeMode, setThemeMode } = useTheme()
+
   return (
-    <button onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}>
+    <button
+      onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
+    >
       切换主题模式
     </button>
-  );
-};
+  )
+}
 ```
 
 ### 2. 切换主题颜色
 
 ```tsx
-import useTheme from '@/hooks/useTheme';
-import type { ColorName } from '@/theme/tokens';
+import useTheme from '@/hooks/useTheme'
+import type { ColorName } from '@/theme/tokens'
 
 const MyComponent = () => {
-  const { colorName, setColorName } = useTheme();
-  
+  const { colorName, setColorName } = useTheme()
+
   return (
     <button onClick={() => setColorName('blue' as ColorName)}>
       切换到蓝色主题
     </button>
-  );
-};
+  )
+}
 ```
 
 ### 3. 获取所有可用的颜色系统
 
 ```tsx
-import { getAvailableColors } from '@/theme';
+import { getAvailableColors } from '@/theme'
 
-const colors = getAvailableColors();
+const colors = getAvailableColors()
 // 返回: ['red', 'orange', 'amber', 'yellow', 'lime', 'green', ...]
 ```
 
 ### 4. 使用预设的主题切换器组件
 
 ```tsx
-import ThemeSwitcher from '@/components/ThemeSwitcher';
+import ThemeSwitcher from '@/components/ThemeSwitcher'
 
 const MyComponent = () => {
   return (
@@ -182,8 +184,8 @@ const MyComponent = () => {
       <h1>我的应用</h1>
       <ThemeSwitcher />
     </div>
-  );
-};
+  )
+}
 ```
 
 ## 颜色系统

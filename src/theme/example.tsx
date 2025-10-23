@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   ConfigProvider,
   Button,
@@ -9,8 +9,8 @@ import {
   Form,
   Input,
   Select,
-} from 'antd';
-import { getSwitchableTheme } from './index';
+} from 'antd'
+import { getSwitchableTheme } from './index'
 
 /**
  * 主题配置示例组件
@@ -18,12 +18,12 @@ import { getSwitchableTheme } from './index';
  */
 const ThemeExample: React.FC = () => {
   // 主题模式状态
-  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light')
 
   // 切换主题模式
   const handleThemeChange = (checked: boolean) => {
-    setThemeMode(checked ? 'dark' : 'light');
-  };
+    setThemeMode(checked ? 'dark' : 'light')
+  }
 
   return (
     <ConfigProvider theme={getSwitchableTheme(themeMode)}>
@@ -87,7 +87,7 @@ const ThemeExample: React.FC = () => {
         </Space>
       </Card>
     </ConfigProvider>
-  );
-};
+  )
+}
 
-export default ThemeExample;
+export default ThemeExample

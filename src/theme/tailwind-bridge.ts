@@ -1,84 +1,89 @@
-import { darkNeutralColors, getSemanticColors, neutralColors, type ColorName } from './tokens';
+import {
+  darkNeutralColors,
+  getSemanticColors,
+  neutralColors,
+  type ColorName,
+} from './tokens'
 
 export type TailwindTheme = {
   colors: {
     primary: {
-      DEFAULT: string;
-      50: string;
-      100: string;
-      200: string;
-      500: string;
-      600: string;
-      700: string;
-    };
+      DEFAULT: string
+      50: string
+      100: string
+      200: string
+      500: string
+      600: string
+      700: string
+    }
     success: {
-      DEFAULT: string;
-      50: string;
-      100: string;
-      200: string;
-      500: string;
-      600: string;
-      700: string;
-    };
+      DEFAULT: string
+      50: string
+      100: string
+      200: string
+      500: string
+      600: string
+      700: string
+    }
     warning: {
-      DEFAULT: string;
-      50: string;
-      100: string;
-      200: string;
-      500: string;
-      600: string;
-      700: string;
-    };
+      DEFAULT: string
+      50: string
+      100: string
+      200: string
+      500: string
+      600: string
+      700: string
+    }
     error: {
-      DEFAULT: string;
-      50: string;
-      100: string;
-      200: string;
-      500: string;
-      600: string;
-      700: string;
-    };
+      DEFAULT: string
+      50: string
+      100: string
+      200: string
+      500: string
+      600: string
+      700: string
+    }
     info: {
-      DEFAULT: string;
-      50: string;
-      100: string;
-      200: string;
-      500: string;
-      600: string;
-      700: string;
-    };
-    gray: Record<string, string>;
-    teal: Record<string, string>;
-  };
+      DEFAULT: string
+      50: string
+      100: string
+      200: string
+      500: string
+      600: string
+      700: string
+    }
+    gray: Record<string, string>
+    teal: Record<string, string>
+  }
   borderRadius: {
-    sm: string;
-    DEFAULT: string;
-    md: string;
-    lg: string;
-    xl: string;
-  };
+    sm: string
+    DEFAULT: string
+    md: string
+    lg: string
+    xl: string
+  }
   boxShadow: {
-    sm: string;
-    DEFAULT: string;
-    md: string;
-    lg: string;
-    xl: string;
-    inner: string;
-    none: string;
-  };
+    sm: string
+    DEFAULT: string
+    md: string
+    lg: string
+    xl: string
+    inner: string
+    none: string
+  }
   fontFamily: {
-    sans: string[];
-  };
+    sans: string[]
+  }
   fontSize: {
-    xs: string;
-    sm: string;
-    base: string;
-    lg: string;
-    xl: string;
-    '2xl': string;
-  };
-  spacing: Record<string, string>;
-};
+    xs: string
+    sm: string
+    base: string
+    lg: string
+    xl: string
+    '2xl': string
+  }
+  spacing: Record<string, string>
+}
 
 /**
  * 生成Tailwind配置，用于桥接Ant Design主题和Tailwind CSS
@@ -96,8 +101,10 @@ export type TailwindTheme = {
  * };
  */
 
-export const generateTailwindTheme = (colorName: ColorName = 'teal'): TailwindTheme => {
-  const semanticColors = getSemanticColors(colorName);
+export const generateTailwindTheme = (
+  colorName: ColorName = 'teal',
+): TailwindTheme => {
+  const semanticColors = getSemanticColors(colorName)
   return {
     colors: {
       // 主色
@@ -180,7 +187,8 @@ export const generateTailwindTheme = (colorName: ColorName = 'teal'): TailwindTh
     },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-      DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      DEFAULT:
+        '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
       md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -218,8 +226,8 @@ export const generateTailwindTheme = (colorName: ColorName = 'teal'): TailwindTh
       '12': '48px', // 48px
       '16': '64px', // 64px
     },
-  };
-};
+  }
+}
 
 /**
  * 生成CSS变量，用于在CSS中直接使用主题变量
@@ -232,24 +240,24 @@ export const generateTailwindTheme = (colorName: ColorName = 'teal'): TailwindTh
  * }
  */
 export const generateCssVariables = (colorName: ColorName = 'teal'): string => {
-  const variables: Record<string, string> = {};
-  const themeSemanticsColors = getSemanticColors(colorName);
+  const variables: Record<string, string> = {}
+  const themeSemanticsColors = getSemanticColors(colorName)
 
   // 添加中性色变量
   Object.entries(neutralColors).forEach(([key, value]) => {
-    variables[`--color-${key}`] = value;
-  });
+    variables[`--color-${key}`] = value
+  })
 
   // 添加语义色变量
   Object.entries(themeSemanticsColors).forEach(([key, value]) => {
-    variables[`--color-${key}`] = value;
-  });
+    variables[`--color-${key}`] = value
+  })
 
   // 转换为CSS字符串
   return Object.entries(variables)
     .map(([key, value]) => `${key}: ${value};`)
-    .join('\n  ');
-};
+    .join('\n  ')
+}
 
 /**
  * 创建自定义CSS类，用于快速应用主题样式
@@ -308,9 +316,9 @@ export const generateCustomClasses = (): void => {
     background-color: var(--color-infoLightest);
     border-color: var(--color-infoLight);
   }
-  `;
-  document.head.appendChild(document.createElement('style')).textContent = css;
-};
+  `
+  document.head.appendChild(document.createElement('style')).textContent = css
+}
 
 /**
  * 用于动态切换主题时更新CSS变量
@@ -329,25 +337,40 @@ export const updateThemeCssVariables = (
   themeMode: 'light' | 'dark',
   colorName: ColorName = 'teal',
 ): void => {
-  if (typeof document === 'undefined') return;
+  if (typeof document === 'undefined') return
 
-  const root = document.documentElement;
-  const themeSemanticsColors = getSemanticColors(colorName);
+  const root = document.documentElement
+  const themeSemanticsColors = getSemanticColors(colorName)
   const themeColors =
     themeMode === 'dark'
       ? { ...darkNeutralColors, ...themeSemanticsColors }
-      : { ...neutralColors, ...themeSemanticsColors };
+      : { ...neutralColors, ...themeSemanticsColors }
 
   // 设置CSS变量
   Object.entries(themeColors).forEach(([key, value]) => {
-    root.style.setProperty(`--color-${key}`, String(value));
-  });
+    root.style.setProperty(`--color-${key}`, String(value))
+  })
 
   // 设置primary相关的CSS变量，用于Tailwind主题
-  root.style.setProperty('--color-primary-50', themeSemanticsColors.primaryLightest);
-  root.style.setProperty('--color-primary-100', themeSemanticsColors.primaryLighter);
-  root.style.setProperty('--color-primary-200', themeSemanticsColors.primaryLight);
-  root.style.setProperty('--color-primary-500', themeSemanticsColors.primary);
-  root.style.setProperty('--color-primary-600', themeSemanticsColors.primaryHover);
-  root.style.setProperty('--color-primary-700', themeSemanticsColors.primaryActive);
-};
+  root.style.setProperty(
+    '--color-primary-50',
+    themeSemanticsColors.primaryLightest,
+  )
+  root.style.setProperty(
+    '--color-primary-100',
+    themeSemanticsColors.primaryLighter,
+  )
+  root.style.setProperty(
+    '--color-primary-200',
+    themeSemanticsColors.primaryLight,
+  )
+  root.style.setProperty('--color-primary-500', themeSemanticsColors.primary)
+  root.style.setProperty(
+    '--color-primary-600',
+    themeSemanticsColors.primaryHover,
+  )
+  root.style.setProperty(
+    '--color-primary-700',
+    themeSemanticsColors.primaryActive,
+  )
+}

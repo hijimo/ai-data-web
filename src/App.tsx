@@ -1,6 +1,9 @@
 import React from 'react'
 import { RouterProvider } from 'react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ConfigProvider } from 'antd'
+import useTheme, { ThemeProvider } from '@/hooks/useTheme'
+import { getThemeConfig } from '@/theme'
 import ErrorBoundary from './components/ErrorBoundary'
 import router from './router'
 
@@ -22,12 +25,17 @@ const queryClient = new QueryClient({
   },
 })
 
-const App: React.FC = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </ErrorBoundary>
-)
+const App: React.FC = () => {
+  const { themeMode, colorName } = useTheme()
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ConfigProvider theme={getThemeConfig(themeMode, colorName)}>
+          <RouterProvider router={router} />
+        </ConfigProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  )
+}
 App.displayName = 'App'
 export default App

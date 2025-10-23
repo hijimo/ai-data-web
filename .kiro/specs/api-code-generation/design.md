@@ -120,7 +120,7 @@ async function saveFile(content, filePath) {
 #### 配置结构
 
 ```typescript
-import { defineConfig } from 'orval';
+import { defineConfig } from 'orval'
 
 export default defineConfig({
   api: {
@@ -131,19 +131,19 @@ export default defineConfig({
       // 输出配置
     },
   },
-});
+})
 ```
 
 #### 关键配置项
 
-| 配置项 | 说明 | 值 |
-|--------|------|-----|
-| `input.target` | OpenAPI 文档路径 | `./docs/api/doc.yaml` |
-| `output.target` | 生成代码输出目录 | `src/services/api` |
-| `output.schemas` | 类型定义输出目录 | `src/types/api` |
-| `output.client` | HTTP 客户端类型 | `axios` |
-| `output.mode` | 生成模式 | `tags-split` |
-| `output.override.mutator` | 自定义请求函数 | `src/utils/request.ts` |
+| 配置项                    | 说明             | 值                     |
+| ------------------------- | ---------------- | ---------------------- |
+| `input.target`            | OpenAPI 文档路径 | `./docs/api/doc.yaml`  |
+| `output.target`           | 生成代码输出目录 | `src/services/api`     |
+| `output.schemas`          | 类型定义输出目录 | `src/types/api`        |
+| `output.client`           | HTTP 客户端类型  | `axios`                |
+| `output.mode`             | 生成模式         | `tags-split`           |
+| `output.override.mutator` | 自定义请求函数   | `src/utils/request.ts` |
 
 ### 3. 类型生成器配置
 
@@ -162,31 +162,31 @@ export default defineConfig({
  * 用户信息
  */
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: string;
+  id: string
+  name: string
+  email: string
+  createdAt: string
 }
 
 /**
  * 获取用户列表请求参数
  */
 export interface GetUsersParams {
-  page: number;
-  pageSize: number;
-  keyword?: string;
+  page: number
+  pageSize: number
+  keyword?: string
 }
 
 /**
  * 获取用户列表响应
  */
 export interface GetUsersResponse {
-  code: number;
-  message: string;
+  code: number
+  message: string
   result: {
-    list: User[];
-    total: number;
-  };
+    list: User[]
+    total: number
+  }
 }
 ```
 
@@ -204,8 +204,8 @@ export interface GetUsersResponse {
 ```typescript
 // src/services/api/user.ts
 
-import request from '@/utils/request';
-import type { GetUsersParams, GetUsersResponse, User } from '@/types/api/user';
+import request from '@/utils/request'
+import type { GetUsersParams, GetUsersResponse, User } from '@/types/api/user'
 
 /**
  * 获取用户列表
@@ -216,8 +216,8 @@ export const getUsers = (params: GetUsersParams): Promise<GetUsersResponse> => {
   return request('/api/users', {
     method: 'GET',
     params,
-  });
-};
+  })
+}
 
 /**
  * 获取用户详情
@@ -227,8 +227,8 @@ export const getUsers = (params: GetUsersParams): Promise<GetUsersResponse> => {
 export const getUserById = (userId: string): Promise<User> => {
   return request(`/api/users/${userId}`, {
     method: 'GET',
-  });
-};
+  })
+}
 ```
 
 ### 5. 自定义请求函数适配器
@@ -242,17 +242,19 @@ export const getUserById = (userId: string): Promise<User> => {
 ```typescript
 // src/utils/orval-mutator.ts
 
-import request from '@/utils/request';
-import type { AxiosRequestConfig } from 'axios';
+import request from '@/utils/request'
+import type { AxiosRequestConfig } from 'axios'
 
 /**
  * Orval 自定义请求函数
  * 将 Orval 生成的请求适配到项目的 request 工具
  */
-export const orvalMutator = async <T>(config: AxiosRequestConfig): Promise<T> => {
-  const { url, ...restConfig } = config;
-  return request<T>(url!, restConfig);
-};
+export const orvalMutator = async <T>(
+  config: AxiosRequestConfig,
+): Promise<T> => {
+  const { url, ...restConfig } = config
+  return request<T>(url!, restConfig)
+}
 ```
 
 ## 数据模型
@@ -306,9 +308,9 @@ components:
 
 ```typescript
 interface ResponseData<T = any> {
-  code: number;      // 业务状态码，0 表示成功
-  message: string;   // 响应消息
-  result: T;         // 实际数据
+  code: number // 业务状态码，0 表示成功
+  message: string // 响应消息
+  result: T // 实际数据
 }
 ```
 
@@ -318,20 +320,20 @@ Orval 生成的类型需要匹配这个格式。
 
 ### 1. 文档同步错误
 
-| 错误类型 | 处理方式 |
-|---------|---------|
-| 网络连接失败 | 输出错误信息，退出码 1 |
-| 404 Not Found | 提示文档地址不存在 |
-| 超时 | 提示请求超时，建议检查网络 |
-| 文件写入失败 | 提示权限或磁盘空间问题 |
+| 错误类型      | 处理方式                   |
+| ------------- | -------------------------- |
+| 网络连接失败  | 输出错误信息，退出码 1     |
+| 404 Not Found | 提示文档地址不存在         |
+| 超时          | 提示请求超时，建议检查网络 |
+| 文件写入失败  | 提示权限或磁盘空间问题     |
 
 ### 2. 代码生成错误
 
-| 错误类型 | 处理方式 |
-|---------|---------|
-| OpenAPI 文档格式错误 | Orval 输出详细错误信息 |
-| 类型冲突 | 检查 OpenAPI 文档中的类型定义 |
-| 路径别名解析失败 | 检查 tsconfig.json 配置 |
+| 错误类型             | 处理方式                      |
+| -------------------- | ----------------------------- |
+| OpenAPI 文档格式错误 | Orval 输出详细错误信息        |
+| 类型冲突             | 检查 OpenAPI 文档中的类型定义 |
+| 路径别名解析失败     | 检查 tsconfig.json 配置       |
 
 ### 3. 运行时错误
 

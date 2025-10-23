@@ -28,4 +28,4 @@ export const typographyTokens = {
   fontWeightNormal: 400, // 常规字重
   fontWeightMedium: 500, // 中等字重
   fontWeightStrong: 600, // 加粗字重
-};
+}

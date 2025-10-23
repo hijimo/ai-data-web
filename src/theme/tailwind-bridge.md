@@ -21,14 +21,14 @@
 
 ```js
 // tailwind.config.js
-const { generateTailwindTheme } = require('./theme/tailwind-bridge');
+const { generateTailwindTheme } = require('./theme/tailwind-bridge')
 
 module.exports = {
   theme: {
     extend: generateTailwindTheme(),
   },
   // 其他配置...
-};
+}
 ```
 
 这样配置后，您可以在 Tailwind 类中使用我们设计系统定义的颜色：
@@ -103,16 +103,16 @@ ${generateCustomClasses()}
 在主题切换组件中使用 `updateThemeCssVariables` 函数：
 
 ```jsx
-import { updateThemeCssVariables } from './theme/tailwind-bridge';
+import { updateThemeCssVariables } from './theme/tailwind-bridge'
 
 // 在主题切换函数中
 function toggleTheme(mode) {
   // 更新当前主题模式
-  setThemeMode(mode); // 假设使用了React状态
-  
+  setThemeMode(mode) // 假设使用了React状态
+
   // 更新CSS变量
-  updateThemeCssVariables(mode);
-  
+  updateThemeCssVariables(mode)
+
   // 如果还需要更新Ant Design主题，可以同时调用
   // changeAntdTheme(mode);
 }
@@ -123,7 +123,7 @@ return (
     checked={themeMode === 'dark'}
     onChange={(checked) => toggleTheme(checked ? 'dark' : 'light')}
   />
-);
+)
 ```
 
 ## 集成与已有项目的兼容
@@ -162,7 +162,7 @@ return (
 
 ```jsx
 // 使用Tailwind + Ant Design混合方式
-import { Card, Button } from 'antd';
+import { Card, Button } from 'antd'
 
 function CustomCard() {
   return (
@@ -174,7 +174,7 @@ function CustomCard() {
         <Button className="bg-gray-100 hover:bg-gray-200">次要按钮</Button>
       </div>
     </Card>
-  );
+  )
 }
 ```
 

@@ -1,5 +1,5 @@
-import path from 'node:path';
-import { defineConfig } from 'vitest/config';
+import path from 'node:path'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [],
@@ -15,4 +15,4 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
     exclude: ['src/@types', 'node_modules'],
   },
-});
+})
