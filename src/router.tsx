@@ -4,6 +4,7 @@ import { AuthProvider } from './components/AuthProvider'
 import Layout from './components/Layout/Layout'
 import Index from './pages/Index'
 import Login from './pages/Login'
+// import Tenants from './pages/tenants'
 import Notfound from './pages/Notfound'
 
 const router = createBrowserRouter([
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
         path: '/login',
         element: <Login />,
       },
+      // {
+      //   path: '/tenants',
+      //   element: <Tenants />,
+      // },
+
       {
         path: '*',
         element: (
