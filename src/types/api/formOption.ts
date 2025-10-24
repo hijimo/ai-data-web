@@ -6,11 +6,11 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { FormOptionLabel } from './formOptionLabel'
+import type { FormOptionLabel } from './formOptionLabel';
 
 export interface FormOption {
   /** 选项标签（多语言） */
-  label?: FormOptionLabel
+  label?: FormOptionLabel;
   /** 选项值 */
-  value?: string
+  value?: string;
 }

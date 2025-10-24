@@ -18,25 +18,22 @@ import type {
   UnlockAccountRequest,
   UserDataResponse,
   VerifyEmailRequest,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getAuthentication = () => {
   /**
    * 修改当前用户的密码
    * @summary 修改密码
    */
-  const postAuthChangePassword = (
-    changePasswordRequest: ChangePasswordRequest,
-  ) => {
+  const postAuthChangePassword = (changePasswordRequest: ChangePasswordRequest) => {
     return orvalMutator<SuccessResponse>({
       url: `/auth/change-password`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: changePasswordRequest,
-    })
-  }
+    });
+  };
   /**
    * 使用邮箱和密码登录系统
    * @summary 用户登录
@@ -47,8 +44,8 @@ export const getAuthentication = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: loginRequest,
-    })
-  }
+    });
+  };
   /**
    * 注销用户并撤销 Refresh Token
    * @summary 用户注销
@@ -59,15 +56,15 @@ export const getAuthentication = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: logoutRequest,
-    })
-  }
+    });
+  };
   /**
    * 获取当前登录用户的详细信息
    * @summary 获取当前用户信息
    */
   const getAuthMe = () => {
-    return orvalMutator<UserDataResponse>({ url: `/auth/me`, method: 'GET' })
-  }
+    return orvalMutator<UserDataResponse>({ url: `/auth/me`, method: 'GET' });
+  };
   /**
    * 使用 Refresh Token 获取新的 Access Token
    * @summary 刷新访问令牌
@@ -78,8 +75,8 @@ export const getAuthentication = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: refreshRequest,
-    })
-  }
+    });
+  };
   /**
    * 注册新用户账户
    * @summary 用户注册
@@ -90,36 +87,32 @@ export const getAuthentication = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: registerRequest,
-    })
-  }
+    });
+  };
   /**
    * 重新发送邮箱验证邮件
    * @summary 重新发送验证邮件
    */
-  const postAuthResendVerification = (
-    resendVerificationRequest: ResendVerificationRequest,
-  ) => {
+  const postAuthResendVerification = (resendVerificationRequest: ResendVerificationRequest) => {
     return orvalMutator<SuccessResponse>({
       url: `/auth/resend-verification`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: resendVerificationRequest,
-    })
-  }
+    });
+  };
   /**
    * 解锁被锁定的用户账户（需要管理员权限）
    * @summary 解锁账户
    */
-  const postAuthUnlockAccount = (
-    unlockAccountRequest: UnlockAccountRequest,
-  ) => {
+  const postAuthUnlockAccount = (unlockAccountRequest: UnlockAccountRequest) => {
     return orvalMutator<SuccessResponse>({
       url: `/auth/unlock-account`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: unlockAccountRequest,
-    })
-  }
+    });
+  };
   /**
    * 使用验证令牌验证用户邮箱
    * @summary 验证邮箱
@@ -130,8 +123,8 @@ export const getAuthentication = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: verifyEmailRequest,
-    })
-  }
+    });
+  };
   return {
     postAuthChangePassword,
     postAuthLogin,
@@ -142,42 +135,32 @@ export const getAuthentication = () => {
     postAuthResendVerification,
     postAuthUnlockAccount,
     postAuthVerifyEmail,
-  }
-}
+  };
+};
 export type PostAuthChangePasswordResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getAuthentication>['postAuthChangePassword']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthChangePassword']>>
+>;
 export type PostAuthLoginResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthLogin']>>
->
+>;
 export type PostAuthLogoutResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthLogout']>>
->
+>;
 export type GetAuthMeResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getAuthentication>['getAuthMe']>>
->
+>;
 export type PostAuthRefreshResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthRefresh']>>
->
+>;
 export type PostAuthRegisterResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthRegister']>>
->
+>;
 export type PostAuthResendVerificationResult = NonNullable<
-  Awaited<
-    ReturnType<
-      ReturnType<typeof getAuthentication>['postAuthResendVerification']
-    >
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthResendVerification']>>
+>;
 export type PostAuthUnlockAccountResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getAuthentication>['postAuthUnlockAccount']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthUnlockAccount']>>
+>;
 export type PostAuthVerifyEmailResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getAuthentication>['postAuthVerifyEmail']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getAuthentication>['postAuthVerifyEmail']>>
+>;

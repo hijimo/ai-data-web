@@ -10,4 +10,4 @@
 /**
  * 帮助链接（多语言）
  */
-export type ProviderHelpUrl = { [key: string]: string }
+export type ProviderHelpUrl = { [key: string]: string };

@@ -8,5 +8,5 @@
  */
 
 export type DeleteChatSessionsIdPathParameters = {
-  id: string
-}
+  id: string;
+};

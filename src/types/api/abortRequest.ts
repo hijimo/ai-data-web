@@ -9,5 +9,5 @@
 
 export interface AbortRequest {
   /** 消息ID（必填） */
-  messageId: string
+  messageId: string;
 }

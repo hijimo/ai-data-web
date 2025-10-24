@@ -9,9 +9,9 @@
 
 export interface Usage {
   /** 生成内容token数 */
-  completionTokens?: number
+  completionTokens?: number;
   /** 提示词token数 */
-  promptTokens?: number
+  promptTokens?: number;
   /** 总token数 */
-  totalTokens?: number
+  totalTokens?: number;
 }

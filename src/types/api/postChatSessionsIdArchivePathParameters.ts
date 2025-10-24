@@ -8,5 +8,5 @@
  */
 
 export type PostChatSessionsIdArchivePathParameters = {
-  id: string
-}
+  id: string;
+};

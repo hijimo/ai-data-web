@@ -6,15 +6,15 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { Usage } from './usage'
+import type { Usage } from './usage';
 
 export interface ChatResponse {
   /** AI生成的消息内容 */
-  message?: string
+  message?: string;
   /** 使用的模型名称 */
-  model?: string
+  model?: string;
   /** 会话ID */
-  sessionId?: string
+  sessionId?: string;
   /** Token使用情况 */
-  usage?: Usage
+  usage?: Usage;
 }

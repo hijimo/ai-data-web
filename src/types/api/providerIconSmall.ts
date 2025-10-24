@@ -10,4 +10,4 @@
 /**
  * 小图标（多语言）
  */
-export type ProviderIconSmall = { [key: string]: string }
+export type ProviderIconSmall = { [key: string]: string };

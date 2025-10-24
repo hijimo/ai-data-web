@@ -6,20 +6,20 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { Message } from './message'
-import type { Usage } from './usage'
+import type { Message } from './message';
+import type { Usage } from './usage';
 
 export interface MessageResponse {
   /** AI消息 */
-  aiMessage?: Message
+  aiMessage?: Message;
   /** 消息ID */
-  messageId?: string
+  messageId?: string;
   /** 模型名称 */
-  model?: string
+  model?: string;
   /** 会话ID */
-  sessionId?: string
+  sessionId?: string;
   /** 使用统计 */
-  usage?: Usage
+  usage?: Usage;
   /** 用户消息 */
-  userMessage?: Message
+  userMessage?: Message;
 }

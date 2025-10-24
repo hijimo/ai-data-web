@@ -6,33 +6,33 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { CreateSessionRequestMeta } from './createSessionRequestMeta'
+import type { CreateSessionRequestMeta } from './createSessionRequestMeta';
 
 export interface CreateSessionRequest {
   /** 元数据（可选） */
-  meta?: CreateSessionRequestMeta
+  meta?: CreateSessionRequestMeta;
   /**
    * 模型名称
    * @maxLength 128
    */
-  modelName: string
+  modelName: string;
   /** 系统提示词（可选） */
-  systemPrompt?: string
+  systemPrompt?: string;
   /**
    * 温度参数（可选，0-2）
    * @minimum 0
    * @maximum 2
    */
-  temperature?: number
+  temperature?: number;
   /**
    * 会话标题
    * @maxLength 255
    */
-  title: string
+  title: string;
   /**
    * TopP参数（可选，0-1）
    * @minimum 0
    * @maximum 1
    */
-  topP?: number
+  topP?: number;
 }

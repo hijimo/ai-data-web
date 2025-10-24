@@ -10,4 +10,4 @@
 /**
  * 标签（多语言）
  */
-export type ParameterRuleLabel = { [key: string]: string }
+export type ParameterRuleLabel = { [key: string]: string };

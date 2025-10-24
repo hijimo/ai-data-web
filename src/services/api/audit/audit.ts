@@ -6,12 +6,8 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type {
-  AuthAuditListResponse,
-  GetAuditAuthParams,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+import type { AuthAuditListResponse, GetAuditAuthParams } from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getAudit = () => {
   /**
@@ -19,14 +15,10 @@ export const getAudit = () => {
    * @summary 查询审计日志
    */
   const getAuditAuth = (params?: GetAuditAuthParams) => {
-    return orvalMutator<AuthAuditListResponse>({
-      url: `/audit/auth`,
-      method: 'GET',
-      params,
-    })
-  }
-  return { getAuditAuth }
-}
+    return orvalMutator<AuthAuditListResponse>({ url: `/audit/auth`, method: 'GET', params });
+  };
+  return { getAuditAuth };
+};
 export type GetAuditAuthResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getAudit>['getAuditAuth']>>
->
+>;

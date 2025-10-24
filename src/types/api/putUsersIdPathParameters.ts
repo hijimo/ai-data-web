@@ -8,5 +8,5 @@
  */
 
 export type PutUsersIdPathParameters = {
-  id: string
-}
+  id: string;
+};

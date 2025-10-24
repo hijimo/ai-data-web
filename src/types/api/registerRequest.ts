@@ -8,10 +8,10 @@
  */
 
 export interface RegisterRequest {
-  displayName?: string
-  email: string
+  displayName?: string;
+  email: string;
   /** @minLength 8 */
-  password: string
-  phone?: string
-  tenantId: string
+  password: string;
+  phone?: string;
+  tenantId: string;
 }

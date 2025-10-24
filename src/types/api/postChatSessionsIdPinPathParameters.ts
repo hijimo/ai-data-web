@@ -8,5 +8,5 @@
  */
 
 export type PostChatSessionsIdPinPathParameters = {
-  id: string
-}
+  id: string;
+};

@@ -6,9 +6,9 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { ModelTypeInfo } from './modelTypeInfo'
+import type { ModelTypeInfo } from './modelTypeInfo';
 
 /**
  * 模型类型配置
  */
-export type ProviderModels = { [key: string]: ModelTypeInfo }
+export type ProviderModels = { [key: string]: ModelTypeInfo };

@@ -1,20 +1,20 @@
-import { createBrowserRouter, Outlet } from 'react-router'
-
-import { AuthProvider } from './components/AuthProvider'
-import Layout from './components/Layout/Layout'
-import BasicLayout from './layouts/BasicLayout'
-import Index from './pages/Index'
-import Login from './pages/Login'
-import Notfound from './pages/Notfound'
-import Tenants from './pages/tenants'
+import { createBrowserRouter, Outlet } from 'react-router';
+import Header from '@/components/Header';
+import { ThemedLayout } from '@/components/Layout';
+import { AuthProvider } from './components/AuthProvider';
+import Layout from './components/Layout/Layout';
+import Index from './pages/Index';
+import Login from './pages/Login';
+import Notfound from './pages/Notfound';
+import Tenants from './pages/tenants';
 
 const router = createBrowserRouter([
   {
     element: (
       <AuthProvider>
-        <BasicLayout>
+        <ThemedLayout Header={Header}>
           <Outlet />
-        </BasicLayout>
+        </ThemedLayout>
       </AuthProvider>
     ),
     children: [
@@ -44,6 +44,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
 
-export default router
+export default router;

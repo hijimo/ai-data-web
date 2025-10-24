@@ -8,91 +8,204 @@
  */
 import type {
   AnyDataResponse,
-  CreateUserRequestBody,
+  CreateUserRequest,
   DeleteUsersIdPathParameters,
   GetUsersIdPathParameters,
   GetUsersParams,
+  PatchUsersIdStatusPathParameters,
   PutUsersIdPathParameters,
   UpdateUserRequest,
+  UpdateUserStatusRequest,
   UserDataResponse,
   UserListResponse,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getUserManagement = () => {
   /**
-   * 获取当前租户下的用户列表，支持分页（需要租户管理员权限）
-   * @summary 获取用户列表
-   */
-  const getUsers = (params: GetUsersParams) => {
-    return orvalMutator<UserListResponse>({
-      url: `/users`,
-      method: 'GET',
-      params,
-    })
-  }
+ * 获取用户列表，支持分页和租户过滤
+
+**权限要求**：
+- 平台管理员（system_admin）：可以查看所有租户的用户或指定租户的用户
+- 租户管理员（tenant_admin）：只能查看自己租户下的用户
+
+**tenantId 查询参数使用规则**：
+- 租户管理员：
+- tenantId 参数会被忽略
+- 始终只返回当前用户所属租户下的用户列表
+- 平台管理员：
+- 如果提供 tenantId，返回指定租户下的用户列表
+- 如果不提供 tenantId，返回所有租户下的用户列表
+
+**参数说明**：
+- pageNo: 页码（从1开始，默认1）
+- pageSize: 每页大小（1-100，默认20）
+- tenantId: 租户ID（可选，UUID格式，仅平台管理员可用）
+
+**注意事项**：
+- 租户管理员调用此接口时，tenantId 参数会被忽略
+- 租户管理员始终只能看到自己租户下的用户
+ * @summary 获取用户列表
+ */
+  const getUsers = (params?: GetUsersParams) => {
+    return orvalMutator<UserListResponse>({ url: `/users`, method: 'GET', params });
+  };
   /**
-   * 在指定租户下创建新用户（需要租户管理员权限）
-   * @summary 创建用户
-   */
-  const postUsers = (createUserRequestBody: CreateUserRequestBody) => {
+ * 创建新用户，支持可选的租户ID参数
+
+**权限要求**：
+- 平台管理员（system_admin）：可以在任意租户下创建用户
+- 租户管理员（tenant_admin）：只能在自己的租户下创建用户
+
+**tenantId 参数使用规则**：
+- 租户管理员：
+- 如果不提供 tenantId，系统自动使用当前用户的租户ID
+- 如果提供 tenantId，必须与当前用户的租户ID匹配，否则返回 403 错误
+- 平台管理员：
+- 必须提供 tenantId 参数
+- 可以指定任意有效的租户ID
+
+**参数说明**：
+- tenantId: 租户ID（可选，UUID格式）
+- email: 用户邮箱（必填，需符合邮箱格式）
+- password: 用户密码（必填，最少8个字符）
+- displayName: 显示名称（可选）
+- phone: 手机号码（可选）
+- isAdmin: 是否为管理员（可选，默认false）
+- roles: 用户角色列表（可选）
+- meta: 用户元数据（可选，JSON对象）
+ * @summary 创建用户
+ */
+  const postUsers = (createUserRequest: CreateUserRequest) => {
     return orvalMutator<UserDataResponse>({
       url: `/users`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: createUserRequestBody,
-    })
-  }
+      data: createUserRequest,
+    });
+  };
   /**
-   * 软删除指定的用户（需要租户管理员权限）
-   * @summary 删除用户
-   */
+ * 软删除指定的用户
+
+**权限要求**：
+- 平台管理员（system_admin）：可以删除任意租户下的用户
+- 租户管理员（tenant_admin）：只能删除自己租户下的用户
+
+**访问权限验证**：
+- 系统会自动查询目标用户所属的租户
+- 租户管理员尝试删除其他租户的用户时，将收到 403 权限不足错误
+- 平台管理员可以删除任意租户的用户，无需额外验证
+
+**功能说明**：
+- 执行软删除操作（设置 is_deleted=true）
+- 删除后的用户数据仍保留在数据库中，但不再可见
+
+**参数说明**：
+- id: 用户ID（UUID格式）
+ * @summary 删除用户
+ */
   const deleteUsersId = ({ id }: DeleteUsersIdPathParameters) => {
-    return orvalMutator<AnyDataResponse>({
-      url: `/users/${id}`,
-      method: 'DELETE',
-    })
-  }
+    return orvalMutator<AnyDataResponse>({ url: `/users/${id}`, method: 'DELETE' });
+  };
   /**
-   * 根据用户ID获取用户详细信息（需要租户管理员权限）
-   * @summary 获取用户详情
-   */
+ * 根据用户ID获取用户详细信息
+
+**权限要求**：
+- 平台管理员（system_admin）：可以查看任意租户下的用户
+- 租户管理员（tenant_admin）：只能查看自己租户下的用户
+
+**访问权限验证**：
+- 系统会自动查询目标用户所属的租户
+- 租户管理员尝试查看其他租户的用户时，将收到 403 权限不足错误
+- 平台管理员可以查看任意租户的用户，无需额外验证
+
+**参数说明**：
+- id: 用户ID（UUID格式）
+ * @summary 获取用户详情
+ */
   const getUsersId = ({ id }: GetUsersIdPathParameters) => {
-    return orvalMutator<UserDataResponse>({
-      url: `/users/${id}`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<UserDataResponse>({ url: `/users/${id}`, method: 'GET' });
+  };
   /**
-   * 更新用户信息（需要租户管理员权限）
-   * @summary 更新用户
-   */
-  const putUsersId = (
-    { id }: PutUsersIdPathParameters,
-    updateUserRequest: UpdateUserRequest,
-  ) => {
+ * 更新用户信息
+
+**权限要求**：
+- 平台管理员（system_admin）：可以更新任意租户下的用户
+- 租户管理员（tenant_admin）：只能更新自己租户下的用户
+
+**访问权限验证**：
+- 系统会自动查询目标用户所属的租户
+- 租户管理员尝试更新其他租户的用户时，将收到 403 权限不足错误
+- 平台管理员可以更新任意租户的用户，无需额外验证
+
+**参数说明**：
+- id: 用户ID（UUID格式）
+- email: 用户邮箱（可选，需符合邮箱格式）
+- displayName: 显示名称（可选）
+- phone: 手机号码（可选）
+- isActive: 是否启用（可选）
+- isAdmin: 是否为管理员（可选）
+- roles: 用户角色列表（可选）
+- meta: 用户元数据（可选，JSON对象）
+ * @summary 更新用户
+ */
+  const putUsersId = ({ id }: PutUsersIdPathParameters, updateUserRequest: UpdateUserRequest) => {
     return orvalMutator<UserDataResponse>({
       url: `/users/${id}`,
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       data: updateUserRequest,
-    })
-  }
-  return { getUsers, postUsers, deleteUsersId, getUsersId, putUsersId }
-}
+    });
+  };
+  /**
+ * 启用或禁用用户
+
+**权限要求**：
+- 平台管理员（system_admin）：可以更新任意租户下的用户状态
+- 租户管理员（tenant_admin）：只能更新自己租户下的用户状态
+
+**访问权限验证**：
+- 系统会自动查询目标用户所属的租户
+- 租户管理员尝试更新其他租户的用户状态时，将收到 403 权限不足错误
+- 平台管理员可以更新任意租户的用户状态，无需额外验证
+
+**功能说明**：
+- 启用用户（isActive=true）：用户可以正常登录和访问系统
+- 禁用用户（isActive=false）：用户将无法登录系统
+
+**参数说明**：
+- id: 用户ID（UUID格式）
+- isActive: 用户状态（true=启用，false=禁用）
+ * @summary 更新用户状态
+ */
+  const patchUsersIdStatus = (
+    { id }: PatchUsersIdStatusPathParameters,
+    updateUserStatusRequest: UpdateUserStatusRequest,
+  ) => {
+    return orvalMutator<UserDataResponse>({
+      url: `/users/${id}/status`,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      data: updateUserStatusRequest,
+    });
+  };
+  return { getUsers, postUsers, deleteUsersId, getUsersId, putUsersId, patchUsersIdStatus };
+};
 export type GetUsersResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getUserManagement>['getUsers']>>
->
+>;
 export type PostUsersResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getUserManagement>['postUsers']>>
->
+>;
 export type DeleteUsersIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getUserManagement>['deleteUsersId']>>
->
+>;
 export type GetUsersIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getUserManagement>['getUsersId']>>
->
+>;
 export type PutUsersIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getUserManagement>['putUsersId']>>
->
+>;
+export type PatchUsersIdStatusResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getUserManagement>['patchUsersIdStatus']>>
+>;

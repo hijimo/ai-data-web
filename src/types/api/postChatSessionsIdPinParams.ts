@@ -11,5 +11,5 @@ export type PostChatSessionsIdPinParams = {
   /**
    * 是否置顶
    */
-  pinned: boolean
-}
+  pinned: boolean;
+};

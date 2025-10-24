@@ -12,11 +12,15 @@ export type GetUsersParams = {
    * 页码
    * @minimum 1
    */
-  pageNo?: number
+  pageNo?: number;
   /**
    * 每页大小
    * @minimum 1
    * @maximum 100
    */
-  pageSize?: number
-}
+  pageSize?: number;
+  /**
+   * 租户ID（仅平台管理员可用）
+   */
+  tenantId?: string;
+};

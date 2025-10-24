@@ -6,17 +6,17 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { User } from './user'
+import type { User } from './user';
 
 export interface LoginResponse {
   /** 访问令牌 */
-  accessToken?: string
+  accessToken?: string;
   /** 过期时间（秒） */
-  expiresIn?: number
+  expiresIn?: number;
   /** 刷新令牌 */
-  refreshToken?: string
+  refreshToken?: string;
   /** 令牌类型 */
-  tokenType?: string
+  tokenType?: string;
   /** 用户信息 */
-  user?: User
+  user?: User;
 }

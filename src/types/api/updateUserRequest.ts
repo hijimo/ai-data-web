@@ -6,14 +6,14 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { UpdateUserRequestMeta } from './updateUserRequestMeta'
+import type { UpdateUserRequestMeta } from './updateUserRequestMeta';
 
 export interface UpdateUserRequest {
-  displayName?: string
-  email?: string
-  isActive?: boolean
-  isAdmin?: boolean
-  meta?: UpdateUserRequestMeta
-  phone?: string
-  roles?: string[]
+  displayName?: string;
+  email?: string;
+  isActive?: boolean;
+  isAdmin?: boolean;
+  meta?: UpdateUserRequestMeta;
+  phone?: string;
+  roles?: string[];
 }

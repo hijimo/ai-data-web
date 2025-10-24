@@ -11,5 +11,5 @@ export type PostChatSessionsIdArchiveParams = {
   /**
    * 是否归档
    */
-  archived: boolean
-}
+  archived: boolean;
+};

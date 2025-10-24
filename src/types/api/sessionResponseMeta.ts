@@ -10,4 +10,4 @@
 /**
  * 元数据
  */
-export type SessionResponseMeta = { [key: string]: unknown }
+export type SessionResponseMeta = { [key: string]: unknown };

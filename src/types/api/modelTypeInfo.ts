@@ -9,7 +9,7 @@
 
 export interface ModelTypeInfo {
   /** 位置文件路径 */
-  position?: string
+  position?: string;
   /** 预定义模型列表 */
-  predefined?: string[]
+  predefined?: string[];
 }

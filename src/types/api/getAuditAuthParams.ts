@@ -11,29 +11,29 @@ export type GetAuditAuthParams = {
   /**
    * 租户ID
    */
-  tenantId?: string
+  tenantId?: string;
   /**
    * 用户ID
    */
-  userId?: string
+  userId?: string;
   /**
    * 事件类型（login, logout, refresh, revoke, failed_login）
    */
-  event?: string
+  event?: string;
   /**
    * 开始时间（RFC3339格式）
    */
-  startTime?: string
+  startTime?: string;
   /**
    * 结束时间（RFC3339格式）
    */
-  endTime?: string
+  endTime?: string;
   /**
    * 页码
    */
-  page?: number
+  page?: number;
   /**
    * 每页大小
    */
-  pageSize?: number
-}
+  pageSize?: number;
+};

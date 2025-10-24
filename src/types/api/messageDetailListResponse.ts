@@ -6,13 +6,13 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { PaginationDataArrayMessageDetailResponse } from './paginationDataArrayMessageDetailResponse'
+import type { PaginationDataArrayModelMessageDetailResponse } from './paginationDataArrayModelMessageDetailResponse';
 
 export interface MessageDetailListResponse {
   /** 响应代码 */
-  code?: number
+  code?: number;
   /** 分页数据 */
-  data?: PaginationDataArrayMessageDetailResponse
+  data?: PaginationDataArrayModelMessageDetailResponse;
   /** 响应信息 */
-  message?: string
+  message?: string;
 }

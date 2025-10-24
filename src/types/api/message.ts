@@ -9,13 +9,13 @@
 
 export interface Message {
   /** 消息内容 */
-  content?: string
+  content?: string;
   /** 创建时间 */
-  createdAt?: string
+  createdAt?: string;
   /** 消息ID */
-  id?: string
+  id?: string;
   /** 角色 */
-  role?: string
+  role?: string;
   /** 序列号 */
-  sequence?: number
+  sequence?: number;
 }

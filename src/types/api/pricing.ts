@@ -9,11 +9,11 @@
 
 export interface Pricing {
   /** 货币 */
-  currency?: string
+  currency?: string;
   /** 输入价格 */
-  input?: string
+  input?: string;
   /** 输出价格 */
-  output?: string
+  output?: string;
   /** 单位 */
-  unit?: string
+  unit?: string;
 }

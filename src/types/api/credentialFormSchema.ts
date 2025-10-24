@@ -6,23 +6,23 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { CredentialFormSchemaLabel } from './credentialFormSchemaLabel'
-import type { FormOption } from './formOption'
-import type { CredentialFormSchemaPlaceholder } from './credentialFormSchemaPlaceholder'
+import type { CredentialFormSchemaLabel } from './credentialFormSchemaLabel';
+import type { CredentialFormSchemaPlaceholder } from './credentialFormSchemaPlaceholder';
+import type { FormOption } from './formOption';
 
 export interface CredentialFormSchema {
   /** 默认值 */
-  default?: string
+  default?: string;
   /** 标签（多语言） */
-  label?: CredentialFormSchemaLabel
+  label?: CredentialFormSchemaLabel;
   /** 选项列表 */
-  options?: FormOption[]
+  options?: FormOption[];
   /** 占位符（多语言） */
-  placeholder?: CredentialFormSchemaPlaceholder
+  placeholder?: CredentialFormSchemaPlaceholder;
   /** 是否必填 */
-  required?: boolean
+  required?: boolean;
   /** 类型 */
-  type?: string
+  type?: string;
   /** 变量名 */
-  variable?: string
+  variable?: string;
 }

@@ -7,4 +7,4 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type UpdateTenantRequestMetadata = { [key: string]: unknown }
+export type UpdateTenantRequestMetadata = { [key: string]: unknown };

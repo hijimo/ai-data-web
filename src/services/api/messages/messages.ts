@@ -17,9 +17,8 @@ import type {
   PostChatMessagesIdAbortPathParameters,
   PostChatSessionsIdMessagesPathParameters,
   SendMessageRequest,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getMessages = () => {
   /**
@@ -27,23 +26,15 @@ export const getMessages = () => {
    * @summary 获取消息详情
    */
   const getChatMessagesId = ({ id }: GetChatMessagesIdPathParameters) => {
-    return orvalMutator<MessageDetailDataResponse>({
-      url: `/chat/messages/${id}`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<MessageDetailDataResponse>({ url: `/chat/messages/${id}`, method: 'GET' });
+  };
   /**
    * 中止指定消息的AI生成过程
    * @summary 中止消息生成
    */
-  const postChatMessagesIdAbort = ({
-    id,
-  }: PostChatMessagesIdAbortPathParameters) => {
-    return orvalMutator<AnyDataResponse>({
-      url: `/chat/messages/${id}/abort`,
-      method: 'POST',
-    })
-  }
+  const postChatMessagesIdAbort = ({ id }: PostChatMessagesIdAbortPathParameters) => {
+    return orvalMutator<AnyDataResponse>({ url: `/chat/messages/${id}/abort`, method: 'POST' });
+  };
   /**
    * 获取指定会话的消息历史，支持分页
    * @summary 获取消息历史
@@ -56,8 +47,8 @@ export const getMessages = () => {
       url: `/chat/sessions/${id}/messages`,
       method: 'GET',
       params,
-    })
-  }
+    });
+  };
   /**
    * 在指定会话中发送消息并获取AI回复
    * @summary 发送消息
@@ -71,28 +62,24 @@ export const getMessages = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: sendMessageRequest,
-    })
-  }
+    });
+  };
   return {
     getChatMessagesId,
     postChatMessagesIdAbort,
     getChatSessionsIdMessages,
     postChatSessionsIdMessages,
-  }
-}
+  };
+};
 export type GetChatMessagesIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getMessages>['getChatMessagesId']>>
->
+>;
 export type PostChatMessagesIdAbortResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getMessages>['postChatMessagesIdAbort']>>
->
+>;
 export type GetChatSessionsIdMessagesResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getMessages>['getChatSessionsIdMessages']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getMessages>['getChatSessionsIdMessages']>>
+>;
 export type PostChatSessionsIdMessagesResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getMessages>['postChatSessionsIdMessages']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getMessages>['postChatSessionsIdMessages']>>
+>;

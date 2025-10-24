@@ -10,4 +10,4 @@
 /**
  * 大图标（多语言）
  */
-export type ProviderIconLarge = { [key: string]: string }
+export type ProviderIconLarge = { [key: string]: string };

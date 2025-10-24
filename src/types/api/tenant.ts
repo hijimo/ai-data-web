@@ -6,33 +6,35 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { TenantMetadata } from './tenantMetadata'
-import type { TenantType } from './tenantType'
+import type { TenantMetadata } from './tenantMetadata';
+import type { TenantType } from './tenantType';
 
 /**
  * 租户信息，包含租户的基本信息和状态
  */
 export interface Tenant {
   /** 创建时间 */
-  createdAt?: string
+  createdAt?: string;
   /** 创建者用户ID */
-  createdBy?: string
+  createdBy?: string;
+  /** 创建者显示名称 */
+  createdByName?: string;
   /** 租户域名，用于子域识别 */
-  domain?: string
+  domain?: string;
   /** 租户ID */
-  id?: string
+  id?: string;
   /** 软删除标记 */
-  isDeleted?: boolean
+  isDeleted?: boolean;
   /** 租户元数据，存储租户的自定义信息 */
-  metadata?: TenantMetadata
+  metadata?: TenantMetadata;
   /** 租户名称 */
-  name?: string
+  name?: string;
   /** 租户状态：true=启用，false=禁用
 禁用的租户下的所有用户将无法登录 */
-  status?: boolean
+  status?: boolean;
   /** 租户类型：system=平台租户，tenant=业务租户
 可选值：system（平台租户，系统级租户，只能有一个）, tenant（业务租户，普通租户） */
-  type?: TenantType
+  type?: TenantType;
   /** 更新时间 */
-  updatedAt?: string
+  updatedAt?: string;
 }

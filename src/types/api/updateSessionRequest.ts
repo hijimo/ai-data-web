@@ -12,24 +12,24 @@ export interface UpdateSessionRequest {
    * 模型名称（可选）
    * @maxLength 128
    */
-  modelName?: string
+  modelName?: string;
   /** 系统提示词（可选） */
-  systemPrompt?: string
+  systemPrompt?: string;
   /**
    * 温度参数（可选，0-2）
    * @minimum 0
    * @maximum 2
    */
-  temperature?: number
+  temperature?: number;
   /**
    * 会话标题（可选）
    * @maxLength 255
    */
-  title?: string
+  title?: string;
   /**
    * TopP参数（可选，0-1）
    * @minimum 0
    * @maximum 1
    */
-  topP?: number
+  topP?: number;
 }

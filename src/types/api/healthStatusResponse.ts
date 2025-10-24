@@ -6,10 +6,10 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { HealthStatus } from './healthStatus'
+import type { HealthHealthStatus } from './healthHealthStatus';
 
 export interface HealthStatusResponse {
-  code?: number
-  data?: HealthStatus
-  message?: string
+  code?: number;
+  data?: HealthHealthStatus;
+  message?: string;
 }

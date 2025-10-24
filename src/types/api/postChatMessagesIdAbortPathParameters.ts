@@ -8,5 +8,5 @@
  */
 
 export type PostChatMessagesIdAbortPathParameters = {
-  id: string
-}
+  id: string;
+};

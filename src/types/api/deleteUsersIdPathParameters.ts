@@ -8,5 +8,5 @@
  */
 
 export type DeleteUsersIdPathParameters = {
-  id: string
-}
+  id: string;
+};

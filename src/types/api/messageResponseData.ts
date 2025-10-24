@@ -6,13 +6,13 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { MessageResponse } from './messageResponse'
+import type { MessageResponse } from './messageResponse';
 
 export interface MessageResponseData {
   /** 响应代码 */
-  code?: number
+  code?: number;
   /** 响应数据 */
-  data?: MessageResponse
+  data?: MessageResponse;
   /** 响应信息 */
-  message?: string
+  message?: string;
 }

@@ -11,10 +11,10 @@
  * 租户类型：system=平台租户，tenant=业务租户
 可选值：system（平台租户，系统级租户，只能有一个）, tenant（业务租户，普通租户）
  */
-export type TenantType = (typeof TenantType)[keyof typeof TenantType]
+export type TenantType = (typeof TenantType)[keyof typeof TenantType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const TenantType = {
   system: 'system',
   tenant: 'tenant',
-} as const
+} as const;

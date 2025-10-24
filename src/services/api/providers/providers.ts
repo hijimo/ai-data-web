@@ -16,9 +16,8 @@ import type {
   ParameterRuleListDataResponse,
   ProviderDataResponse,
   ProviderListDataResponse,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getProviders = () => {
   /**
@@ -26,23 +25,15 @@ export const getProviders = () => {
    * @summary 获取所有提供商列表
    */
   const getProviders = () => {
-    return orvalMutator<ProviderListDataResponse>({
-      url: `/providers`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<ProviderListDataResponse>({ url: `/providers`, method: 'GET' });
+  };
   /**
    * 根据提供商ID获取详细信息
    * @summary 获取提供商详情
    */
-  const getProvidersProviderId = ({
-    providerId,
-  }: GetProvidersProviderIdPathParameters) => {
-    return orvalMutator<ProviderDataResponse>({
-      url: `/providers/${providerId}`,
-      method: 'GET',
-    })
-  }
+  const getProvidersProviderId = ({ providerId }: GetProvidersProviderIdPathParameters) => {
+    return orvalMutator<ProviderDataResponse>({ url: `/providers/${providerId}`, method: 'GET' });
+  };
   /**
    * 获取指定提供商的所有可用模型列表
    * @summary 获取提供商的模型列表
@@ -53,8 +44,8 @@ export const getProviders = () => {
     return orvalMutator<ModelListDataResponse>({
       url: `/providers/${providerId}/models`,
       method: 'GET',
-    })
-  }
+    });
+  };
   /**
    * 获取指定提供商的指定模型的详细信息
    * @summary 获取模型详情
@@ -66,8 +57,8 @@ export const getProviders = () => {
     return orvalMutator<ModelDataResponse>({
       url: `/providers/${providerId}/models/${modelId}`,
       method: 'GET',
-    })
-  }
+    });
+  };
   /**
    * 获取指定模型的所有参数配置规则
    * @summary 获取模型参数规则
@@ -79,41 +70,30 @@ export const getProviders = () => {
     return orvalMutator<ParameterRuleListDataResponse>({
       url: `/providers/${providerId}/models/${modelId}/parameter-rules`,
       method: 'GET',
-    })
-  }
+    });
+  };
   return {
     getProviders,
     getProvidersProviderId,
     getProvidersProviderIdModels,
     getProvidersProviderIdModelsModelId,
     getProvidersProviderIdModelsModelIdParameterRules,
-  }
-}
+  };
+};
 export type GetProvidersResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getProviders>['getProviders']>>
->
+>;
 export type GetProvidersProviderIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getProviders>['getProvidersProviderId']>>
->
+>;
 export type GetProvidersProviderIdModelsResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getProviders>['getProvidersProviderIdModels']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getProviders>['getProvidersProviderIdModels']>>
+>;
 export type GetProvidersProviderIdModelsModelIdResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getProviders>['getProvidersProviderIdModelsModelId']>>
+>;
+export type GetProvidersProviderIdModelsModelIdParameterRulesResult = NonNullable<
   Awaited<
-    ReturnType<
-      ReturnType<typeof getProviders>['getProvidersProviderIdModelsModelId']
-    >
+    ReturnType<ReturnType<typeof getProviders>['getProvidersProviderIdModelsModelIdParameterRules']>
   >
->
-export type GetProvidersProviderIdModelsModelIdParameterRulesResult =
-  NonNullable<
-    Awaited<
-      ReturnType<
-        ReturnType<
-          typeof getProviders
-        >['getProvidersProviderIdModelsModelIdParameterRules']
-      >
-    >
-  >
+>;

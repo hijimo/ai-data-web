@@ -8,5 +8,5 @@
  */
 
 export interface VerifyEmailRequest {
-  token: string
+  token: string;
 }

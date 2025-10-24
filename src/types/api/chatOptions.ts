@@ -9,19 +9,19 @@
 
 export interface ChatOptions {
   /** 最大token数 */
-  maxTokens?: number
+  maxTokens?: number;
   /**
    * 温度值，控制输出的随机性（0-2）
    * @minimum 0
    * @maximum 2
    */
-  temperature?: number
+  temperature?: number;
   /** Top-K采样参数 */
-  topK?: number
+  topK?: number;
   /**
    * Top-P采样参数（0-1）
    * @minimum 0
    * @maximum 1
    */
-  topP?: number
+  topP?: number;
 }

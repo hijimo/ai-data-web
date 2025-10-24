@@ -2,10 +2,9 @@ import { message } from 'antd';
 import axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
 import cookies from 'js-cookie';
 import { logError, parseError } from '@/utils/errorHandler';
+import { TOKEN_KEY, USER_INFO_KEY as USER_INFO } from '@/utils/userData';
 import type { ResponseData } from '@/types';
 
-export const TOKEN_KEY = 'token';
-export const USER_INFO = 'user_info';
 console.log('import.meta.env.VITE_API_BASE_URL', import.meta.env);
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,

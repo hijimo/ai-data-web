@@ -10,4 +10,4 @@
 /**
  * 帮助信息（多语言）
  */
-export type ParameterRuleHelp = { [key: string]: string }
+export type ParameterRuleHelp = { [key: string]: string };

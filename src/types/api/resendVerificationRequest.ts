@@ -8,6 +8,6 @@
  */
 
 export interface ResendVerificationRequest {
-  tenantId: string
-  userId: string
+  tenantId: string;
+  userId: string;
 }

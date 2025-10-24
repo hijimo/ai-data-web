@@ -10,4 +10,4 @@
 /**
  * 占位符（多语言）
  */
-export type CredentialFormSchemaPlaceholder = { [key: string]: string }
+export type CredentialFormSchemaPlaceholder = { [key: string]: string };

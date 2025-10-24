@@ -6,9 +6,9 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { CredentialFormSchema } from './credentialFormSchema'
+import type { CredentialFormSchema } from './credentialFormSchema';
 
 export interface CredentialSchema {
   /** 凭证表单配置列表 */
-  credential_form_schemas?: CredentialFormSchema[]
+  credential_form_schemas?: CredentialFormSchema[];
 }

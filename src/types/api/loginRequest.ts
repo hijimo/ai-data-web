@@ -8,7 +8,6 @@
  */
 
 export interface LoginRequest {
-  email: string
-  password: string
-  tenantId?: string
+  email: string;
+  password: string;
 }

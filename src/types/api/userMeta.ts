@@ -10,4 +10,4 @@
 /**
  * 用户元数据，存储用户的自定义信息
  */
-export type UserMeta = { [key: string]: unknown }
+export type UserMeta = { [key: string]: unknown };

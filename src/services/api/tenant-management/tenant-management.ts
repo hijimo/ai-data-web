@@ -12,62 +12,130 @@ import type {
   DeleteTenantsIdPathParameters,
   GetTenantsIdPathParameters,
   GetTenantsParams,
+  PatchTenantsIdStatusPathParameters,
   PutTenantsIdPathParameters,
   TenantDataResponse,
   TenantListResponse,
   UpdateTenantRequest,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+  UpdateTenantStatusRequest,
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getTenantManagement = () => {
   /**
-   * 获取租户列表，支持分页（需要管理员权限）
-   * @summary 获取租户列表
-   */
-  const getTenants = (params: GetTenantsParams) => {
-    return orvalMutator<TenantListResponse>({
-      url: `/tenants`,
-      method: 'GET',
-      params,
-    })
-  }
+ * 获取租户列表，支持分页，不同角色返回不同的数据
+
+**权限要求**：
+- 平台管理员（system_admin）：可以查看所有租户列表
+- 租户管理员（tenant_admin）：只能查看自己所属的租户信息
+
+**返回数据差异**：
+- 平台管理员：返回所有租户的分页列表，可能包含多条记录
+- 租户管理员：只返回当前用户所属租户的信息（单条记录），忽略分页参数
+
+**参数说明**：
+- pageNo: 页码（从1开始，默认1）
+- pageSize: 每页大小（1-100，默认20）
+
+**注意事项**：
+- 租户管理员调用此接口时，分页参数会被忽略
+- 租户管理员始终只能看到自己的租户信息
+ * @summary 获取租户列表
+ */
+  const getTenants = (params?: GetTenantsParams) => {
+    return orvalMutator<TenantListResponse>({ url: `/tenants`, method: 'GET', params });
+  };
   /**
-   * 创建新的租户（需要管理员权限）
-   * @summary 创建租户
-   */
+ * 创建新的租户并自动生成租户管理员账户
+
+**权限要求**：
+- 仅平台管理员（system_admin）可以调用此接口
+- 租户管理员和普通用户将收到 403 权限不足错误
+
+**功能说明**：
+- 创建租户时会自动生成一个租户管理员账户
+- 管理员邮箱默认为 admin@{tenantDomain}，也可以通过 adminEmail 参数自定义
+- 系统会生成16位随机强密码，并在响应中返回（仅此一次）
+- 建议管理员首次登录后立即修改密码
+
+**参数说明**：
+- name: 租户名称（必填，1-255字符）
+- domain: 租户域名（可选，最多255字符）
+- metadata: 租户元数据（可选，JSON对象）
+- adminEmail: 管理员邮箱（可选，默认为 admin@{domain}）
+- adminDisplayName: 管理员显示名称（可选）
+ * @summary 创建租户（仅平台管理员）
+ */
   const postTenants = (createTenantRequest: CreateTenantRequest) => {
     return orvalMutator<TenantDataResponse>({
       url: `/tenants`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: createTenantRequest,
-    })
-  }
+    });
+  };
   /**
-   * 软删除指定的租户（需要管理员权限）
-   * @summary 删除租户
-   */
+ * 软删除指定的租户
+
+**权限要求**：
+- 仅平台管理员（system_admin）可以调用此接口
+- 租户管理员和普通用户将收到 403 权限不足错误
+
+**功能说明**：
+- 执行软删除操作（设置 is_deleted=true）
+- 不允许删除平台租户（type="system"）
+- 删除后的租户数据仍保留在数据库中，但不再可见
+
+**参数说明**：
+- id: 租户ID（UUID格式）
+ * @summary 删除租户（仅平台管理员）
+ */
   const deleteTenantsId = ({ id }: DeleteTenantsIdPathParameters) => {
-    return orvalMutator<AnyDataResponse>({
-      url: `/tenants/${id}`,
-      method: 'DELETE',
-    })
-  }
+    return orvalMutator<AnyDataResponse>({ url: `/tenants/${id}`, method: 'DELETE' });
+  };
   /**
-   * 根据租户ID获取租户详细信息（需要管理员权限）
-   * @summary 获取租户详情
-   */
+ * 根据租户ID获取租户详细信息
+
+**权限要求**：
+- 平台管理员（system_admin）：可以查看任意租户的详细信息
+- 租户管理员（tenant_admin）：只能查看自己所属租户的信息
+
+**访问控制**：
+- 租户管理员尝试访问其他租户时，将收到 403 权限不足错误
+- 系统会自动验证目标租户ID是否与当前用户的租户ID匹配
+
+**参数说明**：
+- id: 租户ID（UUID格式）
+ * @summary 获取租户详情
+ */
   const getTenantsId = ({ id }: GetTenantsIdPathParameters) => {
-    return orvalMutator<TenantDataResponse>({
-      url: `/tenants/${id}`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<TenantDataResponse>({ url: `/tenants/${id}`, method: 'GET' });
+  };
   /**
-   * 更新租户信息（需要管理员权限）
-   * @summary 更新租户
-   */
+ * 更新租户信息，支持字段级权限控制
+
+**权限要求**：
+- 平台管理员（system_admin）：可以修改任意租户的所有字段
+- 租户管理员（tenant_admin）：只能修改自己租户的 name 字段
+
+**字段级权限控制**：
+- 租户管理员可修改字段：name（租户名称）
+- 租户管理员不可修改字段：domain（域名）、metadata（元数据）、status（状态）
+- 租户管理员尝试修改受限字段时，将收到 403 权限不足错误
+- 平台管理员可以修改所有字段
+
+**访问控制**：
+- 租户管理员只能更新自己所属的租户
+- 租户管理员尝试更新其他租户时，将收到 403 权限不足错误
+
+**参数说明**：
+- id: 租户ID（UUID格式）
+- name: 租户名称（可选，1-255字符）
+- domain: 租户域名（可选，最多255字符，仅平台管理员可修改）
+- metadata: 租户元数据（可选，JSON对象，仅平台管理员可修改）
+- status: 租户状态（可选，布尔值，仅平台管理员可修改）
+ * @summary 更新租户
+ */
   const putTenantsId = (
     { id }: PutTenantsIdPathParameters,
     updateTenantRequest: UpdateTenantRequest,
@@ -77,28 +145,60 @@ export const getTenantManagement = () => {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       data: updateTenantRequest,
-    })
-  }
+    });
+  };
+  /**
+ * 启用或禁用租户
+
+**权限要求**：
+- 仅平台管理员（system_admin）可以调用此接口
+- 租户管理员和普通用户将收到 403 权限不足错误
+
+**功能说明**：
+- 启用租户（status=true）：租户下的所有用户可以正常访问系统
+- 禁用租户（status=false）：租户下的所有用户将无法访问系统
+- 不允许禁用平台租户（type="system"）
+
+**参数说明**：
+- id: 租户ID（UUID格式）
+- status: 租户状态（true=启用，false=禁用）
+ * @summary 更新租户状态（仅平台管理员）
+ */
+  const patchTenantsIdStatus = (
+    { id }: PatchTenantsIdStatusPathParameters,
+    updateTenantStatusRequest: UpdateTenantStatusRequest,
+  ) => {
+    return orvalMutator<TenantDataResponse>({
+      url: `/tenants/${id}/status`,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      data: updateTenantStatusRequest,
+    });
+  };
   return {
     getTenants,
     postTenants,
     deleteTenantsId,
     getTenantsId,
     putTenantsId,
-  }
-}
+    patchTenantsIdStatus,
+  };
+};
 export type GetTenantsResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getTenantManagement>['getTenants']>>
->
+>;
 export type PostTenantsResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getTenantManagement>['postTenants']>>
->
+>;
 export type DeleteTenantsIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getTenantManagement>['deleteTenantsId']>>
->
+>;
 export type GetTenantsIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getTenantManagement>['getTenantsId']>>
->
+>;
 export type PutTenantsIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getTenantManagement>['putTenantsId']>>
->
+>;
+export type PatchTenantsIdStatusResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getTenantManagement>['patchTenantsIdStatus']>>
+>;

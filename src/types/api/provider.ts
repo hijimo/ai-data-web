@@ -6,36 +6,36 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { ProviderHelp } from './providerHelp'
-import type { ProviderIconLarge } from './providerIconLarge'
-import type { ProviderIconSmall } from './providerIconSmall'
-import type { ProviderLabel } from './providerLabel'
-import type { CredentialSchema } from './credentialSchema'
-import type { ProviderModels } from './providerModels'
+import type { CredentialSchema } from './credentialSchema';
+import type { ProviderHelp } from './providerHelp';
+import type { ProviderIconLarge } from './providerIconLarge';
+import type { ProviderIconSmall } from './providerIconSmall';
+import type { ProviderLabel } from './providerLabel';
+import type { ProviderModels } from './providerModels';
 
 export interface Provider {
   /** 背景色 */
-  background?: string
+  background?: string;
   /** 配置方法列表 */
-  configurate_methods?: string[]
+  configurate_methods?: string[];
   /** 帮助信息 */
-  help?: ProviderHelp
+  help?: ProviderHelp;
   /** 大图标（多语言） */
-  icon_large?: ProviderIconLarge
+  icon_large?: ProviderIconLarge;
   /** 小图标（多语言） */
-  icon_small?: ProviderIconSmall
+  icon_small?: ProviderIconSmall;
   /** 提供商ID（从文件夹名称获取） */
-  id?: string
+  id?: string;
   /** 多语言标签 */
-  label?: ProviderLabel
+  label?: ProviderLabel;
   /** 模型凭证配置 */
-  model_credential_schema?: CredentialSchema
+  model_credential_schema?: CredentialSchema;
   /** 模型类型配置 */
-  models?: ProviderModels
+  models?: ProviderModels;
   /** 提供商标识 */
-  provider?: string
+  provider?: string;
   /** 提供商凭证配置 */
-  provider_credential_schema?: CredentialSchema
+  provider_credential_schema?: CredentialSchema;
   /** 支持的模型类型列表 */
-  supported_model_types?: string[]
+  supported_model_types?: string[];
 }

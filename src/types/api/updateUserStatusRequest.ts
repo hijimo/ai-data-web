@@ -8,5 +8,5 @@
  */
 
 export interface UpdateUserStatusRequest {
-  isActive: boolean
+  isActive: boolean;
 }

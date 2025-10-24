@@ -6,28 +6,28 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { MessageDetailResponseMeta } from './messageDetailResponseMeta'
-import type { MessageDetailResponseToolCalls } from './messageDetailResponseToolCalls'
+import type { MessageDetailResponseMeta } from './messageDetailResponseMeta';
+import type { MessageDetailResponseToolCalls } from './messageDetailResponseToolCalls';
 
 export interface MessageDetailResponse {
   /** 消息内容 */
-  content?: string
+  content?: string;
   /** 创建时间 */
-  createdAt?: string
+  createdAt?: string;
   /** 错误信息 */
-  error?: string
+  error?: string;
   /** 消息ID */
-  id?: string
+  id?: string;
   /** 元数据 */
-  meta?: MessageDetailResponseMeta
+  meta?: MessageDetailResponseMeta;
   /** 角色 */
-  role?: string
+  role?: string;
   /** 序列号 */
-  sequence?: number
+  sequence?: number;
   /** 会话ID */
-  sessionId?: string
+  sessionId?: string;
   /** Token数量 */
-  tokens?: number
+  tokens?: number;
   /** 工具调用 */
-  toolCalls?: MessageDetailResponseToolCalls
+  toolCalls?: MessageDetailResponseToolCalls;
 }

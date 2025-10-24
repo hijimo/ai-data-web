@@ -1,11 +1,11 @@
-import React from 'react'
-import { RouterProvider } from 'react-router'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ConfigProvider } from 'antd'
-import useTheme, { ThemeProvider } from '@/hooks/useTheme'
-import { getThemeConfig } from '@/theme'
-import ErrorBoundary from './components/ErrorBoundary'
-import router from './router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ConfigProvider } from 'antd';
+import { RouterProvider } from 'react-router';
+import React from 'react';
+import useTheme, { ThemeProvider } from '@/hooks/useTheme';
+import { getThemeConfig } from '@/theme';
+import ErrorBoundary from './components/ErrorBoundary';
+import router from './router';
 
 // 创建QueryClient实例
 const queryClient = new QueryClient({
@@ -23,10 +23,10 @@ const queryClient = new QueryClient({
       retry: false,
     },
   },
-})
+});
 
 const App: React.FC = () => {
-  const { themeMode, colorName } = useTheme()
+  const { themeMode, colorName } = useTheme();
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -35,7 +35,7 @@ const App: React.FC = () => {
         </ConfigProvider>
       </QueryClientProvider>
     </ErrorBoundary>
-  )
-}
-App.displayName = 'App'
-export default App
+  );
+};
+App.displayName = 'App';
+export default App;

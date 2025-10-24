@@ -15,7 +15,7 @@ import type {
 import { tenantColumns } from '@/configurify/columns/tenantColumns';
 import { handleError } from '@/utils/errorHandler';
 import { getTenantManagement } from '@/services/api/tenant-management/tenant-management';
-import type { GetTenantsParams, Tenant } from '@/types/api';
+import type { Tenant } from '@/types/api';
 import type { ResponsePaginationData } from '@/types';
 import TenantCreateDrawer from '../../Drawer/TenantCreateDrawer';
 import TenantEditDrawer from '../../Drawer/TenantEditDrawer';
@@ -32,7 +32,7 @@ const TenantTable: React.FC<TenantTableProps> = () => {
   const { mutate: deleteTenantMutate } = useMutation({
     mutationFn: async (id: string) => deleteTenantsId({ id }),
     onSuccess: (response) => {
-      if (response.code === 0) {
+      if (response.code === 200) {
         message.success('删除租户成功');
         // 刷新表格
         actionRef.current?.reload();

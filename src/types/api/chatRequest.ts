@@ -6,13 +6,13 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { ChatOptions } from './chatOptions'
+import type { ChatOptions } from './chatOptions';
 
 export interface ChatRequest {
   /** 用户消息内容 */
-  message: string
+  message: string;
   /** 消息ID（可选，用于继续对话） */
-  messageId?: string
+  messageId?: string;
   /** AI高级参数（可选） */
-  options?: ChatOptions
+  options?: ChatOptions;
 }

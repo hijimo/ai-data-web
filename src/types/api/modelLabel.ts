@@ -10,4 +10,4 @@
 /**
  * 多语言标签
  */
-export type ModelLabel = { [key: string]: string }
+export type ModelLabel = { [key: string]: string };

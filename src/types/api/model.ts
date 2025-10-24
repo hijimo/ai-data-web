@@ -6,26 +6,26 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { ModelLabel } from './modelLabel'
-import type { ModelProperties } from './modelProperties'
-import type { ParameterRule } from './parameterRule'
-import type { Pricing } from './pricing'
+import type { ModelLabel } from './modelLabel';
+import type { ModelProperties } from './modelProperties';
+import type { ParameterRule } from './parameterRule';
+import type { Pricing } from './pricing';
 
 export interface Model {
   /** 是否已弃用 */
-  deprecated?: boolean
+  deprecated?: boolean;
   /** 特性列表 */
-  features?: string[]
+  features?: string[];
   /** 多语言标签 */
-  label?: ModelLabel
+  label?: ModelLabel;
   /** 模型标识 */
-  model?: string
+  model?: string;
   /** 模型属性 */
-  model_properties?: ModelProperties
+  model_properties?: ModelProperties;
   /** 模型类型（llm、tts、text_embedding等） */
-  model_type?: string
+  model_type?: string;
   /** 参数规则 */
-  parameter_rules?: ParameterRule[]
+  parameter_rules?: ParameterRule[];
   /** 定价信息 */
-  pricing?: Pricing
+  pricing?: Pricing;
 }

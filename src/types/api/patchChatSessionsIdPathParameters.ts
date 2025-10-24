@@ -8,5 +8,5 @@
  */
 
 export type PatchChatSessionsIdPathParameters = {
-  id: string
-}
+  id: string;
+};

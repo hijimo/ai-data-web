@@ -10,4 +10,4 @@
 /**
  * 租户元数据，存储租户的自定义信息
  */
-export type TenantMetadata = { [key: string]: unknown }
+export type TenantMetadata = { [key: string]: unknown };

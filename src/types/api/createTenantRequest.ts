@@ -6,16 +6,15 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { CreateTenantRequestMetadata } from './createTenantRequestMetadata'
+import type { CreateTenantRequestMetadata } from './createTenantRequestMetadata';
 
 export interface CreateTenantRequest {
-  createdBy?: string
   /** @maxLength 255 */
-  domain?: string
-  metadata?: CreateTenantRequestMetadata
+  domain?: string;
+  metadata?: CreateTenantRequestMetadata;
   /**
    * @minLength 1
    * @maxLength 255
    */
-  name: string
+  name: string;
 }

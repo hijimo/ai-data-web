@@ -6,12 +6,12 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { ProviderHelpTitle } from './providerHelpTitle'
-import type { ProviderHelpUrl } from './providerHelpUrl'
+import type { ProviderHelpTitle } from './providerHelpTitle';
+import type { ProviderHelpUrl } from './providerHelpUrl';
 
 export interface ProviderHelp {
   /** 帮助标题（多语言） */
-  title?: ProviderHelpTitle
+  title?: ProviderHelpTitle;
   /** 帮助链接（多语言） */
-  url?: ProviderHelpUrl
+  url?: ProviderHelpUrl;
 }

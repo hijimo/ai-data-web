@@ -10,4 +10,4 @@
 /**
  * 选项标签（多语言）
  */
-export type FormOptionLabel = { [key: string]: string }
+export type FormOptionLabel = { [key: string]: string };

@@ -6,13 +6,13 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { PaginationDataArrayAuthAuditItem } from './paginationDataArrayAuthAuditItem'
+import type { PaginationDataArrayModelAuthAuditItem } from './paginationDataArrayModelAuthAuditItem';
 
 export interface AuthAuditListResponse {
   /** 响应代码 */
-  code?: number
+  code?: number;
   /** 分页数据 */
-  data?: PaginationDataArrayAuthAuditItem
+  data?: PaginationDataArrayModelAuthAuditItem;
   /** 响应信息 */
-  message?: string
+  message?: string;
 }

@@ -9,7 +9,7 @@
 
 export interface ErrorResponse {
   /** 响应代码 */
-  code?: number
+  code?: number;
   /** 响应信息 */
-  message?: string
+  message?: string;
 }

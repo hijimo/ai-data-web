@@ -11,9 +11,8 @@ import type {
   ChatRequestBody,
   ChatResponseData,
   SuccessResponse,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getChat = () => {
   /**
@@ -26,8 +25,8 @@ export const getChat = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: chatRequestBody,
-    })
-  }
+    });
+  };
   /**
    * 中止指定消息的对话处理
    * @summary 中止对话
@@ -38,8 +37,8 @@ export const getChat = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: abortRequest,
-    })
-  }
+    });
+  };
   /**
    * 向 AI 发送消息并以流式方式获取回复，支持通过 messageId 继续对话
    * @summary 发送流式对话消息
@@ -50,16 +49,16 @@ export const getChat = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: chatRequestBody,
-    })
-  }
-  return { postChat, postChatAbort, postChatStream }
-}
+    });
+  };
+  return { postChat, postChatAbort, postChatStream };
+};
 export type PostChatResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getChat>['postChat']>>
->
+>;
 export type PostChatAbortResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getChat>['postChatAbort']>>
->
+>;
 export type PostChatStreamResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getChat>['postChatStream']>>
->
+>;

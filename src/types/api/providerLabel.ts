@@ -10,4 +10,4 @@
 /**
  * 多语言标签
  */
-export type ProviderLabel = { [key: string]: string }
+export type ProviderLabel = { [key: string]: string };

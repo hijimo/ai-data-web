@@ -9,7 +9,7 @@
 
 export interface ModelProperties {
   /** 上下文大小 */
-  context_size?: number
+  context_size?: number;
   /** 模式（chat、completion等） */
-  mode?: string
+  mode?: string;
 }

@@ -6,9 +6,9 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { ChatRequest } from './chatRequest'
+import type { ChatRequest } from './chatRequest';
 
 /**
  * 对话请求
  */
-export type ChatRequestBody = ChatRequest
+export type ChatRequestBody = ChatRequest;

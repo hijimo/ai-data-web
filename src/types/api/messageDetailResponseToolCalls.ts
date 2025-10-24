@@ -10,4 +10,4 @@
 /**
  * 工具调用
  */
-export type MessageDetailResponseToolCalls = { [key: string]: unknown }
+export type MessageDetailResponseToolCalls = { [key: string]: unknown };

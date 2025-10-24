@@ -8,5 +8,5 @@
  */
 
 export type GetChatSessionsIdPathParameters = {
-  id: string
-}
+  id: string;
+};

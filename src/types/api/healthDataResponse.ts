@@ -8,5 +8,5 @@
  */
 
 export interface HealthDataResponse {
-  [key: string]: unknown
+  [key: string]: unknown;
 }

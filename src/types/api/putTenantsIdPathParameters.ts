@@ -8,5 +8,5 @@
  */
 
 export type PutTenantsIdPathParameters = {
-  id: string
-}
+  id: string;
+};

@@ -6,36 +6,36 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { MessagePreview } from './messagePreview'
-import type { SessionResponseMeta } from './sessionResponseMeta'
+import type { MessagePreview } from './messagePreview';
+import type { SessionResponseMeta } from './sessionResponseMeta';
 
 export interface SessionResponse {
   /** 创建时间 */
-  createdAt?: string
+  createdAt?: string;
   /** 会话ID */
-  id?: string
+  id?: string;
   /** 是否归档 */
-  isArchived?: boolean
+  isArchived?: boolean;
   /** 是否置顶 */
-  isPinned?: boolean
+  isPinned?: boolean;
   /** 最后一条消息 */
-  lastMessage?: MessagePreview
+  lastMessage?: MessagePreview;
   /** 消息数量 */
-  messageCount?: number
+  messageCount?: number;
   /** 元数据 */
-  meta?: SessionResponseMeta
+  meta?: SessionResponseMeta;
   /** 模型名称 */
-  modelName?: string
+  modelName?: string;
   /** 系统提示词 */
-  systemPrompt?: string
+  systemPrompt?: string;
   /** 温度参数 */
-  temperature?: number
+  temperature?: number;
   /** 会话标题 */
-  title?: string
+  title?: string;
   /** TopP参数 */
-  topP?: number
+  topP?: number;
   /** 更新时间 */
-  updatedAt?: string
+  updatedAt?: string;
   /** 用户ID */
-  userId?: string
+  userId?: string;
 }

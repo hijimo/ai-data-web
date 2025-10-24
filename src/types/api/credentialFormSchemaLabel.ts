@@ -10,4 +10,4 @@
 /**
  * 标签（多语言）
  */
-export type CredentialFormSchemaLabel = { [key: string]: string }
+export type CredentialFormSchemaLabel = { [key: string]: string };

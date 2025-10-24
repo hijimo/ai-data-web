@@ -8,6 +8,6 @@
  */
 
 export type GetProvidersProviderIdModelsModelIdParameterRulesPathParameters = {
-  providerId: string
-  modelId: string
-}
+  providerId: string;
+  modelId: string;
+};

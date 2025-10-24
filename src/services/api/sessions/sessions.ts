@@ -21,9 +21,8 @@ import type {
   SessionDataResponse,
   SessionListResponse,
   UpdateSessionRequest,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getSessions = () => {
   /**
@@ -31,12 +30,8 @@ export const getSessions = () => {
    * @summary 获取会话列表
    */
   const getChatSessions = (params: GetChatSessionsParams) => {
-    return orvalMutator<SessionListResponse>({
-      url: `/chat/sessions`,
-      method: 'GET',
-      params,
-    })
-  }
+    return orvalMutator<SessionListResponse>({ url: `/chat/sessions`, method: 'GET', params });
+  };
   /**
    * 创建一个新的聊天会话
    * @summary 创建新会话
@@ -47,28 +42,22 @@ export const getSessions = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: createSessionRequest,
-    })
-  }
+    });
+  };
   /**
    * 软删除指定的会话
    * @summary 删除会话
    */
   const deleteChatSessionsId = ({ id }: DeleteChatSessionsIdPathParameters) => {
-    return orvalMutator<AnyDataResponse>({
-      url: `/chat/sessions/${id}`,
-      method: 'DELETE',
-    })
-  }
+    return orvalMutator<AnyDataResponse>({ url: `/chat/sessions/${id}`, method: 'DELETE' });
+  };
   /**
    * 根据会话ID获取会话的详细信息
    * @summary 获取会话详情
    */
   const getChatSessionsId = ({ id }: GetChatSessionsIdPathParameters) => {
-    return orvalMutator<SessionDataResponse>({
-      url: `/chat/sessions/${id}`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<SessionDataResponse>({ url: `/chat/sessions/${id}`, method: 'GET' });
+  };
   /**
    * 更新会话的标题、配置等信息
    * @summary 更新会话
@@ -82,8 +71,8 @@ export const getSessions = () => {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       data: updateSessionRequest,
-    })
-  }
+    });
+  };
   /**
    * 归档或取消归档指定的会话
    * @summary 归档会话
@@ -96,8 +85,8 @@ export const getSessions = () => {
       url: `/chat/sessions/${id}/archive`,
       method: 'POST',
       params,
-    })
-  }
+    });
+  };
   /**
    * 置顶或取消置顶指定的会话
    * @summary 置顶会话
@@ -110,8 +99,8 @@ export const getSessions = () => {
       url: `/chat/sessions/${id}/pin`,
       method: 'POST',
       params,
-    })
-  }
+    });
+  };
   /**
    * 根据关键词搜索会话
    * @summary 搜索会话
@@ -121,8 +110,8 @@ export const getSessions = () => {
       url: `/chat/sessions/search`,
       method: 'GET',
       params,
-    })
-  }
+    });
+  };
   return {
     getChatSessions,
     postChatSessions,
@@ -132,31 +121,29 @@ export const getSessions = () => {
     postChatSessionsIdArchive,
     postChatSessionsIdPin,
     getChatSessionsSearch,
-  }
-}
+  };
+};
 export type GetChatSessionsResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getSessions>['getChatSessions']>>
->
+>;
 export type PostChatSessionsResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getSessions>['postChatSessions']>>
->
+>;
 export type DeleteChatSessionsIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getSessions>['deleteChatSessionsId']>>
->
+>;
 export type GetChatSessionsIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getSessions>['getChatSessionsId']>>
->
+>;
 export type PatchChatSessionsIdResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getSessions>['patchChatSessionsId']>>
->
+>;
 export type PostChatSessionsIdArchiveResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getSessions>['postChatSessionsIdArchive']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getSessions>['postChatSessionsIdArchive']>>
+>;
 export type PostChatSessionsIdPinResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getSessions>['postChatSessionsIdPin']>>
->
+>;
 export type GetChatSessionsSearchResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getSessions>['getChatSessionsSearch']>>
->
+>;

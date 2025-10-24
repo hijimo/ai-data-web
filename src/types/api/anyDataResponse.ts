@@ -8,5 +8,5 @@
  */
 
 export interface AnyDataResponse {
-  [key: string]: unknown
+  [key: string]: unknown;
 }

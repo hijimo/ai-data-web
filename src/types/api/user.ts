@@ -6,46 +6,48 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { UserMeta } from './userMeta'
+import type { UserMeta } from './userMeta';
 
 /**
  * 用户信息，包含用户的基本信息、角色和状态
  */
 export interface User {
   /** 创建时间 */
-  createdAt?: string
+  createdAt?: string;
   /** 创建者用户ID */
-  createdBy?: string
+  createdBy?: string;
+  /** 创建者显示名称 */
+  createdByName?: string;
   /** 显示名称 */
-  displayName?: string
-  /** 用户邮箱，在租户内唯一 */
-  email?: string
+  displayName?: string;
+  /** 用户邮箱，全局唯一 */
+  email?: string;
   /** 邮箱是否已验证 */
-  emailVerified?: boolean
+  emailVerified?: boolean;
   /** 登录失败次数，用于账户锁定策略 */
-  failedLoginAttempts?: number
+  failedLoginAttempts?: number;
   /** 用户ID */
-  id?: string
+  id?: string;
   /** 账户是否激活，禁用的用户无法登录 */
-  isActive?: boolean
+  isActive?: boolean;
   /** 是否为管理员（租户管理员或平台管理员） */
-  isAdmin?: boolean
+  isAdmin?: boolean;
   /** 软删除标记 */
-  isDeleted?: boolean
+  isDeleted?: boolean;
   /** 最后登录时间 */
-  lastLoginAt?: string
+  lastLoginAt?: string;
   /** 账户锁定时间，锁定期间无法登录 */
-  lockedUntil?: string
+  lockedUntil?: string;
   /** 用户元数据，存储用户的自定义信息 */
-  meta?: UserMeta
+  meta?: UserMeta;
   /** 手机号码 */
-  phone?: string
+  phone?: string;
   /** 用户角色列表，支持多角色
 可选值：system_admin（平台管理员）, tenant_admin（租户管理员）, user（普通用户）
 示例：["user"], ["tenant_admin"], ["system_admin"] */
-  roles?: string[]
+  roles?: string[];
   /** 所属租户ID */
-  tenantId?: string
+  tenantId?: string;
   /** 更新时间 */
-  updatedAt?: string
+  updatedAt?: string;
 }

@@ -6,28 +6,28 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
-import type { ParameterRuleHelp } from './parameterRuleHelp'
-import type { ParameterRuleLabel } from './parameterRuleLabel'
+import type { ParameterRuleHelp } from './parameterRuleHelp';
+import type { ParameterRuleLabel } from './parameterRuleLabel';
 
 export interface ParameterRule {
   /** 默认值 */
-  default?: unknown
+  default?: unknown;
   /** 帮助信息（多语言） */
-  help?: ParameterRuleHelp
+  help?: ParameterRuleHelp;
   /** 标签（多语言） */
-  label?: ParameterRuleLabel
+  label?: ParameterRuleLabel;
   /** 最大值 */
-  max?: unknown
+  max?: unknown;
   /** 最小值 */
-  min?: unknown
+  min?: unknown;
   /** 参数名称 */
-  name?: string
+  name?: string;
   /** 选项列表 */
-  options?: string[]
+  options?: string[];
   /** 是否必填 */
-  required?: boolean
+  required?: boolean;
   /** 类型 */
-  type?: string
+  type?: string;
   /** 使用的模板 */
-  use_template?: string
+  use_template?: string;
 }

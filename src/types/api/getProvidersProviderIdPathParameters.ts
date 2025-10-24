@@ -8,5 +8,5 @@
  */
 
 export type GetProvidersProviderIdPathParameters = {
-  providerId: string
-}
+  providerId: string;
+};

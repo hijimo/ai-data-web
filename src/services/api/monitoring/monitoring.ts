@@ -11,9 +11,8 @@ import type {
   AnyDataResponse,
   HealthDataResponse,
   MetricsDataResponse,
-} from '../../../types/api'
-
-import { orvalMutator } from '../../../utils/orval-mutator'
+} from '../../../types/api';
+import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getMonitoring = () => {
   /**
@@ -21,75 +20,56 @@ export const getMonitoring = () => {
    * @summary 清空告警
    */
   const deleteMonitoringAlerts = () => {
-    return orvalMutator<AnyDataResponse>({
-      url: `/monitoring/alerts`,
-      method: 'DELETE',
-    })
-  }
+    return orvalMutator<AnyDataResponse>({ url: `/monitoring/alerts`, method: 'DELETE' });
+  };
   /**
    * 获取当前活跃的告警列表
    * @summary 获取活跃告警
    */
   const getMonitoringAlerts = () => {
-    return orvalMutator<AlertListDataResponse>({
-      url: `/monitoring/alerts`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<AlertListDataResponse>({ url: `/monitoring/alerts`, method: 'GET' });
+  };
   /**
    * 获取系统健康状态和关键监控指标
    * @summary 健康检查（含监控）
    */
   const getMonitoringHealth = () => {
-    return orvalMutator<HealthDataResponse>({
-      url: `/monitoring/health`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<HealthDataResponse>({ url: `/monitoring/health`, method: 'GET' });
+  };
   /**
    * 获取认证系统的性能监控指标
    * @summary 获取性能指标
    */
   const getMonitoringMetrics = () => {
-    return orvalMutator<MetricsDataResponse>({
-      url: `/monitoring/metrics`,
-      method: 'GET',
-    })
-  }
+    return orvalMutator<MetricsDataResponse>({ url: `/monitoring/metrics`, method: 'GET' });
+  };
   /**
    * 重置所有性能监控指标
    * @summary 重置指标
    */
   const postMonitoringMetricsReset = () => {
-    return orvalMutator<AnyDataResponse>({
-      url: `/monitoring/metrics/reset`,
-      method: 'POST',
-    })
-  }
+    return orvalMutator<AnyDataResponse>({ url: `/monitoring/metrics/reset`, method: 'POST' });
+  };
   return {
     deleteMonitoringAlerts,
     getMonitoringAlerts,
     getMonitoringHealth,
     getMonitoringMetrics,
     postMonitoringMetricsReset,
-  }
-}
+  };
+};
 export type DeleteMonitoringAlertsResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getMonitoring>['deleteMonitoringAlerts']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getMonitoring>['deleteMonitoringAlerts']>>
+>;
 export type GetMonitoringAlertsResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getMonitoring>['getMonitoringAlerts']>>
->
+>;
 export type GetMonitoringHealthResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getMonitoring>['getMonitoringHealth']>>
->
+>;
 export type GetMonitoringMetricsResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getMonitoring>['getMonitoringMetrics']>>
->
+>;
 export type PostMonitoringMetricsResetResult = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getMonitoring>['postMonitoringMetricsReset']>
-  >
->
+  Awaited<ReturnType<ReturnType<typeof getMonitoring>['postMonitoringMetricsReset']>>
+>;

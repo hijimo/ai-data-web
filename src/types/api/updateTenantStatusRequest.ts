@@ -8,6 +8,5 @@
  */
 
 export interface UpdateTenantStatusRequest {
-  /** 租户状态（true: 启用, false: 禁用） */
-  status?: boolean
+  status: boolean;
 }

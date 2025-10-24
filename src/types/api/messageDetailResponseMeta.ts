@@ -10,4 +10,4 @@
 /**
  * 元数据
  */
-export type MessageDetailResponseMeta = { [key: string]: unknown }
+export type MessageDetailResponseMeta = { [key: string]: unknown };

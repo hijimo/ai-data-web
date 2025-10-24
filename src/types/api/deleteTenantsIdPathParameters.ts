@@ -8,5 +8,5 @@
  */
 
 export type DeleteTenantsIdPathParameters = {
-  id: string
-}
+  id: string;
+};

@@ -9,19 +9,19 @@
 
 export interface AuthAuditItem {
   /** 事件发生时间 */
-  createdAt?: string
+  createdAt?: string;
   /** 事件类型 */
-  event?: string
+  event?: string;
   /** 审计日志ID */
-  id?: string
+  id?: string;
   /** 客户端IP地址 */
-  ip?: string
+  ip?: string;
   /** 事件元数据 */
-  meta?: unknown
+  meta?: unknown;
   /** 租户ID */
-  tenantId?: string
+  tenantId?: string;
   /** 用户代理字符串 */
-  userAgent?: string
+  userAgent?: string;
   /** 用户ID */
-  userId?: string
+  userId?: string;
 }

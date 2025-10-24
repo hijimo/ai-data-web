@@ -8,5 +8,5 @@
  */
 
 export interface MetricsDataResponse {
-  [key: string]: unknown
+  [key: string]: unknown;
 }

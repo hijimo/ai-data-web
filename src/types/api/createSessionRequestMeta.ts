@@ -10,4 +10,4 @@
 /**
  * 元数据（可选）
  */
-export type CreateSessionRequestMeta = { [key: string]: unknown }
+export type CreateSessionRequestMeta = { [key: string]: unknown };

@@ -8,5 +8,5 @@
  */
 
 export interface AlertListDataResponse {
-  [key: string]: unknown
+  [key: string]: unknown;
 }
