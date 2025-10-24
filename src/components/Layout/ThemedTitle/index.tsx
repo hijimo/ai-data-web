@@ -10,7 +10,7 @@ import type { RefineLayoutThemedTitleProps } from '../types';
 export const ThemedTitle: React.FC<RefineLayoutThemedTitleProps> = ({
   collapsed,
   icon,
-  text = 'Refine Project',
+  text = '',
   wrapperStyles,
 }) => {
   const { token } = theme.useToken();
