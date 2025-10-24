@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { useThemedLayoutContext } from '../hooks/useThemedLayoutContext';
 import { ThemedTitle } from '../ThemedTitle';
-import type { RefineThemedLayoutSiderProps } from '../types';
+import type { ThemedLayoutSiderProps } from '../types';
 import { drawerButtonStyles } from './styles';
 
 /**
@@ -34,7 +34,7 @@ export interface MenuItem {
 /**
  * 侧边栏组件属性
  */
-interface ThemedSiderProps extends RefineThemedLayoutSiderProps {
+interface ThemedSiderProps extends ThemedLayoutSiderProps {
   /** 菜单项列表 */
   menuItems?: MenuItem[];
   /** 当前选中的菜单项 */

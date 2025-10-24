@@ -1,13 +1,13 @@
 import { Space, theme, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import type { RefineLayoutThemedTitleProps } from '../types';
+import type { LayoutThemedTitleProps } from '../types';
 
 /**
  * 主题标题组件
  * 用于显示应用的标题和图标
  */
-export const ThemedTitle: React.FC<RefineLayoutThemedTitleProps> = ({
+export const ThemedTitle: React.FC<LayoutThemedTitleProps> = ({
   collapsed,
   icon,
   text = '',

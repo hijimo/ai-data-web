@@ -191,7 +191,7 @@ export const LayoutExample: React.FC = () => {
     >
       <div style={{ padding: '24px' }}>
         <h1>欢迎使用数据管理平台</h1>
-        <p>这是一个基于 Refine 布局组件的示例应用</p>
+        <p>这是一个基于 布局组件的示例应用</p>
 
         <div style={{ marginTop: '24px' }}>
           <h2>功能特性</h2>

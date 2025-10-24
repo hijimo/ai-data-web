@@ -9,10 +9,10 @@ export { ThemedLayoutContextProvider } from './context/ThemedLayoutContext';
 export { useThemedLayoutContext } from './hooks/useThemedLayoutContext';
 
 export type {
-  RefineThemedLayoutProps,
-  RefineThemedLayoutSiderProps,
-  RefineThemedLayoutHeaderProps,
-  RefineLayoutThemedTitleProps,
+  ThemedLayoutProps,
+  ThemedLayoutSiderProps,
+  ThemedLayoutHeaderProps,
+  LayoutThemedTitleProps,
   TitleProps,
   SiderRenderProps,
   IThemedLayoutContext,

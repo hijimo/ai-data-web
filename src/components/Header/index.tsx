@@ -12,6 +12,7 @@ import {
 } from 'antd';
 import type { MenuProps } from 'antd';
 import React, { useEffect, useState } from 'react';
+import type { ThemedLayoutHeaderProps } from '@/components/Layout';
 import { useAuthStore } from '@/stores/authStore';
 import { getCompanyInfoFromStorage, getUserInfoFromStorage } from '@/utils/userData';
 import type { User } from '@/types/api';
@@ -21,7 +22,7 @@ const { Text } = Typography;
 const { useToken } = theme;
 const { Header: AntdHeader } = Layout;
 
-const Header: React.FC<LayoutProps & HTMLElement> = ({ sticky = true }) => {
+const Header: React.FC<ThemedLayoutHeaderProps> = ({ sticky = true }) => {
   const { token } = useToken();
 
   const { logout } = useAuthStore();

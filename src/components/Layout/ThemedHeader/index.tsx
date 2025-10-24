@@ -1,6 +1,6 @@
 import { Layout as AntdLayout, Avatar, Space, theme, Typography } from 'antd';
 import React from 'react';
-import type { RefineThemedLayoutHeaderProps } from '../types';
+import type { ThemedLayoutHeaderProps } from '../types';
 
 /**
  * 用户信息接口
@@ -13,7 +13,7 @@ interface UserIdentity {
 /**
  * 主题头部组件属性
  */
-interface ThemedHeaderProps extends RefineThemedLayoutHeaderProps {
+interface ThemedHeaderProps extends ThemedLayoutHeaderProps {
   /** 用户信息 */
   user?: UserIdentity;
 }

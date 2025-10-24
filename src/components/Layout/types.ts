@@ -23,7 +23,7 @@ export interface SiderRenderProps {
 /**
  * 侧边栏组件属性
  */
-export interface RefineThemedLayoutSiderProps {
+export interface ThemedLayoutSiderProps {
   /** 标题组件 */
   Title?: React.FC<TitleProps>;
   /** 自定义渲染函数 */
@@ -41,7 +41,7 @@ export interface RefineThemedLayoutSiderProps {
 /**
  * 头部组件属性
  */
-export interface RefineThemedLayoutHeaderProps {
+export interface ThemedLayoutHeaderProps {
   /** 是否固定头部 */
   sticky?: boolean;
 }
@@ -49,7 +49,7 @@ export interface RefineThemedLayoutHeaderProps {
 /**
  * 标题组件属性
  */
-export interface RefineLayoutThemedTitleProps extends TitleProps {
+export interface LayoutThemedTitleProps extends TitleProps {
   /** 图标元素 */
   icon?: React.ReactNode;
   /** 文本内容 */
@@ -61,15 +61,15 @@ export interface RefineLayoutThemedTitleProps extends TitleProps {
 /**
  * 布局组件属性
  */
-export interface RefineThemedLayoutProps {
+export interface ThemedLayoutProps {
   /** 子元素 */
   children?: ReactNode;
   /** 侧边栏组件 */
-  Sider?: React.FC<RefineThemedLayoutSiderProps>;
+  Sider?: React.FC<ThemedLayoutSiderProps>;
   /** 头部组件 */
-  Header?: React.FC<RefineThemedLayoutHeaderProps>;
+  Header?: React.FC<ThemedLayoutHeaderProps>;
   /** 标题组件 */
-  Title?: React.FC<RefineLayoutThemedTitleProps>;
+  Title?: React.FC<LayoutThemedTitleProps>;
   /** 底部组件 */
   Footer?: React.FC;
   /** 布局外区域组件 */

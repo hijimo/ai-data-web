@@ -3,13 +3,13 @@ import React from 'react';
 import { ThemedLayoutContextProvider } from '../context/ThemedLayoutContext';
 import { ThemedHeader as DefaultHeader } from '../ThemedHeader';
 import { ThemedSider as DefaultSider } from '../ThemedSider';
-import type { RefineThemedLayoutProps } from '../types';
+import type { ThemedLayoutProps } from '../types';
 
 /**
  * 主题布局组件
  * 提供完整的应用布局结构，包括侧边栏、头部、内容区域和底部
  */
-export const ThemedLayout: React.FC<RefineThemedLayoutProps> = ({
+export const ThemedLayout: React.FC<ThemedLayoutProps> = ({
   children,
   Header,
   Sider,
