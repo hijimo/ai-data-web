@@ -116,6 +116,7 @@ export const userTenant: ProColumns<User> = {
   ellipsis: true,
   width: 160,
   valueType: 'select',
+  search: false,
   fieldProps: {
     placeholder: '请选择租户',
   },
