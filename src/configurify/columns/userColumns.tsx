@@ -12,6 +12,7 @@ export const userEmail: ProColumns<User> = {
   className: 'nowrap',
   ellipsis: true,
   width: 200,
+  search: false,
   fixed: 'left',
   fieldProps: {
     placeholder: '请输入用户邮箱',
@@ -99,7 +100,7 @@ export const userStatus: ProColumns<User> = {
   valueType: 'select',
   fieldProps: {
     options: [
-      { label: '全部', value: undefined },
+      // { label: '全部', value: undefined },
       { label: '启用', value: true },
       { label: '禁用', value: false },
     ],
@@ -186,8 +187,22 @@ export const userOption: ProColumns<User> = {
   width: 160,
 };
 
+const keyword: ProColumns<User> = {
+  title: '关键词搜索',
+  dataIndex: 'search',
+  hideInTable: true,
+  className: 'nowrap',
+
+  fieldProps: {
+    placeholder: '支持邮箱/手机/用户名称',
+    allowClear: true,
+  },
+  width: 160,
+};
+
 // 导出用户表格列配置
 export const userColumns: Record<string, ProColumns<User>> = {
+  keyword,
   userEmail,
   userDisplayName,
   userPhone,
