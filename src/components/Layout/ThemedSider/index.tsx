@@ -8,6 +8,7 @@ import {
 import { Button, ConfigProvider, Drawer, Grid, Layout, Menu, theme } from 'antd';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { useMenu, type TreeMenuItem } from '@/hooks/menu';
 import { useThemedLayoutContext } from '../hooks/useThemedLayoutContext';
 import { ThemedTitle } from '../ThemedTitle';
 import type { ThemedLayoutSiderProps } from '../types';
@@ -15,6 +16,7 @@ import { drawerButtonStyles } from './styles';
 
 /**
  * 菜单项接口
+ * @deprecated 使用 TreeMenuItem 代替
  */
 export interface MenuItem {
   key: string;
@@ -35,11 +37,11 @@ export interface MenuItem {
  * 侧边栏组件属性
  */
 interface ThemedSiderProps extends ThemedLayoutSiderProps {
-  /** 菜单项列表 */
+  /** 菜单项列表（已废弃，使用 resources 代替） */
   menuItems?: MenuItem[];
-  /** 当前选中的菜单项 */
+  /** 当前选中的菜单项（已废弃，自动从路由计算） */
   selectedKey?: string;
-  /** 默认展开的菜单项 */
+  /** 默认展开的菜单项（已废弃，自动从路由计算） */
   defaultOpenKeys?: string[];
   /** 登出回调 */
   onLogout?: () => void;
@@ -58,9 +60,9 @@ export const ThemedSider: React.FC<ThemedSiderProps> = ({
   fixed,
   activeItemDisabled = false,
   siderItemsAreCollapsed = true,
-  menuItems = [],
-  selectedKey,
-  defaultOpenKeys = [],
+  menuItems: deprecatedMenuItems,
+  selectedKey: deprecatedSelectedKey,
+  defaultOpenKeys: deprecatedDefaultOpenKeys,
   onLogout,
   showLogout = false,
 }) => {
@@ -75,11 +77,39 @@ export const ThemedSider: React.FC<ThemedSiderProps> = ({
 
   const RenderToTitle = TitleFromProps ?? ThemedTitle;
 
+  // 使用 useMenu hook 从 resources 生成菜单
+  const {
+    menuItems: resourceMenuItems,
+    selectedKey: resourceSelectedKey,
+    defaultOpenKeys: resourceDefaultOpenKeys,
+  } = useMenu({ meta });
+
+  // 兼容旧的 menuItems 属性，优先使用 resources
+  // 将旧的 MenuItem 转换为 TreeMenuItem（递归转换）
+  const convertMenuItem = (item: MenuItem): TreeMenuItem => ({
+    ...item,
+    identifier: item.key,
+    list: item.route,
+    children: item.children.map(convertMenuItem),
+  });
+
+  const convertedMenuItems: TreeMenuItem[] =
+    deprecatedMenuItems && deprecatedMenuItems.length > 0
+      ? deprecatedMenuItems.map(convertMenuItem)
+      : [];
+
+  const menuItems = convertedMenuItems.length > 0 ? convertedMenuItems : resourceMenuItems;
+  const selectedKey = deprecatedSelectedKey ?? resourceSelectedKey;
+  const defaultOpenKeys =
+    deprecatedDefaultOpenKeys && deprecatedDefaultOpenKeys.length > 0
+      ? deprecatedDefaultOpenKeys
+      : resourceDefaultOpenKeys;
+
   /**
    * 渲染树形菜单
    */
-  const renderTreeView = (tree: MenuItem[], selectedKey?: string) => {
-    return tree.map((item: MenuItem) => {
+  const renderTreeView = (tree: TreeMenuItem[], selectedKey?: string) => {
+    return tree.map((item: TreeMenuItem) => {
       const { key, name, children, meta } = item;
       const parentName = meta?.parent;
       const label = item?.label ?? meta?.label ?? name;
