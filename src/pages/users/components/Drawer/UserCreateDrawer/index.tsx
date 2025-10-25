@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Drawer, Form, Input, message, Radio, Select } from 'antd';
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { useAuthStore } from '@/stores/authStore';
 import type { UserCreateDrawerRef } from '@/pages/users/types';
 import { handleError, handleFormError } from '@/utils/errorHandler';
+import { getTenantManagement } from '@/services/api/tenant-management/tenant-management';
 import { getUserManagement } from '@/services/api/user-management/user-management';
 import type { CreateUserRequest } from '@/types/api';
 import styles from './index.module.css';
@@ -14,13 +14,20 @@ type UserCreateDrawerProps = {
 
 const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentTenantId, setCurrentTenantId] = useState<string | undefined>();
   const [form] = Form.useForm();
-  const user = useAuthStore((state) => state.user);
 
   const { postUsers } = getUserManagement();
+  const { getTenantsId } = getTenantManagement();
 
-  // 判断当前用户是否为平台管理员
-  const isPlatformAdmin = user?.roles?.includes('system_admin') ?? false;
+  // 获取租户详情以获取域名
+  const { data: tenantData } = useQuery({
+    queryKey: ['tenant', currentTenantId],
+    queryFn: () => getTenantsId({ id: currentTenantId! }),
+    enabled: !!currentTenantId,
+  });
+
+  const tenantDomain = tenantData?.data?.domain;
 
   // 创建用户的 mutation
   const { mutate: createUserMutate, isPending: isCreating } = useMutation({
@@ -47,21 +54,29 @@ const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>(
   });
 
   useImperativeHandle(ref, () => ({
-    open: () => {
+    open: (tenantId?: string) => {
       setIsOpen(true);
+      setCurrentTenantId(tenantId);
       // 延迟重置表单，确保抽屉已打开
       setTimeout(() => {
         form.resetFields();
+        // 如果传入了 tenantId，设置为默认值
+        if (tenantId) {
+          form.setFieldsValue({ tenantId });
+        }
       }, 100);
     },
     close: () => {
       setIsOpen(false);
+      setCurrentTenantId(undefined);
       form.resetFields();
     },
   }));
 
-  const handleSubmit = (values: CreateUserRequest & { metaJson?: string }) => {
-    const { metaJson, ...restValues } = values;
+  const handleSubmit = (
+    values: CreateUserRequest & { metaJson?: string; emailPrefix?: string },
+  ) => {
+    const { metaJson, emailPrefix, ...restValues } = values;
 
     // 处理元数据 JSON 解析
     let parsedMeta;
@@ -75,15 +90,15 @@ const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>(
       }
     }
 
+    // 拼接完整的邮箱地址
+    const fullEmail =
+      tenantDomain && emailPrefix ? `${emailPrefix}@${tenantDomain}` : emailPrefix || '';
+
     const submitData: CreateUserRequest = {
       ...restValues,
+      email: fullEmail,
       meta: parsedMeta,
     };
-
-    // 如果是租户管理员，不传递 tenantId（后端会自动使用当前用户的租户 ID）
-    if (!isPlatformAdmin) {
-      delete submitData.tenantId;
-    }
 
     createUserMutate(submitData);
   };
@@ -95,6 +110,7 @@ const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>(
       open={isOpen}
       onClose={() => {
         setIsOpen(false);
+        setCurrentTenantId(undefined);
         form.resetFields();
       }}
       width={600}
@@ -104,7 +120,6 @@ const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>(
           paddingTop: '16px',
         },
       }}
-      destroyOnClose
       maskClosable={false}
     >
       <Form
@@ -121,13 +136,22 @@ const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>(
       >
         <Form.Item
           label={<span className="font-medium">用户邮箱</span>}
-          name="email"
+          name="emailPrefix"
           rules={[
             { required: true, message: '请输入用户邮箱' },
-            { type: 'email', message: '请输入有效的邮箱地址' },
+            {
+              pattern: /^[^.@]+$/,
+              message: '邮箱前缀不能包含 "." 或 "@" 字符',
+            },
           ]}
         >
-          <Input placeholder="请输入用户邮箱" maxLength={255} size="large" autoFocus />
+          <Input
+            placeholder="请输入邮箱前缀"
+            maxLength={255}
+            size="large"
+            autoFocus
+            addonAfter={tenantDomain ? `@${tenantDomain}` : undefined}
+          />
         </Form.Item>
 
         <Form.Item
@@ -157,17 +181,15 @@ const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>(
           <Input placeholder="请输入手机号（可选）" maxLength={50} size="large" />
         </Form.Item>
 
-        {/* 租户选择 - 仅平台管理员可见 */}
-        {isPlatformAdmin && (
-          <Form.Item
-            label={<span className="font-medium">所属租户</span>}
-            name="tenantId"
-            rules={[{ required: true, message: '请选择所属租户' }]}
-            tooltip="平台管理员必须为新用户指定所属租户"
-          >
-            <Input placeholder="请输入租户 ID" size="large" />
-          </Form.Item>
-        )}
+        <Form.Item
+          hidden
+          label={<span className="font-medium">所属租户</span>}
+          name="tenantId"
+          rules={[{ required: true, message: '请选择所属租户' }]}
+          tooltip="平台管理员必须为新用户指定所属租户"
+        >
+          <Input placeholder="请输入租户 ID" size="large" />
+        </Form.Item>
 
         <Form.Item
           label={<span className="font-medium">是否管理员</span>}
@@ -183,12 +205,15 @@ const UserCreateDrawer = forwardRef<UserCreateDrawerRef, UserCreateDrawerProps>(
         <Form.Item
           label={<span className="font-medium">用户角色</span>}
           name="roles"
-          tooltip="可以为用户分配多个角色"
+          tooltip="为用户分配角色"
+          normalize={(value) => (value ? [value] : [])}
+          getValueFromEvent={(value) => (Array.isArray(value) ? value[0] : value)}
+          getValueProps={(value) => ({ value: Array.isArray(value) ? value[0] : value })}
         >
           <Select
-            mode="multiple"
             placeholder="请选择用户角色（可选）"
             size="large"
+            allowClear
             options={[
               { label: '普通用户', value: 'user' },
               { label: '租户管理员', value: 'tenant_admin' },

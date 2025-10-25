@@ -19,12 +19,14 @@ import type { Tenant } from '@/types/api';
 import type { ResponsePaginationData } from '@/types';
 import TenantCreateDrawer from '../../Drawer/TenantCreateDrawer';
 import TenantEditDrawer from '../../Drawer/TenantEditDrawer';
+import TenantsUserDrawer, { type TenantsUserDrawerRef } from '../../Drawer/TenantsUserDrawer';
 import styles from './index.module.css';
 
 const TenantTable: React.FC<TenantTableProps> = () => {
   const actionRef = useRef<ActionType>(null);
   const createDrawerRef = useRef<TenantCreateDrawerRef>(null);
   const editDrawerRef = useRef<TenantEditDrawerRef>(null);
+  const userDrawerRef = useRef<TenantsUserDrawerRef>(null);
 
   const { getTenants, deleteTenantsId, patchTenantsIdStatus } = getTenantManagement();
 
@@ -111,6 +113,15 @@ const TenantTable: React.FC<TenantTableProps> = () => {
     createDrawerRef.current?.open();
   }, []);
 
+  // 处理管理用户操作
+  const handleManageUsers = useCallback((tenantId: string | undefined) => {
+    if (!tenantId) {
+      message.error('租户 ID 不存在');
+      return;
+    }
+    userDrawerRef.current?.open(tenantId);
+  }, []);
+
   // 处理操作成功后的刷新
   const handleSuccess = useCallback(() => {
     actionRef.current?.reload();
@@ -130,6 +141,9 @@ const TenantTable: React.FC<TenantTableProps> = () => {
           const isEnabled = record.status;
           return (
             <OptionMenu>
+              <a key="manage-users" onClick={() => handleManageUsers(record.id)}>
+                管理用户
+              </a>
               <a key="edit" onClick={() => handleEdit(record)}>
                 编辑
               </a>
@@ -164,7 +178,7 @@ const TenantTable: React.FC<TenantTableProps> = () => {
         };
       }),
     );
-  }, [handleEdit, handleDelete, handleToggleStatus]);
+  }, [handleEdit, handleDelete, handleToggleStatus, handleManageUsers]);
 
   return (
     <div className={styles.tenantTable}>
@@ -190,6 +204,7 @@ const TenantTable: React.FC<TenantTableProps> = () => {
       />
       <TenantCreateDrawer ref={createDrawerRef} onSuccess={handleSuccess} />
       <TenantEditDrawer ref={editDrawerRef} onSuccess={handleSuccess} />
+      <TenantsUserDrawer ref={userDrawerRef} />
     </div>
   );
 };

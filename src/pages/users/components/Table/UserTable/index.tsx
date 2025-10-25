@@ -18,7 +18,7 @@ import UserCreateDrawer from '../../Drawer/UserCreateDrawer';
 import UserEditDrawer from '../../Drawer/UserEditDrawer';
 import styles from './index.module.css';
 
-const UserTable: React.FC<UserTableProps> = () => {
+const UserTable: React.FC<UserTableProps> = ({ tenantId }) => {
   const actionRef = useRef<ActionType>(null);
   const createDrawerRef = useRef<UserCreateDrawerRef>(null);
   const editDrawerRef = useRef<UserEditDrawerRef>(null);
@@ -111,8 +111,8 @@ const UserTable: React.FC<UserTableProps> = () => {
 
   // 处理创建操作
   const handleCreate = useCallback(() => {
-    createDrawerRef.current?.open();
-  }, []);
+    createDrawerRef.current?.open(tenantId);
+  }, [tenantId]);
 
   // 处理操作成功后的刷新
   const handleSuccess = useCallback(() => {
@@ -122,6 +122,10 @@ const UserTable: React.FC<UserTableProps> = () => {
   // 表格数据请求函数
   const fetchData = useTableRequest(
     getUsers as unknown as (params: Record<string, unknown>) => Promise<ResponsePaginationData>,
+    // 如果传入了 tenantId，则作为默认搜索条件
+    tenantId ? { tenantId } : undefined,
+    undefined, // getParams
+    undefined, // transform
   );
 
   // 配置表格列

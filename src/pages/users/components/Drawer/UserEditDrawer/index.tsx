@@ -1,8 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Badge, Button, Drawer, Form, Input, message, Radio, Select } from 'antd';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import type { UserEditDrawerRef } from '@/pages/users/types';
 import { handleError, handleFormError } from '@/utils/errorHandler';
+import { getTenantManagement } from '@/services/api/tenant-management/tenant-management';
 import { getUserManagement } from '@/services/api/user-management/user-management';
 import type { UpdateUserRequest, User } from '@/types/api';
 import styles from './index.module.css';
@@ -17,6 +18,16 @@ const UserEditDrawer = forwardRef<UserEditDrawerRef, UserEditDrawerProps>((props
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   const { putUsersId } = getUserManagement();
+  const { getTenantsId } = getTenantManagement();
+
+  // 获取租户详情以获取域名
+  const { data: tenantData } = useQuery({
+    queryKey: ['tenant', currentUser?.tenantId],
+    queryFn: () => getTenantsId({ id: currentUser!.tenantId! }),
+    enabled: !!currentUser?.tenantId,
+  });
+
+  const tenantDomain = tenantData?.data?.domain;
 
   // 更新用户的 mutation
   const { mutate: updateUserMutate, isPending: isUpdating } = useMutation({
@@ -50,8 +61,11 @@ const UserEditDrawer = forwardRef<UserEditDrawerRef, UserEditDrawerProps>((props
       setIsOpen(true);
       // 延迟设置表单值，确保抽屉已打开
       setTimeout(() => {
+        // 从完整邮箱中提取前缀
+        const emailPrefix = user.email?.split('@')[0] || '';
+
         form.setFieldsValue({
-          email: user.email,
+          emailPrefix,
           displayName: user.displayName,
           phone: user.phone,
           isActive: user.isActive,
@@ -68,14 +82,16 @@ const UserEditDrawer = forwardRef<UserEditDrawerRef, UserEditDrawerProps>((props
     },
   }));
 
-  const handleSubmit = (values: UpdateUserRequest & { metaJson?: string }) => {
+  const handleSubmit = (
+    values: UpdateUserRequest & { metaJson?: string; emailPrefix?: string },
+  ) => {
     if (!currentUser?.id) {
       message.error('用户信息不完整');
       console.error('更新用户失败 - 用户 ID 缺失:', currentUser);
       return;
     }
 
-    const { metaJson, ...restValues } = values;
+    const { metaJson, emailPrefix, ...restValues } = values;
 
     // 处理元数据 JSON 解析
     let parsedMeta;
@@ -89,8 +105,12 @@ const UserEditDrawer = forwardRef<UserEditDrawerRef, UserEditDrawerProps>((props
       }
     }
 
+    // 拼接完整的邮箱地址
+    const fullEmail = tenantDomain && emailPrefix ? `${emailPrefix}@${tenantDomain}` : emailPrefix;
+
     const updateData: UpdateUserRequest = {
       ...restValues,
+      email: fullEmail,
       meta: parsedMeta,
     };
 
@@ -117,7 +137,6 @@ const UserEditDrawer = forwardRef<UserEditDrawerRef, UserEditDrawerProps>((props
           paddingTop: '16px',
         },
       }}
-      destroyOnClose
       maskClosable={false}
     >
       <Form
@@ -147,10 +166,22 @@ const UserEditDrawer = forwardRef<UserEditDrawerRef, UserEditDrawerProps>((props
 
         <Form.Item
           label={<span className="font-medium">用户邮箱</span>}
-          name="email"
-          rules={[{ type: 'email', message: '请输入有效的邮箱地址' }]}
+          name="emailPrefix"
+          rules={[
+            { required: true, message: '请输入用户邮箱' },
+            {
+              pattern: /^[^.@]+$/,
+              message: '邮箱前缀不能包含 "." 或 "@" 字符',
+            },
+          ]}
         >
-          <Input placeholder="请输入用户邮箱" maxLength={255} size="large" autoFocus />
+          <Input
+            placeholder="请输入邮箱前缀"
+            maxLength={255}
+            size="large"
+            autoFocus
+            addonAfter={tenantDomain ? `@${tenantDomain}` : undefined}
+          />
         </Form.Item>
 
         <Form.Item
@@ -186,12 +217,15 @@ const UserEditDrawer = forwardRef<UserEditDrawerRef, UserEditDrawerProps>((props
         <Form.Item
           label={<span className="font-medium">用户角色</span>}
           name="roles"
-          tooltip="可以为用户分配多个角色"
+          tooltip="为用户分配角色"
+          normalize={(value) => (value ? [value] : [])}
+          getValueFromEvent={(value) => (Array.isArray(value) ? value[0] : value)}
+          getValueProps={(value) => ({ value: Array.isArray(value) ? value[0] : value })}
         >
           <Select
-            mode="multiple"
-            placeholder="请选择用户角色"
+            placeholder="请选择用户角色（可选）"
             size="large"
+            allowClear
             options={[
               { label: '普通用户', value: 'user' },
               { label: '租户管理员', value: 'tenant_admin' },

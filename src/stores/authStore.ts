@@ -108,7 +108,7 @@ export const useAuthStore = create<AuthStore>()(
       // 更新用户信息
       updateUser: (userData: Partial<User>) => {
         set((state) => {
-          const updatedUser = state.user ? { ...state.user, ...userData } : null;
+          const updatedUser = state.user ? { ...state.user, ...userData } : userData;
 
           // 如果记住登录状态，同步更新 localStorage
           if (state.rememberMe && updatedUser) {

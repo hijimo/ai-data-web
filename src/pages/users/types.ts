@@ -4,14 +4,15 @@ import type { User } from '@/types/api';
  * 用户表格组件属性
  */
 export interface UserTableProps {
-  // 预留接口以便未来扩展
+  /** 租户 ID，用于筛选特定租户的用户 */
+  tenantId?: string;
 }
 
 /**
  * 创建用户抽屉引用接口
  */
 export interface UserCreateDrawerRef {
-  open: () => void;
+  open: (tenantId?: string) => void;
   close: () => void;
 }
 

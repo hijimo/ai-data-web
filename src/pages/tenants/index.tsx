@@ -1,8 +1,7 @@
-import { PageContainer } from '@ant-design/pro-components'
-import React from 'react'
-
-import TenantTable from './components/Table/TenantTable'
-import styles from './index.module.css'
+import { PageContainer } from '@ant-design/pro-components';
+import React from 'react';
+import TenantTable from './components/Table/TenantTable';
+import styles from './index.module.css';
 
 /**
  * 租户管理主页面
@@ -10,10 +9,10 @@ import styles from './index.module.css'
  */
 const TenantsPage: React.FC = () => {
   return (
-    <PageContainer className={styles.tenantsPage}>
+    <div className={styles.tenantsPage}>
       <TenantTable />
-    </PageContainer>
-  )
-}
+    </div>
+  );
+};
 
-export default TenantsPage
+export default TenantsPage;

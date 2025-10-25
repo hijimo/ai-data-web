@@ -25,6 +25,7 @@ const transformOrderBy = (orders: Record<string, 'ascend' | 'descend' | null>) =
 export type DataLoaderParams = Record<string, unknown>;
 export const useTableRequest = (
   dataLoader?: (params: DataLoaderParams) => Promise<ResponsePaginationData>,
+  defaultParams?: Record<string, unknown>,
   getParams?: (params: Record<string, unknown>) => Record<string, unknown>,
   transform?: (result: ResponsePaginationData) => unknown,
 ) => {
@@ -40,6 +41,7 @@ export const useTableRequest = (
         order_by: transformOrderBy(sort),
         pageNo: params.current as number,
         pageSize: params.pageSize as number,
+        ...defaultParams, // 合并默认参数
         ...getParams?.(params),
       };
       const result = await dataLoader?.(newParams);
@@ -48,7 +50,7 @@ export const useTableRequest = (
         transformDataToProTable(result as ResponsePaginationData);
       return Promise.resolve(transformedResult);
     },
-    [dataLoader, getParams, transform],
+    [dataLoader, defaultParams, getParams, transform],
   );
   return request;
 };

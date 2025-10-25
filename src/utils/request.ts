@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
 import cookies from 'js-cookie';
+import { useAuthStore } from '@/stores/authStore';
 import { logError, parseError } from '@/utils/errorHandler';
 import { TOKEN_KEY, USER_INFO_KEY as USER_INFO } from '@/utils/userData';
 import type { ResponseData } from '@/types';
@@ -20,6 +21,7 @@ const noNotifyList: string[] = [];
  */
 const errorHandler = (error: AxiosError | Error, context?: string): void => {
   const errorInfo = parseError(error);
+
   logError(error, context);
 
   // 检查是否需要显示错误提示
@@ -40,17 +42,13 @@ const errorHandler = (error: AxiosError | Error, context?: string): void => {
       });
       break;
     case 'api':
-      if (errorInfo.code === 401 || errorInfo.code === 403) {
-        message.error({
-          content: '登录已过期，请重新登录',
-          duration: 3,
-        });
-      } else {
-        message.error({
-          content: errorInfo.message || '服务器响应异常',
-          duration: 4,
-        });
-      }
+      const axiosErr = error as AxiosError;
+      const messageStr = (axiosErr.response?.data as any)?.message;
+      message.error({
+        content: messageStr || errorInfo.message || '服务器响应异常',
+        duration: 4,
+      });
+
       break;
     default:
       message.error({
@@ -87,6 +85,21 @@ request.interceptors.request.use((config) => {
 request.interceptors.response.use(
   (res) => {
     const { message: messageStr, code, result } = (res.data as unknown as ResponseData) || {};
+
+    if (code === 401 || code === 403) {
+      // 认证失败或无权限，自动登出
+      const { logout } = useAuthStore.getState();
+      logout();
+
+      message.error({
+        content: code === 401 ? '登录已过期，请重新登录' : '无权限访问',
+        duration: 3,
+      });
+
+      // 跳转到登录页
+      window.location.href = '/login';
+      return Promise.reject(new Error(messageStr || '认证失败'));
+    }
     if (code !== 200) {
       // 创建业务错误
       const error = new Error(messageStr || '业务处理失败');
