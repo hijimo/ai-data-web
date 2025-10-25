@@ -1,4 +1,4 @@
-import { HomeOutlined, TeamOutlined } from '@ant-design/icons';
+import { HomeOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { createBrowserRouter, Outlet } from 'react-router';
 import Header from '@/components/Header';
 import {
@@ -14,6 +14,7 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Notfound from './pages/Notfound';
 import Tenants from './pages/tenants';
+import Users from './pages/users';
 import type { ResourceProps } from './types/resource';
 
 /**
@@ -37,18 +38,14 @@ const resources: ResourceProps[] = [
       icon: <TeamOutlined />,
     },
   },
-  // 可以继续添加更多资源
-  // {
-  //   name: 'users',
-  //   list: '/users',
-  //   create: '/users/create',
-  //   edit: '/users/:id/edit',
-  //   show: '/users/:id',
-  //   meta: {
-  //     label: '用户管理',
-  //     icon: <UserOutlined />,
-  //   },
-  // },
+  {
+    name: 'users',
+    list: '/users',
+    meta: {
+      label: '用户管理',
+      icon: <UserOutlined />,
+    },
+  },
 ];
 
 const renderTitle: React.FC<LayoutThemedTitleProps> = ({ collapsed }: { collapsed: boolean }) => (
@@ -110,6 +107,10 @@ const router = createBrowserRouter([
           {
             path: '/tenants',
             element: <Tenants />,
+          },
+          {
+            path: '/users',
+            element: <Users />,
           },
           {
             path: '*',

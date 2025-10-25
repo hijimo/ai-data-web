@@ -7,76 +7,79 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import CommonTable from '@/components/CommonTable';
 import OptionMenu from '@/components/CommonTable/OptionMenu';
 import { useTableRequest } from '@/hooks/useTableRequest';
-import type {
-  TenantCreateDrawerRef,
-  TenantEditDrawerRef,
-  TenantTableProps,
-} from '@/pages/tenants/types';
-import { tenantColumns } from '@/configurify/columns/tenantColumns';
+import { useAuthStore } from '@/stores/authStore';
+import type { UserCreateDrawerRef, UserEditDrawerRef, UserTableProps } from '@/pages/users/types';
+import { userColumns } from '@/configurify/columns/userColumns';
 import { handleError } from '@/utils/errorHandler';
-import { getTenantManagement } from '@/services/api/tenant-management/tenant-management';
-import type { Tenant } from '@/types/api';
+import { getUserManagement } from '@/services/api/user-management/user-management';
+import type { User } from '@/types/api';
 import type { ResponsePaginationData } from '@/types';
-import TenantCreateDrawer from '../../Drawer/TenantCreateDrawer';
-import TenantEditDrawer from '../../Drawer/TenantEditDrawer';
+import UserCreateDrawer from '../../Drawer/UserCreateDrawer';
+import UserEditDrawer from '../../Drawer/UserEditDrawer';
 import styles from './index.module.css';
 
-const TenantTable: React.FC<TenantTableProps> = () => {
+const UserTable: React.FC<UserTableProps> = () => {
   const actionRef = useRef<ActionType>(null);
-  const createDrawerRef = useRef<TenantCreateDrawerRef>(null);
-  const editDrawerRef = useRef<TenantEditDrawerRef>(null);
+  const createDrawerRef = useRef<UserCreateDrawerRef>(null);
+  const editDrawerRef = useRef<UserEditDrawerRef>(null);
 
-  const { getTenants, deleteTenantsId, patchTenantsIdStatus } = getTenantManagement();
+  // 获取当前用户信息，用于权限控制
+  const user = useAuthStore((state) => state.user);
 
-  // 删除租户的 mutation
-  const { mutate: deleteTenantMutate } = useMutation({
-    mutationFn: async (id: string) => deleteTenantsId({ id }),
+  // 判断当前用户是否为平台管理员
+  const isPlatformAdmin = user?.roles?.includes('system_admin') ?? false;
+
+  const { getUsers, deleteUsersId, patchUsersIdStatus } = getUserManagement();
+
+  // 删除用户的 mutation
+  const { mutate: deleteUserMutate, isPending: isDeleting } = useMutation({
+    mutationFn: async (id: string) => deleteUsersId({ id }),
     onSuccess: (response) => {
       if (response.code === 200) {
-        message.success('删除租户成功');
+        message.success('删除用户成功');
         // 刷新表格
         actionRef.current?.reload();
       } else {
-        const errorMsg = String(response.message || '删除租户失败');
+        const errorMsg = String(response.message || '删除用户失败');
         message.error(errorMsg);
-        console.error('删除租户失败 - API 响应错误:', {
+        console.error('删除用户失败 - API 响应错误:', {
           code: response.code,
           message: response.message,
         });
       }
     },
     onError: (error: unknown) => {
-      const errorMessage = handleError(error, '删除租户');
+      const errorMessage = handleError(error, '删除用户');
       message.error(errorMessage);
     },
   });
 
-  // 更新租户状态的 mutation
-  const { mutate: updateStatusMutate } = useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: boolean }) =>
-      patchTenantsIdStatus({ id }, { status }),
+  // 更新用户状态的 mutation
+  const { mutate: updateStatusMutate, isPending: isUpdatingStatus } = useMutation({
+    mutationFn: async ({ id, isActive }: { id: string; isActive: boolean }) =>
+      patchUsersIdStatus({ id }, { isActive }),
     onSuccess: (response, variables) => {
       if (response.code === 200) {
-        message.success(`${variables.status ? '启用' : '禁用'}租户成功`);
+        message.success(`${variables.isActive ? '启用' : '禁用'}用户成功`);
         // 刷新表格
         actionRef.current?.reload();
       } else {
-        const errorMsg = String(response.message || '更新租户状态失败');
+        const errorMsg = String(response.message || '更新用户状态失败');
         message.error(errorMsg);
-        console.error('更新租户状态失败 - API 响应错误:', {
+        console.error('更新用户状态失败 - API 响应错误:', {
           code: response.code,
           message: response.message,
         });
       }
     },
     onError: (error: unknown) => {
-      const errorMessage = handleError(error, '更新租户状态');
+      const errorMessage = handleError(error, '更新用户状态');
       message.error(errorMessage);
     },
   });
 
   // 处理编辑操作
-  const handleEdit = useCallback((record: Tenant) => {
+  const handleEdit = useCallback((record: User) => {
     editDrawerRef.current?.open(record);
   }, []);
 
@@ -84,24 +87,24 @@ const TenantTable: React.FC<TenantTableProps> = () => {
   const handleDelete = useCallback(
     (id: string | undefined) => {
       if (!id) {
-        message.error('租户 ID 不存在');
+        message.error('用户 ID 不存在');
         return;
       }
-      deleteTenantMutate(id);
+      deleteUserMutate(id);
     },
-    [deleteTenantMutate],
+    [deleteUserMutate],
   );
 
   // 处理启用/禁用操作
   const handleToggleStatus = useCallback(
     (id: string | undefined, currentStatus: boolean | undefined) => {
       if (!id) {
-        message.error('租户 ID 不存在');
+        message.error('用户 ID 不存在');
         return;
       }
       // 切换状态：当前启用则禁用，当前禁用则启用
       const newStatus = !currentStatus;
-      updateStatusMutate({ id, status: newStatus });
+      updateStatusMutate({ id, isActive: newStatus });
     },
     [updateStatusMutate],
   );
@@ -118,16 +121,22 @@ const TenantTable: React.FC<TenantTableProps> = () => {
 
   // 表格数据请求函数
   const fetchData = useTableRequest(
-    getTenants as unknown as (params: Record<string, unknown>) => Promise<ResponsePaginationData>,
+    getUsers as unknown as (params: Record<string, unknown>) => Promise<ResponsePaginationData>,
   );
 
   // 配置表格列
   const columns = useMemo(() => {
     return _values(
-      produce(tenantColumns, (draft) => {
+      produce(userColumns, (draft) => {
+        // 根据用户角色控制租户列的显示
+        // 租户管理员不显示租户列和租户筛选
+        if (!isPlatformAdmin) {
+          delete draft.userTenant;
+        }
+
         // 配置操作列
-        draft.option!.render = (_, record: Tenant) => {
-          const isEnabled = record.status;
+        draft.userOption!.render = (_, record: User) => {
+          const isEnabled = record.isActive;
           return (
             <OptionMenu>
               <a key="edit" onClick={() => handleEdit(record)}>
@@ -137,13 +146,12 @@ const TenantTable: React.FC<TenantTableProps> = () => {
                 key="toggle-status"
                 title={isEnabled ? '确认禁用' : '确认启用'}
                 description={
-                  isEnabled
-                    ? '禁用后该租户下的所有用户将无法访问系统，确认禁用吗？'
-                    : '确认启用该租户吗？'
+                  isEnabled ? '禁用后该用户将无法登录系统，确认禁用吗？' : '确认启用该用户吗？'
                 }
-                onConfirm={() => handleToggleStatus(record.id, record.status)}
+                onConfirm={() => handleToggleStatus(record.id, record.isActive)}
                 okText="确认"
                 cancelText="取消"
+                okButtonProps={{ loading: isUpdatingStatus }}
               >
                 <a className={isEnabled ? 'text-orange-500' : 'text-green-500'}>
                   {isEnabled ? '禁用' : '启用'}
@@ -152,10 +160,11 @@ const TenantTable: React.FC<TenantTableProps> = () => {
               <Popconfirm
                 key="delete"
                 title="确认删除"
-                description="删除后该租户将无法恢复，确认删除吗？"
+                description="删除后该用户将无法恢复，确认删除吗？"
                 onConfirm={() => handleDelete(record.id)}
                 okText="确认"
                 cancelText="取消"
+                okButtonProps={{ loading: isDeleting }}
               >
                 <a className="text-red-500">删除</a>
               </Popconfirm>
@@ -164,13 +173,13 @@ const TenantTable: React.FC<TenantTableProps> = () => {
         };
       }),
     );
-  }, [handleEdit, handleDelete, handleToggleStatus]);
+  }, [handleEdit, handleDelete, handleToggleStatus, isPlatformAdmin, isDeleting, isUpdatingStatus]);
 
   return (
-    <div className={styles.tenantTable}>
+    <div className={styles.userTable}>
       <CommonTable
-        headerTitle="租户列表"
-        scroll={{ x: 1200, y: 'calc(100vh - 380px)' }}
+        headerTitle="用户列表"
+        scroll={{ x: 1400, y: 'calc(100vh - 380px)' }}
         rowKey="id"
         actionRef={actionRef}
         request={fetchData as any}
@@ -184,14 +193,14 @@ const TenantTable: React.FC<TenantTableProps> = () => {
         }}
         toolBarRender={() => [
           <Button key="create" type="primary" onClick={handleCreate}>
-            创建租户
+            创建用户
           </Button>,
         ]}
       />
-      <TenantCreateDrawer ref={createDrawerRef} onSuccess={handleSuccess} />
-      <TenantEditDrawer ref={editDrawerRef} onSuccess={handleSuccess} />
+      <UserCreateDrawer ref={createDrawerRef} onSuccess={handleSuccess} />
+      <UserEditDrawer ref={editDrawerRef} onSuccess={handleSuccess} />
     </div>
   );
 };
 
-export default TenantTable;
+export default UserTable;
