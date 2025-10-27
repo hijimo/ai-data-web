@@ -2913,10 +2913,10 @@ agent-base@^7.1.0, agent-base@^7.1.2:
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-7.1.4.tgz#e3cd76d4c548ee895d3c3fd8dc1f6c5b9032e7a8"
   integrity sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==
 
-ahooks@^3.9.5:
-  version "3.9.5"
-  resolved "https://registry.yarnpkg.com/ahooks/-/ahooks-3.9.5.tgz#de9bb2233ae8e95ac2b2d2ba1dd716eb6adf4228"
-  integrity sha512-TrjXie49Q8HuHKTa84Fm9A+famMDAG1+7a9S9Gq6RQ0h90Jgqmiq3CkObuRjWT/C4d6nRZCw35Y2k2fmybb5eA==
+ahooks@^3.9.6:
+  version "3.9.6"
+  resolved "https://registry.yarnpkg.com/ahooks/-/ahooks-3.9.6.tgz#c93b8f826266d07cada40439be8865d55733fb19"
+  integrity sha512-Mr7f05swd5SmKlR9SZo5U6M0LsL4ErweLzpdgXjA1JPmnZ78Vr6wzx0jUtvoxrcqGKYnX0Yjc02iEASVxHFPjQ==
   dependencies:
     "@babel/runtime" "^7.21.0"
     "@types/js-cookie" "^3.0.6"
