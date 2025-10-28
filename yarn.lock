@@ -1810,10 +1810,10 @@
     "@stoplight/yaml-ast-parser" "0.0.50"
     tslib "^2.2.0"
 
-"@storybook/addon-a11y@^9.1.14":
-  version "9.1.14"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-9.1.14.tgz#764d1c802ae6df8a5645bceee6c88db57f7234bb"
-  integrity sha512-PsuxVzPzTi89R4IVUdo/5JZQR22+3BSXCDsafIQJr/X0+vTIr5DiWuIcmAnbNBrN1fsKUN+vVnYvUTcEpyq/9Q==
+"@storybook/addon-a11y@^9.1.15":
+  version "9.1.15"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-9.1.15.tgz#a3a6d63701dbe9aeb9a44a741a8e0b40dfa3ce15"
+  integrity sha512-UIr9F/XCECoE9nxZ4v7SmBl50soy+7N7RtcruMNeiDjv0nlBsSO5xUc9Lr4ZwcTkN8FOrAvddHpoF4UtGrAmsQ==
   dependencies:
     "@storybook/global" "^5.0.0"
     axe-core "^4.2.0"
