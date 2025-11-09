@@ -1,0 +1,111 @@
+/**
+ * 单条消息样式
+ */
+
+/* 消息包装器 */
+.messageWrapper {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+/* 用户消息：右对齐 */
+.userMessage {
+  justify-content: flex-end;
+}
+
+/* AI 消息：左对齐 */
+.assistantMessage {
+  justify-content: flex-start;
+}
+
+/* 头像 */
+.avatar {
+  flex-shrink: 0;
+}
+
+/* 消息内容容器 */
+.messageContent {
+  max-width: 70%;
+  position: relative;
+}
+
+/* 用户消息内容 */
+.userMessage .messageContent {
+  background-color: #14b8a6;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border-bottom-right-radius: 4px;
+}
+
+/* AI 消息内容 */
+.assistantMessage .messageContent {
+  background-color: #f3f4f6;
+  color: #262626;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border-bottom-left-radius: 4px;
+}
+
+/* 消息文本 */
+.messageText {
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* 操作按钮容器 */
+.messageActions {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.userMessage .messageActions {
+  justify-content: flex-start;
+}
+
+/* 操作按钮 */
+.actionButton {
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userMessage .actionButton {
+  color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.userMessage .actionButton:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.assistantMessage .actionButton {
+  color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.assistantMessage .actionButton:hover {
+  color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .messageContent {
+    max-width: 85%;
+  }
+
+  .messageText {
+    font-size: 13px;
+  }
+}

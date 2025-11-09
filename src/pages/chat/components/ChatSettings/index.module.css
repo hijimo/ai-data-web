@@ -1,0 +1,57 @@
+/**
+ * 聊天设置样式
+ */
+
+.chatSettings {
+  /* Drawer 样式由 Ant Design 提供 */
+}
+
+/* 参数描述文本 */
+.paramDesc {
+  display: block;
+  font-size: 12px;
+  font-weight: normal;
+  color: #8c8c8c;
+  margin-top: 4px;
+}
+
+/* 保存状态指示器 */
+.savingIndicator {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 8px 16px;
+  background-color: #14b8a6;
+  color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  z-index: 1001;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 表单项间距 */
+.chatSettings :global(.ant-form-item) {
+  margin-bottom: 24px;
+}
+
+/* Slider 样式调整 */
+.chatSettings :global(.ant-slider) {
+  margin: 8px 0 16px;
+}
+
+/* TextArea 样式 */
+.chatSettings :global(.ant-input-textarea) {
+  font-family: inherit;
+}

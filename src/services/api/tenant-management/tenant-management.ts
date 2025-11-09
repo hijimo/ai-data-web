@@ -8,7 +8,7 @@
  */
 import type {
   AnyDataResponse,
-  CreateTenantRequest,
+  CreateTenantRequestSwagger,
   DeleteTenantsIdPathParameters,
   GetTenantsIdPathParameters,
   GetTenantsParams,
@@ -16,14 +16,14 @@ import type {
   PutTenantsIdPathParameters,
   TenantDataResponse,
   TenantListResponse,
-  UpdateTenantRequest,
+  UpdateTenantRequestSwagger,
   UpdateTenantStatusRequest,
 } from '../../../types/api';
 import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getTenantManagement = () => {
   /**
- * 获取租户列表，支持分页，不同角色返回不同的数据
+ * 获取租户列表，支持分页和过滤，不同角色返回不同的数据
 
 **权限要求**：
 - 平台管理员（system_admin）：可以查看所有租户列表
@@ -31,14 +31,16 @@ export const getTenantManagement = () => {
 
 **返回数据差异**：
 - 平台管理员：返回所有租户的分页列表，可能包含多条记录
-- 租户管理员：只返回当前用户所属租户的信息（单条记录），忽略分页参数
+- 租户管理员：只返回当前用户所属租户的信息（单条记录），忽略分页和过滤参数
 
 **参数说明**：
 - pageNo: 页码（从1开始，默认1）
 - pageSize: 每页大小（1-100，默认20）
+- name: 租户名称模糊搜索（可选）
+- status: 租户状态过滤（可选，true=启用，false=禁用）
 
 **注意事项**：
-- 租户管理员调用此接口时，分页参数会被忽略
+- 租户管理员调用此接口时，所有过滤参数会被忽略
 - 租户管理员始终只能看到自己的租户信息
  * @summary 获取租户列表
  */
@@ -66,12 +68,12 @@ export const getTenantManagement = () => {
 - adminDisplayName: 管理员显示名称（可选）
  * @summary 创建租户（仅平台管理员）
  */
-  const postTenants = (createTenantRequest: CreateTenantRequest) => {
+  const postTenants = (createTenantRequestSwagger: CreateTenantRequestSwagger) => {
     return orvalMutator<TenantDataResponse>({
       url: `/tenants`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: createTenantRequest,
+      data: createTenantRequestSwagger,
     });
   };
   /**
@@ -138,13 +140,13 @@ export const getTenantManagement = () => {
  */
   const putTenantsId = (
     { id }: PutTenantsIdPathParameters,
-    updateTenantRequest: UpdateTenantRequest,
+    updateTenantRequestSwagger: UpdateTenantRequestSwagger,
   ) => {
     return orvalMutator<TenantDataResponse>({
       url: `/tenants/${id}`,
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      data: updateTenantRequest,
+      data: updateTenantRequestSwagger,
     });
   };
   /**

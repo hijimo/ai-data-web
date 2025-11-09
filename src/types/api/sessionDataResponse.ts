@@ -15,4 +15,6 @@ export interface SessionDataResponse {
   data?: SessionResponse;
   /** 响应信息 */
   message?: string;
+  /** 追踪ID（用于全链路追踪和问题排查） */
+  traceId?: string;
 }

@@ -1,0 +1,169 @@
+/**
+ * Markdown 渲染样式
+ */
+
+/* Markdown 容器 */
+.markdown {
+  font-size: 14px;
+  line-height: 1.6;
+  color: inherit;
+}
+
+/* 段落 */
+.markdown p {
+  margin: 0 0 12px 0;
+}
+
+.markdown p:last-child {
+  margin-bottom: 0;
+}
+
+/* 标题 */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  margin: 16px 0 12px 0;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.markdown h1 {
+  font-size: 24px;
+}
+
+.markdown h2 {
+  font-size: 20px;
+}
+
+.markdown h3 {
+  font-size: 18px;
+}
+
+.markdown h4 {
+  font-size: 16px;
+}
+
+.markdown h5 {
+  font-size: 14px;
+}
+
+.markdown h6 {
+  font-size: 13px;
+}
+
+/* 行内代码 */
+.inlineCode {
+  padding: 2px 6px;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  color: #d63384;
+}
+
+/* 链接 */
+.link {
+  color: #1890ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: #40a9ff;
+  text-decoration: underline;
+}
+
+/* 列表 */
+.ul,
+.ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.ul li,
+.ol li {
+  margin: 4px 0;
+}
+
+/* 引用块 */
+.blockquote {
+  margin: 12px 0;
+  padding: 8px 16px;
+  border-left: 4px solid #d9d9d9;
+  background-color: rgba(0, 0, 0, 0.02);
+  color: #595959;
+}
+
+/* 表格 */
+.tableWrapper {
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th,
+.table td {
+  padding: 8px 12px;
+  border: 1px solid #e8e8e8;
+  text-align: left;
+}
+
+.table th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.table tr:hover {
+  background-color: #fafafa;
+}
+
+/* 水平分隔线 */
+.markdown hr {
+  margin: 16px 0;
+  border: none;
+  border-top: 1px solid #e8e8e8;
+}
+
+/* 图片 */
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .markdown {
+    font-size: 13px;
+  }
+
+  .markdown h1 {
+    font-size: 20px;
+  }
+
+  .markdown h2 {
+    font-size: 18px;
+  }
+
+  .markdown h3 {
+    font-size: 16px;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .table th,
+  .table td {
+    padding: 6px 8px;
+  }
+}

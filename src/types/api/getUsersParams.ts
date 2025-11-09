@@ -23,4 +23,12 @@ export type GetUsersParams = {
    * 租户ID（仅平台管理员可用）
    */
   tenantId?: string;
+  /**
+   * 搜索关键词（支持模糊匹配 displayName、phone、email）
+   */
+  search?: string;
+  /**
+   * 用户状态（true=启用，false=禁用）
+   */
+  isActive?: boolean;
 };

@@ -1,0 +1,145 @@
+/**
+ * 会话列表样式
+ */
+
+/* 会话列表容器 */
+.sessionList {
+  width: 280px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  border-right: 1px solid #e8e8e8;
+}
+
+/* 折叠状态的会话列表 */
+.sessionListCollapsed {
+  width: 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px;
+  background-color: #fafafa;
+  border-right: 1px solid #e8e8e8;
+}
+
+/* 顶部操作区 */
+.header {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* 新建会话按钮 */
+.newSessionButton {
+  height: 40px;
+  font-weight: 500;
+}
+
+/* 折叠状态的新建会话按钮 */
+.newSessionButtonCollapsed {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+/* 搜索输入框 */
+.searchInput {
+  height: 36px;
+}
+
+/* 会话列表内容区 */
+.sessionListContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+/* 会话列表项 */
+.sessionItem {
+  padding: 12px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #fff;
+  border: 1px solid transparent;
+}
+
+.sessionItem:hover {
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+}
+
+/* 选中状态的会话项 */
+.sessionItem.active {
+  background-color: #e6f4ff;
+  border-color: #91caff;
+}
+
+.sessionItem.active:hover {
+  background-color: #bae0ff;
+}
+
+/* 会话标题 */
+.sessionTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #262626;
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 会话元信息 */
+.sessionMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.messageCount {
+  color: #8c8c8c;
+}
+
+.updateTime {
+  color: #bfbfbf;
+}
+
+/* 加载状态 */
+.loading {
+  padding: 24px;
+  text-align: center;
+  color: #8c8c8c;
+}
+
+/* 空状态 */
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: #bfbfbf;
+}
+
+/* 滚动条样式 */
+.sessionListContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sessionListContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sessionListContent::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 3px;
+}
+
+.sessionListContent::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}

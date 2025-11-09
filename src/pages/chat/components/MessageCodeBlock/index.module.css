@@ -1,0 +1,107 @@
+/**
+ * 代码块样式
+ */
+
+/* 代码块容器 */
+.codeBlock {
+  margin: 12px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1e1e1e;
+  border: 1px solid #3e3e3e;
+}
+
+/* 代码块头部 */
+.codeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #2d2d2d;
+  border-bottom: 1px solid #3e3e3e;
+}
+
+.languageTag {
+  font-size: 12px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 4px;
+}
+
+.actionButton {
+  color: #d4d4d4;
+  font-size: 12px;
+}
+
+.actionButton:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 代码内容 */
+.codeContent {
+  overflow-x: auto;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.pre {
+  margin: 0;
+  padding: 16px;
+  background-color: #1e1e1e;
+  overflow: visible;
+}
+
+.code {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #d4d4d4;
+  white-space: pre;
+  word-wrap: normal;
+  display: block;
+}
+
+/* 折叠提示 */
+.collapsedHint {
+  padding: 8px 12px;
+  background-color: #2d2d2d;
+  border-top: 1px solid #3e3e3e;
+  text-align: center;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+/* 滚动条样式 */
+.codeContent::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.codeContent::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+.codeContent::-webkit-scrollbar-thumb {
+  background: #4e4e4e;
+  border-radius: 4px;
+}
+
+.codeContent::-webkit-scrollbar-thumb:hover {
+  background: #5e5e5e;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .code {
+    font-size: 12px;
+  }
+
+  .pre {
+    padding: 12px;
+  }
+}

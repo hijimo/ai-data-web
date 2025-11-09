@@ -1,0 +1,75 @@
+/**
+ * 聊天界面样式
+ */
+
+/* 聊天界面容器 */
+.chatUI {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #fff;
+}
+
+/* 空状态容器 */
+.chatUIEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #fafafa;
+}
+
+/* ChatHeader 组件已独立，这里不再需要这些样式 */
+
+/* 消息列表包装器 */
+.messagesWrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 消息列表区域 */
+.chatMessages {
+  height: 100%;
+  overflow-y: auto;
+  background-color: #fafafa;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #8c8c8c;
+}
+
+.messagesContainer {
+  padding: 24px;
+  min-height: 100%;
+}
+
+/* 输入框区域 */
+.chatInput {
+  padding: 16px 24px;
+  border-top: 1px solid #e8e8e8;
+  background-color: #fff;
+  min-height: 80px;
+}
+
+/* 滚动条样式 */
+.chatMessages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chatMessages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatMessages::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 4px;
+}
+
+.chatMessages::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}

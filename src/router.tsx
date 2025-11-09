@@ -1,4 +1,4 @@
-import { HomeOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, MessageOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { createBrowserRouter, Outlet } from 'react-router';
 import Header from '@/components/Header';
 import {
@@ -10,6 +10,7 @@ import {
 import { AuthProvider } from './components/AuthProvider';
 import Layout from './components/Layout/Layout';
 import { ResourceContextProvider } from './contexts/resource';
+import Chat from './pages/chat';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Notfound from './pages/Notfound';
@@ -28,6 +29,14 @@ const resources: ResourceProps[] = [
     meta: {
       label: '首页',
       icon: <HomeOutlined />,
+    },
+  },
+  {
+    name: 'chat',
+    list: '/chat',
+    meta: {
+      label: '聊天会话',
+      icon: <MessageOutlined />,
     },
   },
   {
@@ -101,6 +110,14 @@ const router = createBrowserRouter([
             element: (
               <Layout>
                 <Index />
+              </Layout>
+            ),
+          },
+          {
+            path: '/chat',
+            element: (
+              <Layout>
+                <Chat />
               </Layout>
             ),
           },

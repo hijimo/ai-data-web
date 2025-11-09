@@ -19,4 +19,12 @@ export type GetTenantsParams = {
    * @maximum 100
    */
   pageSize?: number;
+  /**
+   * 租户名称模糊搜索
+   */
+  name?: string;
+  /**
+   * 租户状态过滤
+   */
+  status?: boolean;
 };

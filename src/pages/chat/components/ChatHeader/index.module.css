@@ -1,0 +1,68 @@
+/**
+ * ChatHeader 组件样式
+ */
+
+.chatHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 24px;
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0; /* 允许子元素收缩 */
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggleButton,
+.settingsButton {
+  color: white !important;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.toggleButton:hover,
+.settingsButton:hover {
+  color: rgba(255, 255, 255, 0.85) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.title {
+  margin: 0 !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+  flex: 1;
+  min-width: 0; /* 允许省略号生效 */
+}
+
+/* 响应式：移动端 */
+@media (max-width: 768px) {
+  .chatHeader {
+    height: 56px;
+    padding: 0 16px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .toggleButton,
+  .settingsButton {
+    font-size: 16px;
+  }
+}

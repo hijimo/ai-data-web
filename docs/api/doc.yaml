@@ -13,7 +13,7 @@ definitions:
     - newPassword
     - oldPassword
     type: object
-  CreateTenantRequest:
+  CreateTenantRequestSwagger:
     properties:
       domain:
         example: example.com
@@ -148,7 +148,7 @@ definitions:
     - tenantId
     - userId
     type: object
-  UpdateTenantRequest:
+  UpdateTenantRequestSwagger:
     properties:
       domain:
         example: updated.com
@@ -299,6 +299,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   ChatOptions:
     properties:
@@ -372,6 +376,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
   CreateSessionRequest:
@@ -458,6 +466,10 @@ definitions:
         description: 响应信息
         example: 请求参数错误
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   FormOption:
     properties:
@@ -485,6 +497,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
   LoginResponse:
@@ -547,6 +563,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   MessageDetailListResponse:
     properties:
@@ -561,6 +581,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
   MessageDetailResponse:
@@ -666,6 +690,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   MetricsDataResponse:
     type: object
@@ -728,6 +756,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   ModelListDataResponse:
     properties:
@@ -743,6 +775,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
   ModelProperties:
@@ -940,6 +976,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   Pricing:
     properties:
@@ -1036,6 +1076,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   ProviderHelp:
     properties:
@@ -1064,6 +1108,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
   SendMessageRequest:
@@ -1098,6 +1146,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   SessionListResponse:
     properties:
@@ -1112,6 +1164,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
   SessionResponse:
@@ -1183,6 +1239,10 @@ definitions:
         description: 响应信息
         example: 操作成功
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   Tenant:
     description: 租户信息，包含租户的基本信息和状态
@@ -1252,6 +1312,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   TenantListResponse:
     properties:
@@ -1266,6 +1330,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
   UpdateSessionRequest:
@@ -1407,6 +1475,10 @@ definitions:
         description: 响应信息
         example: success
         type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
+        type: string
     type: object
   UserListResponse:
     properties:
@@ -1421,6 +1493,10 @@ definitions:
       message:
         description: 响应信息
         example: success
+        type: string
+      traceId:
+        description: 追踪ID（用于全链路追踪和问题排查）
+        example: trace-1729756800-a1b2c3d4
         type: string
     type: object
 host: localhost:8080
@@ -2009,10 +2085,6 @@ paths:
         in: query
         name: isArchived
         type: boolean
-      - description: 模型名称
-        in: query
-        name: modelName
-        type: string
       produces:
       - application/json
       responses:
@@ -2718,7 +2790,7 @@ paths:
       consumes:
       - application/json
       description: |-
-        获取租户列表，支持分页，不同角色返回不同的数据
+        获取租户列表，支持分页和过滤，不同角色返回不同的数据
 
         **权限要求**：
         - 平台管理员（system_admin）：可以查看所有租户列表
@@ -2726,14 +2798,16 @@ paths:
 
         **返回数据差异**：
         - 平台管理员：返回所有租户的分页列表，可能包含多条记录
-        - 租户管理员：只返回当前用户所属租户的信息（单条记录），忽略分页参数
+        - 租户管理员：只返回当前用户所属租户的信息（单条记录），忽略分页和过滤参数
 
         **参数说明**：
         - pageNo: 页码（从1开始，默认1）
         - pageSize: 每页大小（1-100，默认20）
+        - name: 租户名称模糊搜索（可选）
+        - status: 租户状态过滤（可选，true=启用，false=禁用）
 
         **注意事项**：
-        - 租户管理员调用此接口时，分页参数会被忽略
+        - 租户管理员调用此接口时，所有过滤参数会被忽略
         - 租户管理员始终只能看到自己的租户信息
       parameters:
       - default: 1
@@ -2749,6 +2823,14 @@ paths:
         minimum: 1
         name: pageSize
         type: integer
+      - description: 租户名称模糊搜索
+        in: query
+        name: name
+        type: string
+      - description: 租户状态过滤
+        in: query
+        name: status
+        type: boolean
       produces:
       - application/json
       responses:
@@ -2809,7 +2891,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/CreateTenantRequest'
+          $ref: '#/definitions/CreateTenantRequestSwagger'
       produces:
       - application/json
       responses:
@@ -2989,7 +3071,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/UpdateTenantRequest'
+          $ref: '#/definitions/UpdateTenantRequestSwagger'
       produces:
       - application/json
       responses:
@@ -3098,7 +3180,7 @@ paths:
       consumes:
       - application/json
       description: |-
-        获取用户列表，支持分页和租户过滤
+        获取用户列表，支持分页、租户过滤、搜索和状态过滤
 
         **权限要求**：
         - 平台管理员（system_admin）：可以查看所有租户的用户或指定租户的用户
@@ -3112,10 +3194,23 @@ paths:
         - 如果提供 tenantId，返回指定租户下的用户列表
         - 如果不提供 tenantId，返回所有租户下的用户列表
 
+        **search 查询参数说明**：
+        - 支持对 displayName、phone、email 字段进行模糊搜索
+        - 搜索不区分大小写
+        - 多个字段使用 OR 逻辑连接
+
+        **isActive 查询参数说明**：
+        - 用于过滤用户的启用/禁用状态
+        - true: 只返回启用的用户
+        - false: 只返回禁用的用户
+        - 不提供: 返回所有状态的用户
+
         **参数说明**：
         - pageNo: 页码（从1开始，默认1）
         - pageSize: 每页大小（1-100，默认20）
         - tenantId: 租户ID（可选，UUID格式，仅平台管理员可用）
+        - search: 搜索关键词（可选，支持模糊匹配 displayName、phone、email）
+        - isActive: 用户状态（可选，true=启用，false=禁用）
 
         **注意事项**：
         - 租户管理员调用此接口时，tenantId 参数会被忽略
@@ -3138,6 +3233,14 @@ paths:
         in: query
         name: tenantId
         type: string
+      - description: 搜索关键词（支持模糊匹配 displayName、phone、email）
+        in: query
+        name: search
+        type: string
+      - description: 用户状态（true=启用，false=禁用）
+        in: query
+        name: isActive
+        type: boolean
       produces:
       - application/json
       responses:

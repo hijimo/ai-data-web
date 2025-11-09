@@ -1,0 +1,88 @@
+/**
+ * 消息输入样式
+ */
+
+/* 输入组件容器 */
+.chatInput {
+  padding: 16px 24px;
+  border-top: 1px solid #e8e8e8;
+  background-color: #fff;
+}
+
+/* 输入容器 */
+.inputContainer {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+/* 文本输入框 */
+.textarea {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+}
+
+.textarea:focus {
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.1);
+}
+
+/* 操作按钮区域 */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* 发送按钮 */
+.sendButton {
+  background-color: #14b8a6;
+  border-color: #14b8a6;
+  height: 40px;
+  padding: 0 24px;
+  font-weight: 500;
+}
+
+.sendButton:hover:not(:disabled) {
+  background-color: #0d9488;
+  border-color: #0d9488;
+}
+
+.sendButton:disabled {
+  background-color: #d9d9d9;
+  border-color: #d9d9d9;
+  color: #8c8c8c;
+}
+
+/* 停止按钮 */
+.stopButton {
+  height: 40px;
+  padding: 0 24px;
+  font-weight: 500;
+}
+
+/* 提示文本 */
+.hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8c8c8c;
+  text-align: right;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .chatInput {
+    padding: 12px 16px;
+  }
+
+  .sendButton,
+  .stopButton {
+    height: 36px;
+    padding: 0 16px;
+  }
+
+  .hint {
+    display: none;
+  }
+}

@@ -1,0 +1,326 @@
+/**
+ * 聊天会话页面
+ * 包含会话列表和聊天界面
+ */
+
+import { useQuery } from '@tanstack/react-query';
+import { message } from 'antd';
+import { useSearchParams } from 'react-router';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useChatHandler } from '@/hooks/chat/useChatHandler';
+import { useSessionOperations } from '@/hooks/chat/useSessionOperations';
+import { getMessages } from '@/services/api/messages/messages';
+import { getSessions } from '@/services/api/sessions/sessions';
+import { ChatUI, type ChatUIRef } from './components/ChatUI';
+import { SessionList } from './components/SessionList';
+
+const ChatPage: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentSessionId = searchParams.get('sessionId');
+
+  // ChatUI 引用，用于快捷键操作
+  const chatUIRef = useRef<ChatUIRef>(null);
+
+  // 搜索关键词状态
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [debouncedKeyword, setDebouncedKeyword] = useState('');
+
+  // 侧边栏折叠状态（从 localStorage 读取）
+  const [collapsed, setCollapsed] = useState(() => {
+    const saved = localStorage.getItem('chat-sidebar-collapsed');
+    return saved === 'true';
+  });
+
+  // 保存折叠状态到 localStorage
+  useEffect(() => {
+    localStorage.setItem('chat-sidebar-collapsed', String(collapsed));
+  }, [collapsed]);
+
+  // 全局快捷键支持
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Ctrl+L 或 Cmd+L 聚焦输入框
+      if ((event.ctrlKey || event.metaKey) && event.key === 'l') {
+        event.preventDefault();
+        chatUIRef.current?.focusInput();
+      }
+      // Esc 键清除选中（可选）
+      if (event.key === 'Escape' && currentSessionId) {
+        // 可以添加其他 Esc 键行为，如关闭设置面板等
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentSessionId]);
+
+  // 切换侧边栏折叠状态
+  const handleToggleCollapse = useCallback(() => {
+    setCollapsed((prev) => !prev);
+  }, []);
+
+  // 获取会话列表 API 实例
+  const sessionsApi = getSessions();
+
+  // 搜索防抖：延迟 300ms
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedKeyword(searchKeyword);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchKeyword]);
+
+  // 获取会话操作方法
+  const { createSession, isCreating, pinSession, archiveSession, deleteSessionWithConfirm } =
+    useSessionOperations();
+
+  // 获取消息处理方法（使用流式响应）
+  const { sendStreamMessage, isStreaming, currentStreamContent, tempMessageId, stopGeneration } =
+    useChatHandler(currentSessionId || '');
+
+  // 使用 React Query 加载全部会话列表
+  const {
+    data: sessionsData,
+    isLoading: isLoadingSessions,
+    error: sessionsError,
+    refetch: refetchSessions,
+  } = useQuery({
+    queryKey: ['sessions'],
+    queryFn: async () => {
+      try {
+        const response = await sessionsApi.getChatSessions({
+          pageNo: 1,
+          pageSize: 50,
+          isArchived: false,
+        });
+        return response;
+      } catch (err) {
+        message.error('加载会话列表失败');
+        throw err;
+      }
+    },
+    retry: 2,
+    staleTime: 30000, // 30秒内数据视为新鲜
+    enabled: !debouncedKeyword, // 没有搜索关键词时才加载全部列表
+  });
+
+  // 使用 React Query 加载搜索结果
+  const {
+    data: searchData,
+    isLoading: isSearching,
+    error: searchError,
+  } = useQuery({
+    queryKey: ['sessions', 'search', debouncedKeyword],
+    queryFn: async () => {
+      try {
+        const response = await sessionsApi.getChatSessionsSearch({
+          keyword: debouncedKeyword,
+          pageNo: 1,
+          pageSize: 20,
+        });
+        return response;
+      } catch (err) {
+        message.error('搜索会话失败');
+        throw err;
+      }
+    },
+    retry: 1,
+    enabled: !!debouncedKeyword, // 有搜索关键词时才执行搜索
+  });
+
+  // 获取消息列表 API 实例
+  const messagesApi = getMessages();
+
+  // 使用 React Query 加载当前会话的消息
+  const {
+    data: messagesData,
+    isLoading: isLoadingMessages,
+    error: messagesError,
+  } = useQuery({
+    queryKey: ['messages', currentSessionId],
+    queryFn: async () => {
+      if (!currentSessionId) return null;
+      try {
+        const response = await messagesApi.getChatSessionsIdMessages(
+          { id: currentSessionId },
+          { pageNo: 1, pageSize: 50 },
+        );
+        return response;
+      } catch (err) {
+        message.error('加载消息失败');
+        throw err;
+      }
+    },
+    retry: 2,
+    enabled: !!currentSessionId, // 仅在有 sessionId 时加载
+  });
+
+  // 根据是否有搜索关键词决定显示哪个数据
+  const displaySessions = useMemo(() => {
+    if (debouncedKeyword) {
+      return searchData?.data?.data || [];
+    }
+    return sessionsData?.data?.data || [];
+  }, [debouncedKeyword, searchData, sessionsData]);
+
+  // 合并加载状态和错误
+  const isLoading = isLoadingSessions || isSearching;
+  const error = sessionsError || searchError;
+
+  // 合并真实消息和流式消息
+  const displayMessages = useMemo(() => {
+    const messages = messagesData?.data?.data || [];
+
+    // 如果正在流式传输，更新临时消息的内容
+    if (isStreaming && tempMessageId && currentStreamContent) {
+      return messages.map((msg) =>
+        msg.id === tempMessageId ? { ...msg, content: currentStreamContent } : msg,
+      );
+    }
+
+    return messages;
+  }, [messagesData, isStreaming, tempMessageId, currentStreamContent]);
+
+  // 处理会话选择
+  const handleSelectSession = useCallback(
+    (sessionId: string) => {
+      setSearchParams({ sessionId });
+    },
+    [setSearchParams],
+  );
+
+  // 处理创建新会话
+  const handleCreateSession = useCallback(async () => {
+    try {
+      const newSession = await createSession({
+        title: '新会话',
+        modelName: 'gpt-4',
+        temperature: 0.7,
+      });
+      // 创建成功后自动选中新会话
+      if (newSession?.data?.id) {
+        setSearchParams({ sessionId: newSession.data.id });
+      }
+    } catch (error) {
+      // 错误已在 hook 中处理
+    }
+  }, [createSession, setSearchParams]);
+
+  // 处理置顶会话
+  const handlePinSession = useCallback(
+    async (sessionId: string, pinned: boolean) => {
+      try {
+        await pinSession({ sessionId, pinned });
+      } catch (error) {
+        // 错误已在 hook 中处理
+      }
+    },
+    [pinSession],
+  );
+
+  // 处理归档会话
+  const handleArchiveSession = useCallback(
+    async (sessionId: string, archived: boolean) => {
+      try {
+        await archiveSession({ sessionId, archived });
+        // 如果归档的是当前会话，清除选中状态
+        if (archived && sessionId === currentSessionId) {
+          setSearchParams({});
+        }
+      } catch (error) {
+        // 错误已在 hook 中处理
+      }
+    },
+    [archiveSession, currentSessionId, setSearchParams],
+  );
+
+  // 处理删除会话
+  const handleDeleteSession = useCallback(
+    (sessionId: string) => {
+      const session = displaySessions.find((s) => s.id === sessionId);
+      deleteSessionWithConfirm(sessionId, session?.title);
+      // 如果删除的是当前会话，清除选中状态
+      if (sessionId === currentSessionId) {
+        setSearchParams({});
+      }
+    },
+    [deleteSessionWithConfirm, displaySessions, currentSessionId, setSearchParams],
+  );
+
+  // 处理搜索
+  const handleSearch = useCallback((keyword: string) => {
+    setSearchKeyword(keyword);
+  }, []);
+
+  // 处理发送消息（使用流式响应）
+  const handleSendMessage = useCallback(
+    async (content: string) => {
+      if (!currentSessionId) {
+        message.warning('请先选择一个会话');
+        return;
+      }
+      try {
+        await sendStreamMessage(content);
+      } catch (error) {
+        // 错误已在 hook 中处理
+      }
+    },
+    [currentSessionId, sendStreamMessage],
+  );
+
+  // 处理停止生成
+  const handleStopGeneration = useCallback(() => {
+    stopGeneration();
+  }, [stopGeneration]);
+
+  // 错误处理
+  if (error) {
+    return (
+      <div style={{ padding: '24px', textAlign: 'center' }}>
+        <p>{debouncedKeyword ? '搜索失败' : '加载会话列表失败'}</p>
+        <button onClick={() => (debouncedKeyword ? {} : refetchSessions())}>重试</button>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
+      {/* 会话列表 */}
+      {!collapsed && (
+        <SessionList
+          sessions={displaySessions}
+          currentSessionId={currentSessionId}
+          onSelectSession={handleSelectSession}
+          onCreateSession={handleCreateSession}
+          onPinSession={handlePinSession}
+          onArchiveSession={handleArchiveSession}
+          onDeleteSession={handleDeleteSession}
+          onSearch={handleSearch}
+          loading={isLoading || isCreating}
+        />
+      )}
+
+      {/* 聊天界面 */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <ChatUI
+          ref={chatUIRef}
+          sessionId={currentSessionId}
+          sessionTitle={displaySessions.find((s) => s.id === currentSessionId)?.title || undefined}
+          session={displaySessions.find((s) => s.id === currentSessionId)}
+          messages={displayMessages}
+          loading={isLoadingMessages}
+          isGenerating={isStreaming}
+          collapsed={collapsed}
+          onToggleCollapse={handleToggleCollapse}
+          onSendMessage={handleSendMessage}
+          onStopGeneration={handleStopGeneration}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default ChatPage;

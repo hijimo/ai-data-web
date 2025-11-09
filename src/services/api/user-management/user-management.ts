@@ -23,7 +23,7 @@ import { orvalMutator } from '../../../utils/orval-mutator';
 
 export const getUserManagement = () => {
   /**
- * 获取用户列表，支持分页和租户过滤
+ * 获取用户列表，支持分页、租户过滤、搜索和状态过滤
 
 **权限要求**：
 - 平台管理员（system_admin）：可以查看所有租户的用户或指定租户的用户
@@ -37,10 +37,23 @@ export const getUserManagement = () => {
 - 如果提供 tenantId，返回指定租户下的用户列表
 - 如果不提供 tenantId，返回所有租户下的用户列表
 
+**search 查询参数说明**：
+- 支持对 displayName、phone、email 字段进行模糊搜索
+- 搜索不区分大小写
+- 多个字段使用 OR 逻辑连接
+
+**isActive 查询参数说明**：
+- 用于过滤用户的启用/禁用状态
+- true: 只返回启用的用户
+- false: 只返回禁用的用户
+- 不提供: 返回所有状态的用户
+
 **参数说明**：
 - pageNo: 页码（从1开始，默认1）
 - pageSize: 每页大小（1-100，默认20）
 - tenantId: 租户ID（可选，UUID格式，仅平台管理员可用）
+- search: 搜索关键词（可选，支持模糊匹配 displayName、phone、email）
+- isActive: 用户状态（可选，true=启用，false=禁用）
 
 **注意事项**：
 - 租户管理员调用此接口时，tenantId 参数会被忽略

@@ -27,8 +27,4 @@ export type GetChatSessionsParams = {
    * 是否归档
    */
   isArchived?: boolean;
-  /**
-   * 模型名称
-   */
-  modelName?: string;
 };
