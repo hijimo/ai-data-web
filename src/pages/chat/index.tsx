@@ -74,12 +74,18 @@ const ChatPage: React.FC = () => {
   }, [searchKeyword]);
 
   // 获取会话操作方法
-  const { createSession, isCreating, pinSession, archiveSession, deleteSessionWithConfirm } =
+  const { createSession, isCreating, pinSession, archiveSession, deleteSession } =
     useSessionOperations();
 
   // 获取消息处理方法（使用流式响应）
-  const { sendStreamMessage, isStreaming, currentStreamContent, tempMessageId, stopGeneration } =
-    useChatHandler(currentSessionId || '');
+  const {
+    sendStreamMessage,
+    sendMessage,
+    isStreaming,
+    currentStreamContent,
+    tempMessageId,
+    stopGeneration,
+  } = useChatHandler(currentSessionId || '');
 
   // 使用 React Query 加载全部会话列表
   const {
@@ -239,15 +245,18 @@ const ChatPage: React.FC = () => {
 
   // 处理删除会话
   const handleDeleteSession = useCallback(
-    (sessionId: string) => {
-      const session = displaySessions.find((s) => s.id === sessionId);
-      deleteSessionWithConfirm(sessionId, session?.title);
-      // 如果删除的是当前会话，清除选中状态
-      if (sessionId === currentSessionId) {
-        setSearchParams({});
+    async (sessionId: string) => {
+      try {
+        await deleteSession(sessionId);
+        // 如果删除的是当前会话，清除选中状态
+        if (sessionId === currentSessionId) {
+          setSearchParams({});
+        }
+      } catch (error) {
+        // 错误已在 hook 中处理
       }
     },
-    [deleteSessionWithConfirm, displaySessions, currentSessionId, setSearchParams],
+    [deleteSession, currentSessionId, setSearchParams],
   );
 
   // 处理搜索
@@ -264,6 +273,7 @@ const ChatPage: React.FC = () => {
       }
       try {
         await sendStreamMessage(content);
+        // await sendMessage(content);
       } catch (error) {
         // 错误已在 hook 中处理
       }

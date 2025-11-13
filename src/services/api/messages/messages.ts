@@ -16,7 +16,8 @@ import type {
   MessageResponseData,
   PostChatMessagesIdAbortPathParameters,
   PostChatSessionsIdMessagesPathParameters,
-  SendMessageRequest,
+  PostChatSessionsIdMessagesStreamPathParameters,
+  SendMessageRequestBody,
 } from '../../../types/api';
 import { orvalMutator } from '../../../utils/orval-mutator';
 
@@ -55,13 +56,28 @@ export const getMessages = () => {
    */
   const postChatSessionsIdMessages = (
     { id }: PostChatSessionsIdMessagesPathParameters,
-    sendMessageRequest: SendMessageRequest,
+    sendMessageRequestBody: SendMessageRequestBody,
   ) => {
     return orvalMutator<MessageResponseData>({
       url: `/chat/sessions/${id}/messages`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      data: sendMessageRequest,
+      data: sendMessageRequestBody,
+    });
+  };
+  /**
+   * 在指定会话中发送消息并以 SSE 流式返回 AI 回复
+   * @summary 流式发送消息
+   */
+  const postChatSessionsIdMessagesStream = (
+    { id }: PostChatSessionsIdMessagesStreamPathParameters,
+    sendMessageRequestBody: SendMessageRequestBody,
+  ) => {
+    return orvalMutator<string>({
+      url: `/chat/sessions/${id}/messages/stream`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: sendMessageRequestBody,
     });
   };
   return {
@@ -69,6 +85,7 @@ export const getMessages = () => {
     postChatMessagesIdAbort,
     getChatSessionsIdMessages,
     postChatSessionsIdMessages,
+    postChatSessionsIdMessagesStream,
   };
 };
 export type GetChatMessagesIdResult = NonNullable<
@@ -82,4 +99,7 @@ export type GetChatSessionsIdMessagesResult = NonNullable<
 >;
 export type PostChatSessionsIdMessagesResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof getMessages>['postChatSessionsIdMessages']>>
+>;
+export type PostChatSessionsIdMessagesStreamResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getMessages>['postChatSessionsIdMessagesStream']>>
 >;

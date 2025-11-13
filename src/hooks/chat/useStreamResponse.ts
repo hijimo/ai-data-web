@@ -5,8 +5,8 @@
 
 import { message } from 'antd';
 import { useCallback, useRef, useState } from 'react';
-import { getChat } from '@/services/api/chat/chat';
-import type { ChatRequestBody } from '@/types/api/chatRequestBody';
+import { TOKEN_KEY } from '@/utils/userData';
+import type { SendMessageRequestBody } from '@/types/api/sendMessageRequestBody';
 
 /**
  * 流式响应状态
@@ -21,6 +21,18 @@ interface StreamState {
 }
 
 /**
+ * 流式消息请求参数
+ */
+interface StreamMessageRequest {
+  /** 会话 ID */
+  sessionId: string;
+  /** 消息内容 */
+  message: string;
+  /** AI 高级参数（可选） */
+  options?: any;
+}
+
+/**
  * useStreamResponse Hook 返回值
  */
 interface UseStreamResponseReturn {
@@ -31,7 +43,7 @@ interface UseStreamResponseReturn {
   /** 流式错误 */
   streamError: Error | null;
   /** 开始流式消息 */
-  streamMessage: (request: ChatRequestBody) => Promise<string>;
+  streamMessage: (request: StreamMessageRequest) => Promise<string>;
   /** 停止流式响应 */
   stopStream: () => void;
   /** 重置流式状态 */
@@ -98,7 +110,7 @@ export const useStreamResponse = (): UseStreamResponseReturn => {
 
   // 开始流式消息
   const streamMessage = useCallback(
-    async (request: ChatRequestBody): Promise<string> => {
+    async (request: StreamMessageRequest): Promise<string> => {
       // 重置状态
       resetStream();
 
@@ -114,13 +126,24 @@ export const useStreamResponse = (): UseStreamResponseReturn => {
       let fullContent = '';
 
       try {
-        // 调用流式 API
-        const response = await fetch('/api/chat/stream', {
+        // 构建请求体
+        const requestBody: SendMessageRequestBody = {
+          message: request.message,
+          sessionId: request.sessionId,
+          options: request.options,
+        };
+
+        const authorization = localStorage.getItem(TOKEN_KEY);
+
+        // 调用流式 API - 使用 fetch 直接调用以支持流式响应
+        const response = await fetch(`/api/v1/chat/sessions/${request.sessionId}/messages/stream`, {
           method: 'POST',
+
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${authorization}`,
           },
-          body: JSON.stringify(request),
+          body: JSON.stringify(requestBody),
           signal: abortControllerRef.current.signal,
         });
 
@@ -153,6 +176,7 @@ export const useStreamResponse = (): UseStreamResponseReturn => {
             if (line.trim() === '') continue;
 
             const content = parseSSEData(line);
+            console.log('stream content', content);
             if (content !== null) {
               fullContent += content;
 

@@ -180,10 +180,10 @@ export const useChatHandler = (sessionId: string) => {
         };
       });
 
-      // 开始流式响应
-      const fullContent = await streamMessage({
+      // 开始流式响应 - 使用 postChatSessionsIdMessagesStream 接口
+      await streamMessage({
+        sessionId,
         message: content,
-        messageId: sessionId,
       });
 
       // 流式完成后，刷新消息列表获取真实数据

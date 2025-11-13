@@ -4,7 +4,7 @@
  */
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { message, Modal } from 'antd';
+import { message } from 'antd';
 import { getSessions } from '@/services/api/sessions/sessions';
 import type { CreateSessionParams } from '@/types/chat';
 
@@ -76,7 +76,7 @@ export const useSessionOperations = () => {
   });
 
   /**
-   * 删除会话（带确认）
+   * 删除会话
    */
   const deleteSession = useMutation({
     mutationFn: async (sessionId: string) => {
@@ -92,22 +92,6 @@ export const useSessionOperations = () => {
       message.error(error?.message || '删除失败');
     },
   });
-
-  /**
-   * 删除会话（带确认对话框）
-   */
-  const deleteSessionWithConfirm = (sessionId: string, sessionTitle?: string) => {
-    Modal.confirm({
-      title: '确定删除此会话吗？',
-      content: sessionTitle ? `会话"${sessionTitle}"将被永久删除` : '删除后将无法恢复',
-      okText: '确定',
-      okType: 'danger',
-      cancelText: '取消',
-      onOk: () => {
-        return deleteSession.mutateAsync(sessionId);
-      },
-    });
-  };
 
   /**
    * 更新会话信息
@@ -152,9 +136,8 @@ export const useSessionOperations = () => {
     archiveSession: archiveSession.mutateAsync,
     isArchiving: archiveSession.isPending,
 
-    // 删除会话
+    // 删除会话（直接删除，不带确认）
     deleteSession: deleteSession.mutateAsync,
-    deleteSessionWithConfirm,
     isDeleting: deleteSession.isPending,
 
     // 更新会话
