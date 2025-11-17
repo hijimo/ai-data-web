@@ -18,8 +18,7 @@ export const useChatHandler = (sessionId: string) => {
   const messagesApi = getMessages();
 
   // 流式响应 hook
-  const { currentStreamContent, isStreaming, streamMessage, stopStream, resetStream } =
-    useStreamResponse();
+  const streamResponse = useStreamResponse();
 
   // 临时消息 ID（用于流式响应时的临时消息）
   const [tempMessageId, setTempMessageId] = useState<string | null>(null);
@@ -141,7 +140,7 @@ export const useChatHandler = (sessionId: string) => {
 
     try {
       // 重置流式状态
-      resetStream();
+      streamResponse.resetStream();
 
       // 取消正在进行的查询
       await queryClient.cancelQueries({ queryKey: ['messages', sessionId] });
@@ -180,8 +179,8 @@ export const useChatHandler = (sessionId: string) => {
         };
       });
 
-      // 开始流式响应 - 使用 postChatSessionsIdMessagesStream 接口
-      await streamMessage({
+      // 开始流式响应
+      await streamResponse.streamMessage({
         sessionId,
         message: content,
       });
@@ -203,7 +202,7 @@ export const useChatHandler = (sessionId: string) => {
    * 停止生成
    */
   const handleStopGeneration = () => {
-    stopStream();
+    streamResponse.stopStream();
     // 刷新消息列表
     queryClient.invalidateQueries({ queryKey: ['messages', sessionId] });
     setTempMessageId(null);
@@ -216,8 +215,7 @@ export const useChatHandler = (sessionId: string) => {
 
     // 发送流式消息
     sendStreamMessage,
-    isStreaming,
-    currentStreamContent,
+    streamState: streamResponse,
     tempMessageId,
     stopGeneration: handleStopGeneration,
 

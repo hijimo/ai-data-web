@@ -8,6 +8,7 @@ import React, { forwardRef, Suspense, useImperativeHandle, useRef, useState } fr
 import { useScroll } from '@/hooks/chat/useScroll';
 import type { MessageDetailResponse } from '@/types/api/messageDetailResponse';
 import type { SessionResponse } from '@/types/api/sessionResponse';
+import type { StreamState } from '@/types/stream';
 import { ChatHeader } from '../ChatHeader';
 import { ChatInput, type ChatInputRef } from '../ChatInput';
 import { ChatMessages } from '../ChatMessages';
@@ -33,6 +34,8 @@ interface ChatUIProps {
   loading?: boolean;
   /** 是否正在生成回复 */
   isGenerating?: boolean;
+  /** 流式状态 */
+  streamState?: StreamState;
   /** 侧边栏是否折叠 */
   collapsed?: boolean;
   /** 切换侧边栏折叠状态 */
@@ -63,6 +66,7 @@ export const ChatUI = forwardRef<ChatUIRef, ChatUIProps>(
       messages = [],
       loading,
       isGenerating = false,
+      streamState,
       collapsed,
       onToggleCollapse,
       onSendMessage,
@@ -139,6 +143,7 @@ export const ChatUI = forwardRef<ChatUIRef, ChatUIProps>(
           <ChatMessages
             messages={displayMessages}
             isGenerating={isGenerating}
+            streamState={streamState}
             scrollContainerRef={scrollContainerRef}
           />
 

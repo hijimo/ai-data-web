@@ -99,6 +99,28 @@
   background-color: rgba(0, 0, 0, 0.08);
 }
 
+/* 打字机光标效果 */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.streamingCursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: currentColor;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  vertical-align: text-bottom;
+}
+
 /* 响应式 */
 @media (max-width: 768px) {
   .messageContent {

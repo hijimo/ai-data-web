@@ -192,6 +192,57 @@
   background: #bfbfbf;
 }
 
+/* 错误消息 */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 8px;
+  color: #cf1322;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.errorIcon {
+  font-size: 16px;
+}
+
+/* 流式状态指示器包装器 */
+.streamIndicatorWrapper {
+  margin: 8px 0;
+  padding: 8px 12px;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #666;
+  max-width: 70%;
+}
+
+/* 打字机光标效果 */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.streamingCursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: currentColor;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  vertical-align: text-bottom;
+}
+
 /* 响应式 */
 @media (max-width: 768px) {
   .messageContent {
@@ -200,5 +251,9 @@
 
   .messagesContainer {
     padding: 16px;
+  }
+
+  .streamIndicatorWrapper {
+    max-width: 85%;
   }
 }

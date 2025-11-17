@@ -1,10 +1,14 @@
 /**
  * 消息列表组件
  * 显示聊天消息列表，支持滚动和消息分组
+ * 参考 chatbot-ui-main 的流式输出实现
  */
 
 import React, { useEffect, useRef } from 'react';
 import type { MessageDetailResponse } from '@/types/api/messageDetailResponse';
+import type { StreamState } from '@/types/stream';
+import { Message } from '../Message';
+import { StreamStatusIndicator } from '../StreamStatusIndicator';
 import styles from './index.module.css';
 
 /**
@@ -15,6 +19,8 @@ interface ChatMessagesProps {
   messages: MessageDetailResponse[];
   /** 是否正在生成回复 */
   isGenerating?: boolean;
+  /** 流式状态 */
+  streamState?: StreamState;
   /** 编辑消息回调 */
   onEditMessage?: (messageId: string) => void;
   /** 删除消息回调 */
@@ -80,16 +86,26 @@ const shouldShowTimestamp = (
 
 /**
  * 消息列表组件
+ * 参考 chatbot-ui-main 的实现，支持流式输出的实时渲染
  */
 export const ChatMessages: React.FC<ChatMessagesProps> = ({
   messages,
   isGenerating = false,
+  streamState,
   onEditMessage,
   onDeleteMessage,
   scrollContainerRef,
 }) => {
   const internalScrollRef = useRef<HTMLDivElement>(null);
   const scrollRef = scrollContainerRef || internalScrollRef;
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // 自动滚动到底部（当有新消息或流式内容更新时）
+  useEffect(() => {
+    if (isGenerating || messages.length > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages.length, streamState?.outputContent, isGenerating]);
 
   return (
     <div ref={scrollRef} className={styles.chatMessages} role="log" aria-live="polite">
@@ -102,6 +118,14 @@ export const ChatMessages: React.FC<ChatMessagesProps> = ({
           messages.map((message, index) => {
             const previousMessage = index > 0 ? messages[index - 1] : undefined;
             const showTimestamp = shouldShowTimestamp(message, previousMessage);
+            const isLastMessage = index === messages.length - 1;
+            const isUser = message.role === 'user';
+
+            // 如果是最后一条 AI 消息且正在生成，显示流式内容
+            const displayContent =
+              isLastMessage && !isUser && isGenerating && streamState?.outputContent
+                ? streamState.outputContent
+                : message.content || '';
 
             return (
               <div key={message.id || index}>
@@ -112,52 +136,43 @@ export const ChatMessages: React.FC<ChatMessagesProps> = ({
                   </div>
                 )}
 
-                {/* 消息内容 */}
-                <div
-                  className={`${styles.messageWrapper} ${
-                    message.role === 'user' ? styles.userMessage : styles.assistantMessage
-                  }`}
-                >
-                  <div className={styles.messageContent}>
-                    <div className={styles.messageRole}>
-                      {message.role === 'user' ? '你' : 'AI'}
-                    </div>
-                    <div className={styles.messageText}>{message.content || '...'}</div>
-                    {message.role === 'user' && (
-                      <div className={styles.messageActions}>
-                        {onEditMessage && (
-                          <button
-                            onClick={() => message.id && onEditMessage(message.id)}
-                            className={styles.actionButton}
-                          >
-                            编辑
-                          </button>
-                        )}
-                        {onDeleteMessage && (
-                          <button
-                            onClick={() => message.id && onDeleteMessage(message.id)}
-                            className={styles.actionButton}
-                          >
-                            删除
-                          </button>
-                        )}
-                      </div>
-                    )}
+                {/* 使用 Message 组件渲染消息 */}
+                <Message
+                  message={{ ...message, content: displayContent }}
+                  isUser={isUser}
+                  isStreaming={isLastMessage && !isUser && isGenerating}
+                  onEdit={isUser && onEditMessage ? () => onEditMessage(message.id!) : undefined}
+                  onDelete={
+                    isUser && onDeleteMessage ? () => onDeleteMessage(message.id!) : undefined
+                  }
+                />
+
+                {/* 在最后一条 AI 消息下方显示流式状态 */}
+                {isLastMessage && !isUser && isGenerating && streamState && (
+                  <div className={styles.streamIndicatorWrapper}>
+                    <StreamStatusIndicator
+                      stage={streamState.stage}
+                      stageMessage={streamState.stageMessage}
+                      thinkingContent={streamState.thinkingContent}
+                      showThinking={streamState.stage === 'thinking'}
+                    />
                   </div>
-                </div>
+                )}
               </div>
             );
           })
         )}
 
-        {/* 正在生成提示 */}
-        {isGenerating && (
-          <div className={styles.generatingIndicator}>
-            <span className={styles.dot}></span>
-            <span className={styles.dot}></span>
-            <span className={styles.dot}></span>
+        {/* 错误提示 */}
+        {streamState?.error && (
+          <div className={styles.errorMessage}>
+            <span className={styles.errorIcon}>⚠️</span>
+            <span>{streamState.error.message}</span>
           </div>
         )}
+
+        {/* 滚动锚点 */}
+        <div ref={messagesEndRef} />
       </div>
     </div>
   );

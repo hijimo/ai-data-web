@@ -1,0 +1,47 @@
+.statusIndicator {
+  padding: 8px 12px;
+  margin: 8px 0;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stageStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.thinkingContent {
+  padding: 8px;
+  background: #fff;
+  border-radius: 4px;
+  border-left: 3px solid #1890ff;
+}
+
+.thinkingLabel {
+  font-weight: 500;
+  color: #1890ff;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.thinkingText {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.loadingDots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #999;
+  font-size: 12px;
+}

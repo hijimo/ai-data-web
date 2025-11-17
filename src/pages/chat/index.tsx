@@ -78,14 +78,8 @@ const ChatPage: React.FC = () => {
     useSessionOperations();
 
   // 获取消息处理方法（使用流式响应）
-  const {
-    sendStreamMessage,
-    sendMessage,
-    isStreaming,
-    currentStreamContent,
-    tempMessageId,
-    stopGeneration,
-  } = useChatHandler(currentSessionId || '');
+  const { sendStreamMessage, sendMessage, streamState, tempMessageId, stopGeneration } =
+    useChatHandler(currentSessionId || '');
 
   // 使用 React Query 加载全部会话列表
   const {
@@ -181,14 +175,22 @@ const ChatPage: React.FC = () => {
     const messages = messagesData?.data?.data || [];
 
     // 如果正在流式传输，更新临时消息的内容
-    if (isStreaming && tempMessageId && currentStreamContent) {
+    if (streamState.isStreaming && tempMessageId) {
+      // 使用输出内容或完整内容
+      const streamContent = streamState.outputContent || streamState.fullContent;
       return messages.map((msg) =>
-        msg.id === tempMessageId ? { ...msg, content: currentStreamContent } : msg,
+        msg.id === tempMessageId ? { ...msg, content: streamContent } : msg,
       );
     }
 
     return messages;
-  }, [messagesData, isStreaming, tempMessageId, currentStreamContent]);
+  }, [
+    messagesData,
+    streamState.isStreaming,
+    streamState.outputContent,
+    streamState.fullContent,
+    tempMessageId,
+  ]);
 
   // 处理会话选择
   const handleSelectSession = useCallback(
@@ -322,7 +324,8 @@ const ChatPage: React.FC = () => {
           session={displaySessions.find((s) => s.id === currentSessionId)}
           messages={displayMessages}
           loading={isLoadingMessages}
-          isGenerating={isStreaming}
+          isGenerating={streamState.isStreaming}
+          streamState={streamState}
           collapsed={collapsed}
           onToggleCollapse={handleToggleCollapse}
           onSendMessage={handleSendMessage}

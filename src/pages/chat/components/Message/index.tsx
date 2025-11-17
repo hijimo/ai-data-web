@@ -24,6 +24,8 @@ interface MessageProps {
   message: MessageDetailResponse;
   /** 是否为用户消息 */
   isUser: boolean;
+  /** 是否正在流式输出（显示打字机光标） */
+  isStreaming?: boolean;
   /** 编辑回调 */
   onEdit?: () => void;
   /** 删除回调 */
@@ -32,11 +34,10 @@ interface MessageProps {
 
 /**
  * 单条消息组件
+ * 参考 chatbot-ui-main 的实现，支持流式输出的实时渲染
  */
 export const Message: React.FC<MessageProps> = React.memo(
-  ({ message, isUser, onEdit, onDelete }) => {
-    const [isHovered, setIsHovered] = useState(false);
-
+  ({ message, isUser, isStreaming = false, onEdit, onDelete }) => {
     // 复制消息内容
     const handleCopy = React.useCallback(async () => {
       try {
@@ -50,8 +51,6 @@ export const Message: React.FC<MessageProps> = React.memo(
     return (
       <div
         className={`${styles.messageWrapper} ${isUser ? styles.userMessage : styles.assistantMessage}`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         {/* AI 消息显示头像在左侧 */}
         {!isUser && (
@@ -66,10 +65,12 @@ export const Message: React.FC<MessageProps> = React.memo(
           {/* 消息内容 */}
           <div className={styles.messageText}>
             <MessageMarkdown content={message.content || ''} />
+            {/* 流式输出时显示打字机光标 */}
+            {isStreaming && !isUser && <span className={styles.streamingCursor} />}
           </div>
 
-          {/* 操作按钮（悬停显示） */}
-          {isHovered && (
+          {/* 操作按钮（长驻显示，流式输出时不显示） */}
+          {!isStreaming && (
             <div className={styles.messageActions}>
               <Tooltip title="复制">
                 <Button
