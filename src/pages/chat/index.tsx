@@ -299,7 +299,7 @@ const ChatPage: React.FC = () => {
   }
 
   return (
-    <div style={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
+    <div style={{ display: 'flex', height: 'calc(100vh - 64px - 48px)' }}>
       {/* 会话列表 */}
       {!collapsed && (
         <SessionList

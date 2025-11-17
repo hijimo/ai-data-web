@@ -9,6 +9,7 @@
   overflow-x: hidden;
   background-color: #fafafa;
   position: relative;
+  height: 100%;
 }
 
 /* 消息内容容器 */

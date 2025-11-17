@@ -121,6 +121,54 @@
   vertical-align: text-bottom;
 }
 
+/* 错误信息容器 */
+.errorContainer {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.assistantMessage .errorContainer {
+  background-color: #fff2f0;
+  border-color: #ffccc7;
+}
+
+/* 错误头部 */
+.errorHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.errorIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.errorTitle {
+  font-weight: 600;
+  color: #cf1322;
+  font-size: 14px;
+}
+
+/* 错误消息 */
+.errorMessage {
+  color: #595959;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+/* 错误状态 */
+.errorStatus {
+  color: #8c8c8c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 /* 响应式 */
 @media (max-width: 768px) {
   .messageContent {
@@ -129,5 +177,17 @@
 
   .messageText {
     font-size: 13px;
+  }
+
+  .errorContainer {
+    padding: 10px;
+  }
+
+  .errorTitle {
+    font-size: 13px;
+  }
+
+  .errorMessage {
+    font-size: 12px;
   }
 }

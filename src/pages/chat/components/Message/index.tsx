@@ -56,12 +56,25 @@ export const Message: React.FC<MessageProps> = React.memo(
         )}
 
         <div className={styles.messageContent}>
+          {/* 错误信息显示 */}
+          {message.error && (
+            <div className={styles.errorContainer}>
+              <div className={styles.errorHeader}>
+                <span className={styles.errorIcon}>⚠️</span>
+                <span className={styles.errorTitle}>请求失败</span>
+              </div>
+              <div className={styles.errorMessage}>{message.error}</div>
+            </div>
+          )}
+
           {/* 消息内容 */}
-          <div className={styles.messageText}>
-            <MessageMarkdown content={message.content || ''} />
-            {/* 流式输出时显示打字机光标 */}
-            {isStreaming && !isUser && <span className={styles.streamingCursor} />}
-          </div>
+          {message.content && (
+            <div className={styles.messageText}>
+              <MessageMarkdown content={message.content} />
+              {/* 流式输出时显示打字机光标 */}
+              {isStreaming && !isUser && <span className={styles.streamingCursor} />}
+            </div>
+          )}
 
           {/* 操作按钮（长驻显示，流式输出时不显示） */}
           {!isStreaming && (
