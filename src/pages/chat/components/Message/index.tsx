@@ -3,15 +3,9 @@
  * 显示用户或 AI 的消息，支持编辑、删除、复制等操作
  */
 
-import {
-  CopyOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  RobotOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
 import { message as antMessage, Avatar, Button, Tooltip } from 'antd';
-import React, { useState } from 'react';
+import { Bot, Copy, Edit2, Trash2, User } from 'lucide-react';
+import React from 'react';
 import type { MessageDetailResponse } from '@/types/api/messageDetailResponse';
 import { MessageMarkdown } from '../MessageMarkdown';
 import styles from './index.module.css';
@@ -55,7 +49,7 @@ export const Message: React.FC<MessageProps> = React.memo(
         {/* AI 消息显示头像在左侧 */}
         {!isUser && (
           <Avatar
-            icon={<RobotOutlined />}
+            icon={<Bot size={18} />}
             className={styles.avatar}
             style={{ backgroundColor: '#14b8a6' }}
           />
@@ -76,7 +70,7 @@ export const Message: React.FC<MessageProps> = React.memo(
                 <Button
                   type="text"
                   size="small"
-                  icon={<CopyOutlined />}
+                  icon={<Copy size={14} />}
                   onClick={handleCopy}
                   className={styles.actionButton}
                 />
@@ -86,7 +80,7 @@ export const Message: React.FC<MessageProps> = React.memo(
                   <Button
                     type="text"
                     size="small"
-                    icon={<EditOutlined />}
+                    icon={<Edit2 size={14} />}
                     onClick={onEdit}
                     className={styles.actionButton}
                   />
@@ -97,7 +91,7 @@ export const Message: React.FC<MessageProps> = React.memo(
                   <Button
                     type="text"
                     size="small"
-                    icon={<DeleteOutlined />}
+                    icon={<Trash2 size={14} />}
                     onClick={onDelete}
                     danger
                     className={styles.actionButton}
@@ -111,7 +105,7 @@ export const Message: React.FC<MessageProps> = React.memo(
         {/* 用户消息显示头像在右侧 */}
         {isUser && (
           <Avatar
-            icon={<UserOutlined />}
+            icon={<User size={18} />}
             className={styles.avatar}
             style={{ backgroundColor: '#1890ff' }}
           />

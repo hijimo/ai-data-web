@@ -3,8 +3,8 @@
  * 支持语法高亮、复制和折叠功能
  */
 
-import { CopyOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import { Button, message, Tag } from 'antd';
+import { ChevronDown, ChevronUp, Copy } from 'lucide-react';
 import React, { useState } from 'react';
 import styles from './index.module.css';
 
@@ -69,7 +69,7 @@ export const MessageCodeBlock: React.FC<MessageCodeBlockProps> = ({
             <Button
               type="text"
               size="small"
-              icon={isCollapsed ? <DownOutlined /> : <UpOutlined />}
+              icon={isCollapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
               onClick={toggleCollapse}
               className={styles.actionButton}
             >
@@ -79,7 +79,7 @@ export const MessageCodeBlock: React.FC<MessageCodeBlockProps> = ({
           <Button
             type="text"
             size="small"
-            icon={<CopyOutlined />}
+            icon={<Copy size={14} />}
             onClick={handleCopy}
             loading={isCopying}
             className={styles.actionButton}

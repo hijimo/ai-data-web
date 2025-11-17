@@ -3,8 +3,8 @@
  * 支持文本输入和发送消息
  */
 
-import { SendOutlined, StopOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
+import { Send, StopCircle } from 'lucide-react';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import styles from './index.module.css';
 
@@ -110,7 +110,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(
               <Button
                 type="primary"
                 danger
-                icon={<StopOutlined />}
+                icon={<StopCircle size={16} />}
                 onClick={handleStop}
                 className={styles.stopButton}
               >
@@ -119,7 +119,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(
             ) : (
               <Button
                 type="primary"
-                icon={<SendOutlined />}
+                icon={<Send size={16} />}
                 onClick={handleSend}
                 disabled={disabled || !value.trim()}
                 className={styles.sendButton}

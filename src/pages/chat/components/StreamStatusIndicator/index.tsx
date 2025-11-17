@@ -3,8 +3,8 @@
  * 显示流式响应的各个阶段状态
  */
 
-import { BulbOutlined, LoadingOutlined, SearchOutlined, ToolOutlined } from '@ant-design/icons';
 import { Spin, Tag } from 'antd';
+import { Lightbulb, Loader2, Search, Wrench } from 'lucide-react';
 import React from 'react';
 import type { StreamStage } from '@/types/stream';
 import styles from './index.module.css';
@@ -32,16 +32,16 @@ const getStageIcon = (stage: StreamStage): React.ReactNode => {
     case 'tool_call_progress':
     case 'tool_call_complete':
     case 'tool_call_error':
-      return <ToolOutlined />;
+      return <Wrench size={14} />;
     case 'internal_searching':
     case 'finished_internal_searching':
     case 'resource_retrieval_start':
     case 'resource_retrieval_complete':
-      return <SearchOutlined />;
+      return <Search size={14} />;
     case 'thinking':
-      return <BulbOutlined />;
+      return <Lightbulb size={14} />;
     default:
-      return <LoadingOutlined />;
+      return <Loader2 size={14} />;
   }
 };
 
@@ -92,7 +92,7 @@ export const StreamStatusIndicator: React.FC<StreamStatusIndicatorProps> = ({
       {showThinking && stage === 'thinking' && thinkingContent && (
         <div className={styles.thinkingContent}>
           <div className={styles.thinkingLabel}>
-            <BulbOutlined /> 思考过程：
+            <Lightbulb size={14} /> 思考过程：
           </div>
           <div className={styles.thinkingText}>{thinkingContent}</div>
         </div>

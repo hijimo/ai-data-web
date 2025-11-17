@@ -3,9 +3,9 @@
  * 显示所有聊天会话，支持搜索、新建、选择等操作
  */
 
-import { PlusOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
-import React, { useState } from 'react';
+import { Plus } from 'lucide-react';
+import React from 'react';
 import type { SessionResponse } from '@/types/api/sessionResponse';
 import { SessionItem } from '../SessionItem';
 import styles from './index.module.css';
@@ -73,7 +73,7 @@ export const SessionList: React.FC<SessionListProps> = ({
       <div className={styles.sessionListCollapsed}>
         <Button
           type="primary"
-          icon={<PlusOutlined />}
+          icon={<Plus size={16} />}
           onClick={onCreateSession}
           className={styles.newSessionButtonCollapsed}
         />
@@ -87,7 +87,7 @@ export const SessionList: React.FC<SessionListProps> = ({
       <div className={styles.header}>
         <Button
           type="primary"
-          icon={<PlusOutlined />}
+          icon={<Plus size={16} />}
           onClick={onCreateSession}
           block
           className={styles.newSessionButton}

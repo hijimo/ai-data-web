@@ -3,8 +3,8 @@
  * 显示会话标题和操作按钮
  */
 
-import { MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
+import { Menu, Settings, X } from 'lucide-react';
 import React from 'react';
 import styles from './index.module.css';
 
@@ -46,7 +46,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         {onToggleCollapse && (
           <Button
             type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            icon={collapsed ? <Menu size={18} /> : <X size={18} />}
             onClick={onToggleCollapse}
             className={styles.toggleButton}
             aria-label={collapsed ? '展开侧边栏' : '折叠侧边栏'}
@@ -62,7 +62,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         {onOpenSettings && (
           <Button
             type="text"
-            icon={<SettingOutlined />}
+            icon={<Settings size={18} />}
             onClick={onOpenSettings}
             className={styles.settingsButton}
             aria-label="打开设置"

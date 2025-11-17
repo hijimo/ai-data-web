@@ -3,9 +3,9 @@
  * 显示单个会话的信息，包括标题、最后消息、时间等
  */
 
-import { DeleteOutlined, InboxOutlined, PushpinFilled, PushpinOutlined } from '@ant-design/icons';
-import { Button, Popconfirm } from 'antd';
-import React, { useState } from 'react';
+import { Dropdown } from 'antd';
+import { Archive, MoreVertical, Pin, PinOff, Trash2 } from 'lucide-react';
+import React from 'react';
 import type { SessionResponse } from '@/types/api/sessionResponse';
 import styles from './index.module.css';
 
@@ -72,30 +72,46 @@ const formatTime = (dateString?: string): string => {
  */
 export const SessionItem: React.FC<SessionItemProps> = React.memo(
   ({ session, isActive, onClick, onPin, onArchive, onDelete }) => {
-    const [isHovered, setIsHovered] = useState(false);
-
     // 处理置顶
-    const handlePin = React.useCallback(
-      (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onPin?.(!session.isPinned);
-      },
-      [onPin, session.isPinned],
-    );
+    const handlePin = React.useCallback(() => {
+      onPin?.(!session.isPinned);
+    }, [onPin, session.isPinned]);
 
     // 处理归档
-    const handleArchive = React.useCallback(
-      (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onArchive?.(!session.isArchived);
-      },
-      [onArchive, session.isArchived],
-    );
+    const handleArchive = React.useCallback(() => {
+      onArchive?.(!session.isArchived);
+    }, [onArchive, session.isArchived]);
 
     // 处理删除
     const handleDelete = React.useCallback(() => {
       onDelete?.();
     }, [onDelete]);
+
+    // 下拉菜单项
+    const menuItems = [
+      {
+        key: 'pin',
+        label: session.isPinned ? '取消置顶' : '置顶',
+        icon: session.isPinned ? <PinOff size={16} /> : <Pin size={16} />,
+        onClick: handlePin,
+      },
+      {
+        key: 'archive',
+        label: session.isArchived ? '取消归档' : '归档',
+        icon: <Archive size={16} />,
+        onClick: handleArchive,
+      },
+      {
+        type: 'divider' as const,
+      },
+      {
+        key: 'delete',
+        label: '删除',
+        icon: <Trash2 size={16} />,
+        danger: true,
+        onClick: handleDelete,
+      },
+    ];
 
     return (
       <div
@@ -103,51 +119,22 @@ export const SessionItem: React.FC<SessionItemProps> = React.memo(
           session.isPinned ? styles.pinned : ''
         }`}
         onClick={onClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         {/* 会话标题和置顶图标 */}
         <div className={styles.header}>
           <div className={styles.title}>
-            {session.isPinned && <PushpinFilled className={styles.pinnedIcon} title="已置顶" />}
+            {session.isPinned && (
+              <span title="已置顶">
+                <Pin size={14} className={styles.pinnedIcon} />
+              </span>
+            )}
             {session.title || '未命名会话'}
           </div>
-          {isHovered && (
-            <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
-              <Button
-                type="text"
-                size="small"
-                icon={session.isPinned ? <PushpinFilled /> : <PushpinOutlined />}
-                onClick={handlePin}
-                title={session.isPinned ? '取消置顶' : '置顶'}
-                className={styles.actionButton}
-              />
-              <Button
-                type="text"
-                size="small"
-                icon={<InboxOutlined />}
-                onClick={handleArchive}
-                title={session.isArchived ? '取消归档' : '归档'}
-                className={styles.actionButton}
-              />
-              <Popconfirm
-                title="确定删除此会话吗？"
-                description="删除后将无法恢复"
-                onConfirm={handleDelete}
-                okText="确定"
-                cancelText="取消"
-              >
-                <Button
-                  type="text"
-                  size="small"
-                  icon={<DeleteOutlined />}
-                  danger
-                  title="删除"
-                  className={styles.actionButton}
-                />
-              </Popconfirm>
+          <Dropdown menu={{ items: menuItems }} trigger={['click']} placement="bottomRight">
+            <div className={styles.moreButton} onClick={(e) => e.stopPropagation()}>
+              <MoreVertical size={16} />
             </div>
-          )}
+          </Dropdown>
         </div>
 
         {/* 最后一条消息预览 */}

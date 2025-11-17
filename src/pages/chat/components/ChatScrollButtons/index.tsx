@@ -3,8 +3,8 @@
  * 提供快速滚动到顶部和底部的功能
  */
 
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 import React from 'react';
 import styles from './index.module.css';
 
@@ -42,7 +42,7 @@ export const ChatScrollButtons: React.FC<ChatScrollButtonsProps> = ({
         {/* 滚动到顶部按钮 */}
         {showScrollToTop && (
           <FloatButton
-            icon={<UpOutlined />}
+            icon={<ArrowUp size={16} />}
             tooltip="滚动到顶部"
             onClick={onScrollToTop}
             aria-label="滚动到顶部"
@@ -52,7 +52,7 @@ export const ChatScrollButtons: React.FC<ChatScrollButtonsProps> = ({
         {/* 滚动到底部按钮 */}
         {showScrollToBottom && (
           <FloatButton
-            icon={<DownOutlined />}
+            icon={<ArrowDown size={16} />}
             tooltip="滚动到底部"
             onClick={onScrollToBottom}
             aria-label="滚动到底部"

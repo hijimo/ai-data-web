@@ -73,24 +73,32 @@
   flex-shrink: 0;
 }
 
-/* 操作按钮区域 */
-.actions {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.actionButton {
-  padding: 4px;
-  width: 24px;
-  height: 24px;
+/* More 按钮 */
+.moreButton {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  color: #8c8c8c;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
 
-.actionButton:hover {
+.moreButton:hover {
   background-color: rgba(0, 0, 0, 0.06);
+  color: #262626;
+}
+
+.sessionItem.active .moreButton {
+  color: #14b8a6;
+}
+
+.sessionItem.active .moreButton:hover {
+  background-color: rgba(20, 184, 166, 0.1);
+  color: #0d9488;
 }
 
 /* 最后一条消息 */
