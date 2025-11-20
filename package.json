@@ -104,7 +104,7 @@
     "eslint-plugin-storybook": "^9.1.16",
     "husky": "^9.1.7",
     "jsdom": "^27.2.0",
-    "lint-staged": "^16.2.6",
+    "lint-staged": "^16.2.7",
     "msw": "^2.12.2",
     "openai": "^6.9.1",
     "orval": "^7.16.0",
