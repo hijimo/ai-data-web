@@ -36,9 +36,9 @@
   },
   "dependencies": {
     "@ant-design/pro-components": "^2.8.10",
-    "@tanstack/react-query": "^5.90.9",
+    "@tanstack/react-query": "^5.90.10",
     "ahooks": "^3.9.6",
-    "antd": "5.28.1",
+    "antd": "5.29.1",
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
     "immer": "^10.2.0",
@@ -55,8 +55,8 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^4.1.2",
-    "@eslint/compat": "^1.4.1",
+    "@chromatic-com/storybook": "^4.1.3",
+    "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
     "@faker-js/faker": "^10.0.0",
@@ -79,13 +79,13 @@
     "@types/eslint": "^9.6.1",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^24.10.1",
-    "@types/react": "^19.2.4",
+    "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "@vitejs/plugin-react": "^5.1.1",
     "@vitejs/plugin-react-swc": "^4.2.2",
-    "@vitest/ui": "^4.0.9",
+    "@vitest/ui": "^4.0.10",
     "all-contributors-cli": "^6.26.1",
     "autoprefixer": "^10.4.22",
     "concurrently": "^9.2.0",
@@ -105,8 +105,8 @@
     "husky": "^9.1.7",
     "jsdom": "^27.2.0",
     "lint-staged": "^16.2.6",
-    "msw": "^2.12.1",
-    "openai": "^6.9.0",
+    "msw": "^2.12.2",
+    "openai": "^6.9.1",
     "orval": "^7.16.0",
     "playwright": "^1.55.0",
     "postcss": "^8.5.6",
@@ -120,7 +120,7 @@
     "vite": "^7.2.2",
     "vite-plugin-environment": "^1.1.3",
     "vite-plugin-svgr": "^4.3.0",
-    "vitest": "^4.0.9"
+    "vitest": "^4.0.10"
   },
   "volta": {
     "node": "22.17.0"
