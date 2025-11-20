@@ -1,4 +1,10 @@
-import { HomeOutlined, MessageOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  MessageOutlined,
+  SettingOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { createBrowserRouter, Outlet } from 'react-router';
 import Header from '@/components/Header';
 import {
@@ -13,6 +19,7 @@ import { ResourceContextProvider } from './contexts/resource';
 import Chat from './pages/chat';
 import Index from './pages/Index';
 import Login from './pages/Login';
+import ModelSettings from './pages/model-settings';
 import Notfound from './pages/Notfound';
 import Tenants from './pages/tenants';
 import Users from './pages/users';
@@ -55,6 +62,14 @@ const resources: ResourceProps[] = [
       icon: <UserOutlined />,
     },
   },
+  {
+    name: 'model-settings',
+    list: '/model-settings',
+    meta: {
+      label: '模型设置',
+      icon: <SettingOutlined />,
+    },
+  },
 ];
 
 const renderTitle: React.FC<LayoutThemedTitleProps> = ({ collapsed }: { collapsed: boolean }) => (
@@ -68,7 +83,7 @@ const renderTitle: React.FC<LayoutThemedTitleProps> = ({ collapsed }: { collapse
 const renderSider: React.FC<{
   Title?: React.FC<LayoutThemedTitleProps>;
   render?: (props: {
-    items: JSX.Element[];
+    items: React.ReactElement[];
     logout: React.ReactNode;
     collapsed: boolean;
   }) => React.ReactNode;
@@ -124,6 +139,10 @@ const router = createBrowserRouter([
           {
             path: '/users',
             element: <Users />,
+          },
+          {
+            path: '/model-settings',
+            element: <ModelSettings />,
           },
           {
             path: '*',

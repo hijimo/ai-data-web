@@ -6,7 +6,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Drawer, Form, Input, message, Select, Slider } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { getProviders } from '@/services/api/providers/providers';
 import { getSessions } from '@/services/api/sessions/sessions';
 import type { SessionResponse } from '@/types/api/sessionResponse';
 import type { UpdateSessionRequest } from '@/types/api/updateSessionRequest';
@@ -40,20 +39,12 @@ export const ChatSettings: React.FC<ChatSettingsProps> = ({
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
   const sessionsApi = getSessions();
-  const providersApi = getProviders();
 
   // 保存状态
   const [isSaving, setIsSaving] = useState(false);
 
   // 获取提供商和模型列表
-  const { data: providersData, isLoading: isLoadingProviders } = useQuery({
-    queryKey: ['providers'],
-    queryFn: async () => {
-      const response = await providersApi.getProviders();
-      return response;
-    },
-    staleTime: 5 * 60 * 1000, // 5分钟缓存
-  });
+  const providersData = { data: [] };
 
   // 提取所有模型列表
   const models = React.useMemo(() => {
@@ -171,7 +162,6 @@ export const ChatSettings: React.FC<ChatSettingsProps> = ({
         >
           <Select
             placeholder="请选择模型"
-            loading={isLoadingProviders}
             showSearch
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
