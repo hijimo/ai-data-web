@@ -163,7 +163,7 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
       '@vitest/ui':
-        specifier: ^4.0.10
+        specifier: ^4.0.12
         version: 4.0.12(vitest@4.0.12)
       all-contributors-cli:
         specifier: ^6.26.1
@@ -220,7 +220,7 @@ importers:
         specifier: ^27.2.0
         version: 27.2.0
       lint-staged:
-        specifier: ^16.2.6
+        specifier: ^16.2.7
         version: 16.2.7
       msw:
         specifier: ^2.12.2
@@ -229,8 +229,8 @@ importers:
         specifier: ^6.9.1
         version: 6.9.1(ws@8.18.3)(zod@4.1.12)
       orval:
-        specifier: ^7.16.0
-        version: 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+        specifier: ^7.16.1
+        version: 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       playwright:
         specifier: ^1.55.0
         version: 1.56.1
@@ -244,7 +244,7 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1(@ianvs/prettier-plugin-sort-imports@4.7.0(prettier@3.6.2))(prettier@3.6.2)
       rimraf:
-        specifier: ^6.1.0
+        specifier: ^6.1.2
         version: 6.1.2
       storybook:
         specifier: ^9.1.16
@@ -259,7 +259,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: ^7.2.2
+        specifier: ^7.2.4
         version: 7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
       vite-plugin-environment:
         specifier: ^1.1.3
@@ -268,7 +268,7 @@ importers:
         specifier: ^4.3.0
         version: 4.5.0(rollup@4.53.3)(typescript@5.9.3)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
       vitest:
-        specifier: ^4.0.10
+        specifier: ^4.0.12
         version: 4.0.12(@types/debug@4.1.12)(@types/node@24.10.1)(@vitest/ui@4.0.12)(jiti@2.6.1)(jsdom@27.2.0)(lightningcss@1.30.2)(msw@2.12.2(@types/node@24.10.1)(typescript@5.9.3))(yaml@2.8.1)
 
 packages:
@@ -1025,35 +1025,35 @@ packages:
   '@open-draft/until@2.1.0':
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
 
-  '@orval/angular@7.16.0':
-    resolution: {integrity: sha512-WTNPtN5YHDHl6GV5gW37PonvC2QGzxVZpjjhqEKvghZcSHfEVCYHV9VJJv1LkMoLr4LtryDMYOIdREAvYq5zKg==}
+  '@orval/angular@7.16.1':
+    resolution: {integrity: sha512-RggE6Hq0cIGkQGnU7A7POgIU4wdnSlfiCDwFUnNseUJJnkvg9ODeKW75UqefCM/j9mrX4F2+lMVHF8kN5/GJ2g==}
 
-  '@orval/axios@7.16.0':
-    resolution: {integrity: sha512-Zkgw51tIDvJSkPrji8cZxiq/lLW9LXYccrTZit1tiEP7au8wYQbbW7EAnssdxPuj42MA7bTLEg8SaWO2BbUHJQ==}
+  '@orval/axios@7.16.1':
+    resolution: {integrity: sha512-VYyLtBhrR5lk2Kat5VbfQEOnJMH5FAUjgjYBeO45jaOe5K2KYk7NiHNKNZNshi9dHUIb9HxiwFp0oEMzzmGFOg==}
 
-  '@orval/core@7.16.0':
-    resolution: {integrity: sha512-f30Dc6BQDc58/PTo3DF7VkT/szu9YL04STiG6IQa3f7DDLY6c1jALgMIB1+EDyT+SWLPSP3U3yDB6lHi0gZ4sQ==}
+  '@orval/core@7.16.1':
+    resolution: {integrity: sha512-54VnuOjLH5g3I8BSPUTSO5tTxLq9ZWd1ylVfsoIw992TI34prckTFDMj16c18U5jN4SUTwYik7Y1/Ptw5tmplQ==}
 
-  '@orval/fetch@7.16.0':
-    resolution: {integrity: sha512-tIYH0eH9Wzf/g+Z9gJ4jw7Ti4WLa428Q4Sjc6sS22BAL9A8XsAiyP2AlmTvotwfFPPBqpqhEUOy0CuzKpn4wGg==}
+  '@orval/fetch@7.16.1':
+    resolution: {integrity: sha512-j/hb/VBIzJktOziOfzxn1YJLbUmSqyybS7c75ELv+m7VEIrxSIX+zsolfAw3eIlNGN6T62ExF71sOfbXDfJSGw==}
 
-  '@orval/hono@7.16.0':
-    resolution: {integrity: sha512-ToONyxV6tcH1SnnxTGGXjf+iO8gUp3r2U03QoH1fLy0UuHXvQ37Q1BjgjnHM8k2QQVz1F5YZhg9DZUg+qNCKWg==}
+  '@orval/hono@7.16.1':
+    resolution: {integrity: sha512-e3TvUD5Vc1RPSIyHd6rzgbPxzj7wAU0tWdv/3Az5suxqZdIQVUstHsnUs2Y25843l/WnI5IMgMYrvU4wrobw8A==}
 
-  '@orval/mcp@7.16.0':
-    resolution: {integrity: sha512-4V8buKib5SwKTmtpjaCREkMQGL/NUDycUyW4HqeBdOWy+fTdYtcxQy983spzjMH323qRStUmMoIaoRwTPY8OhA==}
+  '@orval/mcp@7.16.1':
+    resolution: {integrity: sha512-xO94xmlVwlgeFFOO5/iPzshzLGGnXUNAsF3uwl2B4nuWOyCfANxkcpfDXTCCc9XbOfEET/Mxx/Bst10JYP7r1g==}
 
-  '@orval/mock@7.16.0':
-    resolution: {integrity: sha512-USAFjRAgyeT/cXZYUuCuUhAOkEJYCByVmpE568jeGATdMpCNLgKg3Lm/m+fptomcgYkCLZxeOTgyYtSwSnTQDg==}
+  '@orval/mock@7.16.1':
+    resolution: {integrity: sha512-dHNC8j196oqlc16BLIguj7Upqi/Kob2glKKv6DItLXzpQ1xqfFutY8qTDlDhbfDkqFOLFcTFaCXBV+/rgXJtNg==}
 
-  '@orval/query@7.16.0':
-    resolution: {integrity: sha512-8knD8275SB21jnZDtW+Yc7hwd/HOk9S0jFPbaSnptG/RZbtPahabUC8d8uJvyCUZU9Af3zwJvoJizCgqvHDlyg==}
+  '@orval/query@7.16.1':
+    resolution: {integrity: sha512-zb25SNUOiH2PXV5ng8aMDVMe1B0Ply0cDbQlpzbOhPyqpHt6x/UB+CpTIt8dIL8oun9Lur508/R8iNnq7McRgw==}
 
-  '@orval/swr@7.16.0':
-    resolution: {integrity: sha512-BB0UoujDDkLxfAX8qyqS0vU2QGFYQ1uE6RM3lCWeOIb8FfAPIIfRf0Qu78yQcuIBQ0Tq2N2KQt/bw0roNiLPNw==}
+  '@orval/swr@7.16.1':
+    resolution: {integrity: sha512-W+S9HreJFVAlbvJspOQk7O2m2aS1sVhd6kz6irHLSH4jmQ5Q/ye4B9ojveDuPbps4q1vNLgx1qP6z0Pls1Nt5w==}
 
-  '@orval/zod@7.16.0':
-    resolution: {integrity: sha512-dwN5SepJusXJj/YLZkIUvvkpysJfxt7tR9LOlWknvQgSsfLKbDAePqJPOrxyL32MfQ7He9Y2Bz1AytM6x1XIOA==}
+  '@orval/zod@7.16.1':
+    resolution: {integrity: sha512-27Az6bfO10e+JqOHGkJNrz2SnVBvvl/dJ4i3RTwN1EaS8yT0KropZYskc2UZB2rBmQkthGGpcOQBYzdx5+sBJQ==}
 
   '@paulirish/trace_engine@0.0.53':
     resolution: {integrity: sha512-PUl/vlfo08Oj804VI5nDPeSk9vyslnBlVzDDwFt8SUVxY8+KdGMkra/vrXjEEHe8gb7+RqVTfOIlGw0nyrEelA==}
@@ -3857,10 +3857,6 @@ packages:
     resolution: {integrity: sha512-PMSmkqxr106Xa156c2M265Z+FTrPl+oxd/rgOQy2tijQeK5TxQ43psO1ZCwhVOSdnn+RzkzlRz/eY4BgJBYVpg==}
     hasBin: true
 
-  js-yaml@4.1.0:
-    resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
-    hasBin: true
-
   js-yaml@4.1.1:
     resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
     hasBin: true
@@ -4616,8 +4612,8 @@ packages:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
 
-  orval@7.16.0:
-    resolution: {integrity: sha512-i63Ini66krmi5jaMGX6q2e5EePfKA/4wiyXVelPUSenRcf5rs8D7GCN5zNRLIuWamcPrJ7dEb3Afrvn90oPzJA==}
+  orval@7.16.1:
+    resolution: {integrity: sha512-Rz13jq4zk86QEBHfbb8aflO7P2YjmhBDPZCpamKwci9l1ByPifHVtVuEI+4uZVrJRSFWI2hOlNR3X5rMmZ8V0g==}
     engines: {node: '>=22.18.0'}
     hasBin: true
 
@@ -6613,7 +6609,7 @@ snapshots:
   '@apidevtools/json-schema-ref-parser@14.0.1':
     dependencies:
       '@types/json-schema': 7.0.15
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
 
   '@apidevtools/openapi-schemas@2.1.0': {}
 
@@ -7246,25 +7242,25 @@ snapshots:
 
   '@open-draft/until@2.1.0': {}
 
-  '@orval/angular@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/angular@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
     transitivePeerDependencies:
       - encoding
       - openapi-types
       - supports-color
       - typescript
 
-  '@orval/axios@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/axios@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
     transitivePeerDependencies:
       - encoding
       - openapi-types
       - supports-color
       - typescript
 
-  '@orval/core@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/core@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
       '@apidevtools/swagger-parser': 12.1.0(openapi-types@12.1.3)
       '@ibm-cloud/openapi-ruleset': 1.33.3
@@ -7291,9 +7287,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@orval/fetch@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/fetch@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       openapi3-ts: 4.5.0
     transitivePeerDependencies:
       - encoding
@@ -7301,10 +7297,10 @@ snapshots:
       - supports-color
       - typescript
 
-  '@orval/hono@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/hono@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/zod': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/zod': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       fs-extra: 11.3.2
       lodash.uniq: 4.5.0
       openapi3-ts: 4.5.0
@@ -7314,11 +7310,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@orval/mcp@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/mcp@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/fetch': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/zod': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/fetch': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/zod': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       openapi3-ts: 4.5.0
     transitivePeerDependencies:
       - encoding
@@ -7326,9 +7322,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@orval/mock@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/mock@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       openapi3-ts: 4.5.0
     transitivePeerDependencies:
       - encoding
@@ -7336,10 +7332,10 @@ snapshots:
       - supports-color
       - typescript
 
-  '@orval/query@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/query@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/fetch': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/fetch': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       chalk: 4.1.2
       lodash.omitby: 4.6.0
     transitivePeerDependencies:
@@ -7348,19 +7344,19 @@ snapshots:
       - supports-color
       - typescript
 
-  '@orval/swr@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/swr@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/fetch': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/fetch': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
     transitivePeerDependencies:
       - encoding
       - openapi-types
       - supports-color
       - typescript
 
-  '@orval/zod@7.16.0(openapi-types@12.1.3)(typescript@5.9.3)':
+  '@orval/zod@7.16.1(openapi-types@12.1.3)(typescript@5.9.3)':
     dependencies:
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       lodash.uniq: 4.5.0
       openapi3-ts: 4.5.0
     transitivePeerDependencies:
@@ -7620,7 +7616,7 @@ snapshots:
     dependencies:
       '@stoplight/json': 3.21.7
       '@stoplight/path': 1.3.2
-      '@stoplight/types': 13.6.0
+      '@stoplight/types': 13.20.0
       '@types/urijs': 1.19.26
       dependency-graph: 0.11.0
       fast-memoize: 2.5.2
@@ -7633,7 +7629,7 @@ snapshots:
     dependencies:
       '@stoplight/ordered-object-literal': 1.0.5
       '@stoplight/path': 1.3.2
-      '@stoplight/types': 13.6.0
+      '@stoplight/types': 13.20.0
       jsonc-parser: 2.2.1
       lodash: 4.17.21
       safe-stable-stringify: 1.1.1
@@ -7734,7 +7730,7 @@ snapshots:
     dependencies:
       '@stoplight/json': 3.21.7
       '@stoplight/path': 1.3.2
-      '@stoplight/types': 13.6.0
+      '@stoplight/types': 13.20.0
       abort-controller: 3.0.0
       lodash: 4.17.21
       node-fetch: 2.7.0
@@ -10603,10 +10599,6 @@ snapshots:
       argparse: 1.0.10
       esprima: 4.0.1
 
-  js-yaml@4.1.0:
-    dependencies:
-      argparse: 2.0.1
-
   js-yaml@4.1.1:
     dependencies:
       argparse: 2.0.1
@@ -11603,20 +11595,20 @@ snapshots:
       type-check: 0.4.0
       word-wrap: 1.2.5
 
-  orval@7.16.0(openapi-types@12.1.3)(typescript@5.9.3):
+  orval@7.16.1(openapi-types@12.1.3)(typescript@5.9.3):
     dependencies:
       '@apidevtools/swagger-parser': 12.1.0(openapi-types@12.1.3)
       '@commander-js/extra-typings': 14.0.0(commander@14.0.2)
-      '@orval/angular': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/axios': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/core': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/fetch': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/hono': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/mcp': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/mock': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/query': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/swr': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
-      '@orval/zod': 7.16.0(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/angular': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/axios': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/core': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/fetch': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/hono': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/mcp': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/mock': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/query': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/swr': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
+      '@orval/zod': 7.16.1(openapi-types@12.1.3)(typescript@5.9.3)
       chalk: 4.1.2
       chokidar: 4.0.3
       commander: 14.0.2
@@ -11625,7 +11617,7 @@ snapshots:
       find-up: 5.0.0
       fs-extra: 11.3.2
       jiti: 2.6.1
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       lodash.uniq: 4.5.0
       openapi3-ts: 4.5.0
       string-argv: 0.3.2
