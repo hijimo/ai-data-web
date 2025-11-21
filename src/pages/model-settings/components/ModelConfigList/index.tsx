@@ -31,6 +31,7 @@ const ModelConfigList: React.FC = () => {
   };
 
   const handleValidate = (id: string) => {
+    debugger;
     validateConfig.mutate(id);
   };
 

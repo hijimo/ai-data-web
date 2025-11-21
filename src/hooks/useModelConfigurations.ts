@@ -46,11 +46,11 @@ export const useAvailableModelConfigurations = () => {
 /**
  * 获取单个模型配置详情
  */
-export const useModelConfiguration = (id: string) => {
+export const useModelConfiguration = (id: string, options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: modelConfigKeys.detail(id),
     queryFn: () => modelConfigApi.getModelConfigurationsId({ id }),
-    enabled: !!id,
+    enabled: options?.enabled !== undefined ? options.enabled : !!id,
   });
 };
 
@@ -139,16 +139,7 @@ export const useUpdateModelConfigurationStatus = () => {
  */
 export const useValidateModelConfiguration = () => {
   return useMutation({
-    mutationFn: (id: string) => modelConfigApi.postModelConfigurationsIdValidate({ id }),
-    onSuccess: (data) => {
-      if (data?.data?.valid) {
-        message.success('模型配置验证成功');
-      } else {
-        message.error(`模型配置验证失败: ${data?.data?.message || '未知错误'}`);
-      }
-    },
-    onError: () => {
-      message.error('模型配置验证失败');
-    },
+    mutationFn: ({ id }: { id: string }) =>
+      modelConfigApi.postModelConfigurationsIdValidate({ id }),
   });
 };
