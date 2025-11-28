@@ -36,8 +36,8 @@ importers:
         specifier: ^1.11.19
         version: 1.11.19
       immer:
-        specifier: ^11.0.0
-        version: 11.0.0
+        specifier: ^11.0.1
+        version: 11.0.1
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -70,7 +70,7 @@ importers:
         version: 6.0.0
       zustand:
         specifier: ^5.0.8
-        version: 5.0.8(@types/react@19.2.7)(immer@11.0.0)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))
+        version: 5.0.8(@types/react@19.2.7)(immer@11.0.1)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^4.1.3
@@ -3575,8 +3575,8 @@ packages:
   immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
 
-  immer@11.0.0:
-    resolution: {integrity: sha512-XtRG4SINt4dpqlnJvs70O2j6hH7H0X8fUzFsjMn1rwnETaxwp83HLNimXBjZ78MrKl3/d3/pkzDH0o0Lkxm37Q==}
+  immer@11.0.1:
+    resolution: {integrity: sha512-naDCyggtcBWANtIrjQEajhhBEuL9b0Zg4zmlWK2CzS6xCWSE39/vvf4LqnMjUAWHBhot4m9MHCM/Z+mfWhUkiA==}
 
   immer@9.0.21:
     resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
@@ -10241,7 +10241,7 @@ snapshots:
 
   immediate@3.0.6: {}
 
-  immer@11.0.0: {}
+  immer@11.0.1: {}
 
   immer@9.0.21: {}
 
@@ -13439,10 +13439,10 @@ snapshots:
 
   zod@4.1.12: {}
 
-  zustand@5.0.8(@types/react@19.2.7)(immer@11.0.0)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0)):
+  zustand@5.0.8(@types/react@19.2.7)(immer@11.0.1)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0)):
     optionalDependencies:
       '@types/react': 19.2.7
-      immer: 11.0.0
+      immer: 11.0.1
       react: 19.2.0
       use-sync-external-store: 1.6.0(react@19.2.0)
 
