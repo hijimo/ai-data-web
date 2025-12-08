@@ -7,11 +7,20 @@
  * OpenAPI spec version: 1.0.0
  */
 
+/**
+ * AI模型的token使用统计信息
+ */
 export interface Usage {
-  /** 生成内容token数 */
+  /** 生成内容token数
+@Description AI生成的回复内容消耗的token数量
+@Example 50 */
   completionTokens?: number;
-  /** 提示词token数 */
+  /** 提示词token数
+@Description 输入提示词（包括历史消息）消耗的token数量
+@Example 10 */
   promptTokens?: number;
-  /** 总token数 */
+  /** 总token数
+@Description 本次对话总共消耗的token数量（promptTokens + completionTokens）
+@Example 60 */
   totalTokens?: number;
 }

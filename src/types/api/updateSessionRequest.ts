@@ -7,27 +7,40 @@
  * OpenAPI spec version: 1.0.0
  */
 
+/**
+ * 更新现有会话配置的请求体，所有字段都是可选的
+ */
 export interface UpdateSessionRequest {
   /**
    * 模型名称（可选）
+@Description 更新会话使用的AI模型名称。系统会根据当前租户ID和新的模型名称从 model_configurations 表中查询配置。
+@Example gpt-4-turbo
    * @maxLength 128
    */
   modelName?: string;
-  /** 系统提示词（可选） */
+  /** 系统提示词（可选）
+@Description 更新系统级提示词
+@Example 你是一个专业的编程助手 */
   systemPrompt?: string;
   /**
    * 温度参数（可选，0-2）
+@Description 更新温度参数，范围：0.0-2.0
+@Example 0.8
    * @minimum 0
    * @maximum 2
    */
   temperature?: number;
   /**
    * 会话标题（可选）
+@Description 更新会话的显示标题
+@Example 更新后的标题
    * @maxLength 255
    */
   title?: string;
   /**
    * TopP参数（可选，0-1）
+@Description 更新核采样参数，范围：0.0-1.0
+@Example 0.95
    * @minimum 0
    * @maximum 1
    */

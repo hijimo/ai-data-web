@@ -8,29 +8,43 @@
  */
 import type { CreateSessionRequestMeta } from './createSessionRequestMeta';
 
+/**
+ * 创建新对话会话的请求体
+ */
 export interface CreateSessionRequest {
-  /** 元数据（可选） */
+  /** 元数据（可选）
+@Description 可选的自定义元数据 */
   meta?: CreateSessionRequestMeta;
   /**
    * 模型名称
+@Description 会话使用的AI模型名称，如 "gpt-4"、"gemini-pro"、"qwen-turbo" 等。系统会根据当前租户ID和模型名称从 model_configurations 表中查询配置。
+@Example gpt-4
    * @maxLength 128
    */
   modelName: string;
-  /** 系统提示词（可选） */
+  /** 系统提示词（可选）
+@Description 可选的系统级提示词，用于设定AI的角色和行为
+@Example 你是一个有帮助的AI助手 */
   systemPrompt?: string;
   /**
    * 温度参数（可选，0-2）
+@Description 控制生成文本的随机性，范围：0.0-2.0
+@Example 0.7
    * @minimum 0
    * @maximum 2
    */
   temperature?: number;
   /**
    * 会话标题
+@Description 会话的显示标题
+@Example 我的第一个会话
    * @maxLength 255
    */
   title: string;
   /**
    * TopP参数（可选，0-1）
+@Description 核采样参数，范围：0.0-1.0
+@Example 0.9
    * @minimum 0
    * @maximum 1
    */

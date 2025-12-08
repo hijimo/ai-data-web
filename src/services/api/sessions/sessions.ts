@@ -33,9 +33,40 @@ export const getSessions = () => {
     return orvalMutator<SessionListResponse>({ url: `/chat/sessions`, method: 'GET', params });
   };
   /**
-   * 创建一个新的聊天会话
-   * @summary 创建新会话
-   */
+ * 创建一个新的聊天会话。需要指定会话使用的AI模型名称（如 gpt-4、gemini-pro、qwen-turbo 等）。系统会根据当前租户ID和模型名称从 model_configurations 表中查询配置。
+
+使用示例：
+1. 创建使用 Azure OpenAI GPT-4 的会话：
+```json
+{
+"title": "技术讨论",
+"modelName": "gpt-4",
+"systemPrompt": "你是一个专业的技术顾问",
+"temperature": 0.7
+}
+```
+
+2. 创建使用阿里云百炼 Qwen 的会话：
+```json
+{
+"title": "中文写作助手",
+"modelName": "qwen-turbo",
+"systemPrompt": "你是一个专业的中文写作助手",
+"temperature": 0.9
+}
+```
+
+3. 创建使用 Google AI Gemini 的会话：
+```json
+{
+"title": "代码分析",
+"modelName": "gemini-pro",
+"systemPrompt": "你是一个代码审查专家",
+"temperature": 0.3
+}
+```
+ * @summary 创建新会话
+ */
   const postChatSessions = (createSessionRequest: CreateSessionRequest) => {
     return orvalMutator<SessionDataResponse>({
       url: `/chat/sessions`,
@@ -59,9 +90,44 @@ export const getSessions = () => {
     return orvalMutator<SessionDataResponse>({ url: `/chat/sessions/${id}`, method: 'GET' });
   };
   /**
-   * 更新会话的标题、配置等信息
-   * @summary 更新会话
-   */
+ * 更新会话的标题、配置等信息。可以通过 modelName 字段切换会话使用的AI模型。系统会根据当前租户ID和新的模型名称从 model_configurations 表中查询配置。
+
+使用示例：
+1. 只更新会话标题：
+```json
+{
+"title": "新的会话标题"
+}
+```
+
+2. 切换会话使用的模型（从 Gemini 切换到 GPT-4）：
+```json
+{
+"modelName": "gpt-4",
+"temperature": 0.8
+}
+```
+
+3. 更新系统提示词和模型参数：
+```json
+{
+"systemPrompt": "你是一个专业的Python编程助手",
+"temperature": 0.5,
+"topP": 0.95
+}
+```
+
+4. 同时更新多个字段：
+```json
+{
+"title": "Python编程助手",
+"modelName": "qwen-turbo",
+"systemPrompt": "你是一个专业的Python编程助手",
+"temperature": 0.7
+}
+```
+ * @summary 更新会话
+ */
   const patchChatSessionsId = (
     { id }: PatchChatSessionsIdPathParameters,
     updateSessionRequest: UpdateSessionRequest,

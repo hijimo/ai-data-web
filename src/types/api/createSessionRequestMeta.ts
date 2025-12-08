@@ -9,5 +9,6 @@
 
 /**
  * 元数据（可选）
+@Description 可选的自定义元数据
  */
 export type CreateSessionRequestMeta = { [key: string]: unknown };

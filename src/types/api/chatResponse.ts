@@ -8,13 +8,23 @@
  */
 import type { Usage } from './usage';
 
+/**
+ * AI对话的响应数据
+ */
 export interface ChatResponse {
-  /** AI生成的消息内容 */
+  /** AI生成的消息内容
+@Description AI生成的回复文本
+@Example 你好！我是一个 AI 助手... */
   message?: string;
-  /** 使用的模型名称 */
+  /** 使用的模型名称
+@Description 实际使用的AI模型名称（可能是会话默认模型或请求中指定的模型）
+@Example gemini-1.5-flash */
   model?: string;
-  /** 会话ID */
+  /** 会话ID
+@Description 会话的唯一标识符
+@Example session-123456 */
   sessionId?: string;
-  /** Token使用情况 */
+  /** Token使用情况
+@Description 本次对话的token使用统计 */
   usage?: Usage;
 }

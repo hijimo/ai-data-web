@@ -51,9 +51,52 @@ export const getMessages = () => {
     });
   };
   /**
-   * 在指定会话中发送消息并获取AI回复
-   * @summary 发送消息
-   */
+ * 在指定会话中发送消息并获取AI回复。支持通过 options.modelName 参数动态指定使用的AI模型（如 gpt-4、gemini-pro、qwen-turbo 等）。系统会根据当前租户ID和模型名称从 model_configurations 表中查询配置。如果不指定 modelName，将使用会话的默认模型。
+
+使用示例：
+1. 使用会话默认模型：
+```json
+{
+"message": "你好，请介绍一下你自己"
+}
+```
+
+2. 指定使用 Azure OpenAI 的 GPT-4 模型：
+```json
+{
+"message": "请用中文解释量子计算",
+"options": {
+"modelName": "gpt-4",
+"temperature": 0.7,
+"maxTokens": 2048
+}
+}
+```
+
+3. 指定使用阿里云百炼的 Qwen 模型：
+```json
+{
+"message": "写一首关于春天的诗",
+"options": {
+"modelName": "qwen-turbo",
+"temperature": 0.9
+}
+}
+```
+
+4. 指定使用 Google AI 的 Gemini 模型：
+```json
+{
+"message": "分析这段代码的时间复杂度",
+"options": {
+"modelName": "gemini-pro",
+"temperature": 0.3,
+"maxTokens": 1024
+}
+}
+```
+ * @summary 发送消息
+ */
   const postChatSessionsIdMessages = (
     { id }: PostChatSessionsIdMessagesPathParameters,
     sendMessageRequestBody: SendMessageRequestBody,
@@ -66,9 +109,50 @@ export const getMessages = () => {
     });
   };
   /**
-   * 在指定会话中发送消息并以 SSE 流式返回 AI 回复
-   * @summary 流式发送消息
-   */
+ * 在指定会话中发送消息并以 SSE 流式返回 AI 回复。支持通过 options.modelName 参数动态指定使用的AI模型（如 gpt-4、gemini-pro、qwen-turbo 等）。系统会根据当前租户ID和模型名称从 model_configurations 表中查询配置。如果不指定 modelName，将使用会话的默认模型。
+
+使用示例：
+1. 使用会话默认模型进行流式对话：
+```json
+{
+"message": "请详细介绍人工智能的发展历史"
+}
+```
+
+2. 指定使用 Azure OpenAI 的 GPT-4 模型进行流式对话：
+```json
+{
+"message": "写一篇关于机器学习的技术文章",
+"options": {
+"modelName": "gpt-4",
+"temperature": 0.8,
+"maxTokens": 4096
+}
+}
+```
+
+3. 指定使用阿里云百炼的 Qwen 模型进行流式对话：
+```json
+{
+"message": "用中文写一个Python爬虫示例",
+"options": {
+"modelName": "qwen-turbo",
+"temperature": 0.7
+}
+}
+```
+
+响应格式（SSE）：
+```
+data: {"choices":[{"delta":{"role":"assistant","content":"你好"}}],"usage":null}
+data: {"choices":[{"delta":{"content":"！"}}],"usage":null}
+data: {"choices":[{"delta":{"content":"我是"}}],"usage":null}
+data: {"choices":[{"delta":{"content":"AI助手"}}],"usage":null}
+data: {"choices":[{"finish_reason":"stop"}],"usage":{"prompt_tokens":10,"completion_tokens":50,"total_tokens":60}}
+data: [DONE]
+```
+ * @summary 流式发送消息
+ */
   const postChatSessionsIdMessagesStream = (
     { id }: PostChatSessionsIdMessagesStreamPathParameters,
     sendMessageRequestBody: SendMessageRequestBody,

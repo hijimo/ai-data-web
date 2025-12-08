@@ -8,11 +8,19 @@
  */
 import type { ChatOptions } from './chatOptions';
 
+/**
+ * 向指定会话发送消息的请求体
+ */
 export interface SendMessageRequest {
-  /** 消息内容 */
+  /** 消息内容
+@Description 用户发送的消息文本内容
+@Example 你好，请介绍一下你自己 */
   message: string;
-  /** AI高级参数（可选） */
+  /** AI高级参数（可选）
+@Description 可选的AI模型配置参数。如果指定了 modelName，系统会根据当前租户ID和模型名称从数据库查询配置并使用该模型；否则使用会话的默认模型。支持动态切换不同的AI提供商（Google AI、Azure OpenAI、阿里云百炼等）。 */
   options?: ChatOptions;
-  /** 会话ID */
+  /** 会话ID
+@Description 目标会话的唯一标识符
+@Example 550e8400-e29b-41d4-a716-446655440000 */
   sessionId: string;
 }

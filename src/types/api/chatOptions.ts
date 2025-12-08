@@ -7,19 +7,38 @@
  * OpenAPI spec version: 1.0.0
  */
 
+/**
+ * AI模型的高级配置参数，所有字段都是可选的
+ */
 export interface ChatOptions {
-  /** 最大token数 */
+  /** 最大token数
+@Description 生成内容的最大token数量。实际生成的token数可能少于此值。
+@Example 2048 */
   maxTokens?: number;
   /**
+   * 模型名称（可选，用于指定使用的模型）
+@Description 指定要使用的AI模型名称，如 "gpt-4"、"gemini-pro"、"qwen-turbo" 等。系统会根据当前租户ID和模型名称从 model_configurations 表中查询配置。如果不指定，将使用会话的默认模型。
+@Example gpt-4
+   * @minLength 1
+   * @maxLength 128
+   */
+  modelName?: string;
+  /**
    * 温度值，控制输出的随机性（0-2）
+@Description 控制生成文本的随机性。值越高，输出越随机；值越低，输出越确定。范围：0.0-2.0
+@Example 0.7
    * @minimum 0
    * @maximum 2
    */
   temperature?: number;
-  /** Top-K采样参数 */
+  /** Top-K采样参数
+@Description 限制每步采样时考虑的token数量。值越小，输出越集中。
+@Example 40 */
   topK?: number;
   /**
    * Top-P采样参数（0-1）
+@Description 核采样参数，控制生成文本的多样性。值越小，输出越集中；值越大，输出越多样。范围：0.0-1.0
+@Example 0.9
    * @minimum 0
    * @maximum 1
    */

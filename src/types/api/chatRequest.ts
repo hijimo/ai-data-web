@@ -8,11 +8,19 @@
  */
 import type { ChatOptions } from './chatOptions';
 
+/**
+ * 发送对话消息的请求体
+ */
 export interface ChatRequest {
-  /** 用户消息内容 */
+  /** 用户消息内容
+@Description 用户发送的消息文本内容
+@Example 你好，请介绍一下你自己 */
   message: string;
-  /** 消息ID（可选，用于继续对话） */
+  /** 消息ID（可选，用于继续对话）
+@Description 可选的消息ID，用于继续之前的对话
+@Example 550e8400-e29b-41d4-a716-446655440000 */
   messageId?: string;
-  /** AI高级参数（可选） */
+  /** AI高级参数（可选）
+@Description 可选的AI模型配置参数，包括模型名称、温度、最大token数等。如果指定了 modelName，系统会使用该模型；否则使用会话的默认模型。 */
   options?: ChatOptions;
 }
