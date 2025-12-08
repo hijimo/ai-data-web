@@ -157,8 +157,8 @@ importers:
         specifier: ^8.48.1
         version: 8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       '@vitejs/plugin-react':
-        specifier: ^5.1.1
-        version: 5.1.1(vite@7.2.7(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
+        specifier: ^5.1.2
+        version: 5.1.2(vite@7.2.7(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
       '@vitejs/plugin-react-swc':
         specifier: ^4.2.2
         version: 4.2.2(vite@7.2.7(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
@@ -1140,6 +1140,9 @@ packages:
   '@rolldown/pluginutils@1.0.0-beta.47':
     resolution: {integrity: sha512-8QagwMH3kNCuzD8EWL8R2YPW5e4OrHNSAHRFDdmFqEwEaD/KcNKjVoumo+gP2vW5eKB2UPbM6vTYiGZX0ixLnw==}
 
+  '@rolldown/pluginutils@1.0.0-beta.53':
+    resolution: {integrity: sha512-vENRlFU4YbrwVqNDZ7fLvy+JR1CRkyr01jhSiDpE1u6py3OMzQfztQU2jxykW3ALNxO4kSlqIDeYyD0Y9RcQeQ==}
+
   '@rollup/pluginutils@5.3.0':
     resolution: {integrity: sha512-5EdhGZtnu3V88ces7s53hhfK5KSASnJZv8Lulpc04cWO3REESroJXg73DFsOmgbU2BhwV0E20bu2IDZb3VKW4Q==}
     engines: {node: '>=14.0.0'}
@@ -2085,8 +2088,8 @@ packages:
     peerDependencies:
       vite: ^4 || ^5 || ^6 || ^7
 
-  '@vitejs/plugin-react@5.1.1':
-    resolution: {integrity: sha512-WQfkSw0QbQ5aJ2CHYw23ZGkqnRwqKHD/KYsMeTkZzPT4Jcf0DcBxBtwMJxnu6E7oxw5+JC6ZAiePgh28uJ1HBA==}
+  '@vitejs/plugin-react@5.1.2':
+    resolution: {integrity: sha512-EcA07pHJouywpzsoTUqNh5NwGayl2PPVEJKUSinGGSxFGYn+shYbqMGBg6FXDqgXum9Ou/ecb+411ssw8HImJQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
@@ -2424,6 +2427,10 @@ packages:
     resolution: {integrity: sha512-sXdt2elaVnhpDNRDz+1BDx1JQoJRuNk7oVlAlbGiFkLikHCAQiccexF/9e91zVi6RCgqspl04aP+6Cnl9zRLrA==}
     hasBin: true
 
+  baseline-browser-mapping@2.9.5:
+    resolution: {integrity: sha512-D5vIoztZOq1XM54LUdttJVc96ggEsIfju2JBvht06pSzpckp3C7HReun67Bghzrtdsq9XdMGbSSB3v3GhMNmAA==}
+    hasBin: true
+
   basic-ftp@5.0.5:
     resolution: {integrity: sha512-4Bcg1P8xhUuqcii/S0Z9wiHIrQVPMermM1any+MX5GeGD7faD3/msQUDGLol9wOcz4/jbg/WJnGqoJF6LiBdtg==}
     engines: {node: '>=10.0.0'}
@@ -2451,6 +2458,11 @@ packages:
 
   browserslist@4.28.0:
     resolution: {integrity: sha512-tbydkR/CxfMwelN0vwdP/pLkDwyAASZ+VfWm4EOwlB6SWhx1sYnWLqo8N5j0rAzPfzfRaxt0mM/4wPU/Su84RQ==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+
+  browserslist@4.28.1:
+    resolution: {integrity: sha512-ZC5Bd0LgJXgwGqUknZY/vkUQ04r8NXnJZ3yYi4vDmSiZmC/pdSN0NbNRPxZpbtO4uAfDUAFffO8IZoM3Gj8IkA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
@@ -2490,6 +2502,9 @@ packages:
 
   caniuse-lite@1.0.30001756:
     resolution: {integrity: sha512-4HnCNKbMLkLdhJz3TToeVWHSnfJvPaq6vu/eRP0Ahub/07n484XHhBF5AJoSGHdVrS8tKFauUQz8Bp9P7LVx7A==}
+
+  caniuse-lite@1.0.30001759:
+    resolution: {integrity: sha512-Pzfx9fOKoKvevQf8oCXoyNRQ5QyxJj+3O0Rqx2V5oxT61KGx8+n6hV/IUyJeifUci2clnmmKVpvtiqRzgiWjSw==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -2883,6 +2898,9 @@ packages:
 
   electron-to-chromium@1.5.258:
     resolution: {integrity: sha512-rHUggNV5jKQ0sSdWwlaRDkFc3/rRJIVnOSe9yR4zrR07m3ZxhP4N27Hlg8VeJGGYgFTxK5NqDmWI4DSH72vIJg==}
+
+  electron-to-chromium@1.5.266:
+    resolution: {integrity: sha512-kgWEglXvkEfMH7rxP5OSZZwnaDWT7J9EoZCujhnpLbfi0bbNtRkgdX2E3gt0Uer11c61qCYktB3hwkAS325sJg==}
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -5975,6 +5993,12 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
+  update-browserslist-db@1.2.2:
+    resolution: {integrity: sha512-E85pfNzMQ9jpKkA7+TJAi4TJN+tBCuWh5rUcS/sv6cFi+1q9LYDwDI5dpUL0u/73EElyQ8d3TEaeW4sPedBqYA==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
@@ -6657,7 +6681,7 @@ snapshots:
     dependencies:
       '@babel/compat-data': 7.28.5
       '@babel/helper-validator-option': 7.27.1
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -7440,6 +7464,8 @@ snapshots:
       react-is: 18.3.1
 
   '@rolldown/pluginutils@1.0.0-beta.47': {}
+
+  '@rolldown/pluginutils@1.0.0-beta.53': {}
 
   '@rollup/pluginutils@5.3.0(rollup@4.53.3)':
     dependencies:
@@ -8451,12 +8477,12 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  '@vitejs/plugin-react@5.1.1(vite@7.2.7(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.1.2(vite@7.2.7(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.5)
       '@babel/plugin-transform-react-jsx-source': 7.27.1(@babel/core@7.28.5)
-      '@rolldown/pluginutils': 1.0.0-beta.47
+      '@rolldown/pluginutils': 1.0.0-beta.53
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
       vite: 7.2.7(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
@@ -8888,6 +8914,8 @@ snapshots:
 
   baseline-browser-mapping@2.8.29: {}
 
+  baseline-browser-mapping@2.9.5: {}
+
   basic-ftp@5.0.5: {}
 
   better-opn@3.0.2:
@@ -8936,6 +8964,14 @@ snapshots:
       node-releases: 2.0.27
       update-browserslist-db: 1.1.4(browserslist@4.28.0)
 
+  browserslist@4.28.1:
+    dependencies:
+      baseline-browser-mapping: 2.9.5
+      caniuse-lite: 1.0.30001759
+      electron-to-chromium: 1.5.266
+      node-releases: 2.0.27
+      update-browserslist-db: 1.2.2(browserslist@4.28.1)
+
   buffer-crc32@0.2.13: {}
 
   bytes@3.1.2: {}
@@ -8966,6 +9002,8 @@ snapshots:
   camelcase@6.3.0: {}
 
   caniuse-lite@1.0.30001756: {}
+
+  caniuse-lite@1.0.30001759: {}
 
   ccount@2.0.1: {}
 
@@ -9332,6 +9370,8 @@ snapshots:
   ee-first@1.1.1: {}
 
   electron-to-chromium@1.5.258: {}
+
+  electron-to-chromium@1.5.266: {}
 
   emoji-regex@10.6.0: {}
 
@@ -13144,6 +13184,12 @@ snapshots:
   update-browserslist-db@1.1.4(browserslist@4.28.0):
     dependencies:
       browserslist: 4.28.0
+      escalade: 3.2.0
+      picocolors: 1.1.1
+
+  update-browserslist-db@1.2.2(browserslist@4.28.1):
+    dependencies:
+      browserslist: 4.28.1
       escalade: 3.2.0
       picocolors: 1.1.1
 
