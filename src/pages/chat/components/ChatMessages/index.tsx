@@ -112,10 +112,40 @@ export const ChatMessages: React.FC<ChatMessagesProps> = ({
   const internalScrollRef = useRef<HTMLDivElement>(null);
   const scrollRef = scrollContainerRef || internalScrollRef;
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  // 记录是否已完成首次滚动
+  const hasInitialScrollRef = useRef(false);
+  // 记录上一次的消息数量
+  const prevMessagesLengthRef = useRef(0);
 
-  // 自动滚动到底部（当有新消息或流式内容更新时）
+  // 首次加载消息时滚动到底部（无动画，立即定位）
   useEffect(() => {
-    if (isGenerating || messages.length > 0) {
+    // 首次加载消息时，立即滚动到底部
+    if (messages.length > 0 && !hasInitialScrollRef.current) {
+      // 使用 requestAnimationFrame 确保 DOM 已渲染
+      requestAnimationFrame(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+        hasInitialScrollRef.current = true;
+      });
+    }
+    // 当消息清空时（切换会话），重置标记
+    if (messages.length === 0) {
+      hasInitialScrollRef.current = false;
+    }
+  }, [messages.length, scrollRef]);
+
+  // 新消息到达或流式内容更新时，平滑滚动到底部
+  useEffect(() => {
+    // 跳过首次加载（由上面的 effect 处理）
+    if (!hasInitialScrollRef.current) return;
+
+    // 检测是否有新消息（非首次加载）
+    const hasNewMessages = messages.length > prevMessagesLengthRef.current;
+    prevMessagesLengthRef.current = messages.length;
+
+    // 新消息或正在生成时，平滑滚动
+    if (hasNewMessages || isGenerating) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages.length, streamState?.outputContent, isGenerating]);

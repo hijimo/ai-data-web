@@ -59,15 +59,26 @@ export const useChatHandler = (sessionId: string) => {
         sessionId,
       };
 
-      // 乐观更新：添加临时消息到列表
+      // 乐观更新：添加临时消息到列表开头
+      // 注意：服务器返回的数据是倒序的（最新在前），所以新消息要插入到开头
+      // useMessagesPagination 会反转数组，使新消息显示在底部
       queryClient.setQueryData(['messages', sessionId], (old: any) => {
         if (!old) return old;
         return {
           ...old,
-          data: {
-            ...old.data,
-            data: [...(old.data?.data || []), tempUserMessage],
-          },
+          pages: old.pages?.map((page: any, index: number) => {
+            // 只在第一页插入新消息
+            if (index === 0) {
+              return {
+                ...page,
+                data: {
+                  ...page.data,
+                  data: [tempUserMessage, ...(page.data?.data || [])],
+                },
+              };
+            }
+            return page;
+          }),
         };
       });
 
@@ -167,15 +178,27 @@ export const useChatHandler = (sessionId: string) => {
 
       setTempMessageId(tempAIMessageId);
 
-      // 乐观更新：添加用户消息和空的 AI 消息
+      // 乐观更新：添加用户消息和空的 AI 消息到列表开头
+      // 注意：服务器返回的数据是倒序的（最新在前），所以新消息要插入到开头
+      // AI 消息在最前面（最新），用户消息在其后
+      // useMessagesPagination 会反转数组，使消息按正确顺序显示（用户消息在上，AI 回复在下）
       queryClient.setQueryData(['messages', sessionId], (old: any) => {
         if (!old) return old;
         return {
           ...old,
-          data: {
-            ...old.data,
-            data: [...(old.data?.data || []), tempUserMessage, tempAIMessage],
-          },
+          pages: old.pages?.map((page: any, index: number) => {
+            // 只在第一页插入新消息
+            if (index === 0) {
+              return {
+                ...page,
+                data: {
+                  ...page.data,
+                  data: [tempAIMessage, tempUserMessage, ...(page.data?.data || [])],
+                },
+              };
+            }
+            return page;
+          }),
         };
       });
 

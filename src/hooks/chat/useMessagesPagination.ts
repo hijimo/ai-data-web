@@ -77,11 +77,20 @@ export const useMessagesPagination = ({
   const messages = useMemo(() => {
     if (!data?.pages) return [];
 
-    // 合并所有页的消息
-    const allMessages = data.pages.flatMap((page) => page.data?.data || []);
+    // 服务器返回：每页消息按创建时间倒序（最新在前）
+    // 分页顺序：第1页是最新的消息，第2页是更早的消息...
+    // 目标：聊天界面正序显示（最旧在上，最新在下）
 
-    // 反转顺序，使最新消息在最后
-    return allMessages.reverse();
+    // 1. 先反转页面顺序（让最早的页在前）
+    const reversedPages = [...data.pages].reverse();
+
+    // 2. 合并所有页的消息，每页内部也反转（让最早的消息在前）
+    const allMessages = reversedPages.flatMap((page) => {
+      const pageMessages = page.data?.data || [];
+      return [...pageMessages].reverse();
+    });
+
+    return allMessages;
   }, [data]);
 
   // 加载更多消息
