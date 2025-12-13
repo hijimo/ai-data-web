@@ -203,14 +203,47 @@ export const useChatHandler = (sessionId: string) => {
       });
 
       // 开始流式响应
-      await streamResponse.streamMessage({
+      const finalContent = await streamResponse.streamMessage({
         sessionId,
         message: content,
         modelId,
       });
 
-      // 流式完成后，刷新消息列表获取真实数据
-      await queryClient.invalidateQueries({ queryKey: ['messages', sessionId] });
+      // 流式完成后，用最终内容更新临时 AI 消息，避免重新请求导致闪烁
+      queryClient.setQueryData(['messages', sessionId], (old: any) => {
+        if (!old) return old;
+        return {
+          ...old,
+          pages: old.pages?.map((page: any, index: number) => {
+            if (index === 0) {
+              return {
+                ...page,
+                data: {
+                  ...page.data,
+                  data: (page.data?.data || []).map((msg: MessageDetailResponse) => {
+                    // 更新临时 AI 消息的内容为最终内容
+                    if (msg.id === tempAIMessageId) {
+                      return {
+                        ...msg,
+                        content: finalContent || msg.content,
+                      };
+                    }
+                    return msg;
+                  }),
+                },
+              };
+            }
+            return page;
+          }),
+        };
+      });
+
+      // 标记缓存为过期，但不立即重新请求
+      // 下次用户切换会话或刷新时会获取真实数据
+      queryClient.invalidateQueries({
+        queryKey: ['messages', sessionId],
+        refetchType: 'none',
+      });
 
       setTempMessageId(null);
     } catch (error: any) {
