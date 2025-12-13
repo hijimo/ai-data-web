@@ -1,0 +1,49 @@
+/* 模型选择器样式 */
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.buttonText {
+  font-size: 13px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.button:hover .icon {
+  transform: translateY(1px);
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0;
+}
+
+.modelName {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.modelInfo {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.45);
+}

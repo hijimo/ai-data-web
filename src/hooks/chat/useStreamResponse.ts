@@ -17,6 +17,8 @@ interface StreamMessageRequest {
   sessionId: string;
   /** 消息内容 */
   message: string;
+  /** 模型 ID（可选） */
+  modelId?: string;
   /** AI 高级参数（可选） */
   options?: any;
 }
@@ -235,11 +237,23 @@ export const useStreamResponse = (): UseStreamResponseReturn => {
       }));
 
       try {
+        // 从 localStorage 读取持久化的模型值
+        const STORAGE_KEY = 'selected_model_value';
+        const storedModelId = localStorage.getItem(STORAGE_KEY);
+
+        // 优先使用传入的 modelId，否则使用持久化的 modelId
+        const finalModelId = request.modelId || storedModelId || undefined;
+
         // 构建请求体
         const requestBody: SendMessageRequestBody = {
           message: request.message,
           sessionId: request.sessionId,
-          options: request.options,
+          options: {
+            ...request.options,
+            // 如果有 modelId，将其作为 modelName 传递
+            // 注意：这里传递的是配置 ID，后端会根据 ID 查找对应的模型配置
+            ...(finalModelId && { modelName: finalModelId }),
+          },
         };
 
         const authorization = localStorage.getItem(TOKEN_KEY);

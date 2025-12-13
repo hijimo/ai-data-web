@@ -7,6 +7,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { MessageDetailResponse } from '@/types/api/messageDetailResponse';
 
 /**
+ * useScroll Hook 参数
+ */
+interface UseScrollParams {
+  /** 消息列表 */
+  messages: MessageDetailResponse[];
+  /** 滚动到顶部时的回调（用于加载更多历史消息） */
+  onLoadMore?: () => void;
+  /** 是否正在加载更多 */
+  isLoadingMore?: boolean;
+}
+
+/**
  * useScroll Hook 返回值
  */
 interface UseScrollReturn {
@@ -24,10 +36,14 @@ interface UseScrollReturn {
 
 /**
  * 滚动控制 Hook
- * @param messages 消息列表
+ * @param params 滚动控制参数
  * @returns 滚动控制相关的状态和方法
  */
-export const useScroll = (messages: MessageDetailResponse[]): UseScrollReturn => {
+export const useScroll = ({
+  messages,
+  onLoadMore,
+  isLoadingMore = false,
+}: UseScrollParams): UseScrollReturn => {
   // 滚动容器引用
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -37,6 +53,12 @@ export const useScroll = (messages: MessageDetailResponse[]): UseScrollReturn =>
 
   // 上次消息数量（用于判断是否有新消息）
   const lastMessageCountRef = useRef(messages.length);
+
+  // 上次滚动高度（用于加载更多后保持滚动位置）
+  const lastScrollHeightRef = useRef(0);
+
+  // 是否正在加载更多的标记
+  const isLoadingMoreRef = useRef(false);
 
   // 滚动到顶部
   const scrollToTop = useCallback(() => {
@@ -74,6 +96,22 @@ export const useScroll = (messages: MessageDetailResponse[]): UseScrollReturn =>
     setShowScrollToBottom(distanceFromBottom > 100);
   }, []);
 
+  // 检查是否需要加载更多历史消息
+  const checkLoadMore = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container || !onLoadMore || isLoadingMoreRef.current) return;
+
+    const { scrollTop } = container;
+
+    // 当滚动到距离顶部 100px 以内时，触发加载更多
+    if (scrollTop < 100) {
+      isLoadingMoreRef.current = true;
+      // 记录当前滚动高度，用于加载完成后恢复位置
+      lastScrollHeightRef.current = container.scrollHeight;
+      onLoadMore();
+    }
+  }, [onLoadMore]);
+
   // 监听滚动事件
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -82,13 +120,44 @@ export const useScroll = (messages: MessageDetailResponse[]): UseScrollReturn =>
     // 初始化按钮状态
     updateButtonVisibility();
 
+    // 滚动事件处理函数
+    const handleScroll = () => {
+      updateButtonVisibility();
+      checkLoadMore();
+    };
+
     // 添加滚动事件监听
-    container.addEventListener('scroll', updateButtonVisibility);
+    container.addEventListener('scroll', handleScroll);
 
     return () => {
-      container.removeEventListener('scroll', updateButtonVisibility);
+      container.removeEventListener('scroll', handleScroll);
     };
-  }, [updateButtonVisibility]);
+  }, [updateButtonVisibility, checkLoadMore]);
+
+  // 加载更多完成后，恢复滚动位置
+  useEffect(() => {
+    if (isLoadingMore) {
+      return;
+    }
+
+    // 加载完成，重置标记
+    if (isLoadingMoreRef.current) {
+      const container = scrollContainerRef.current;
+      if (container && lastScrollHeightRef.current > 0) {
+        // 计算新增的内容高度
+        const newScrollHeight = container.scrollHeight;
+        const heightDiff = newScrollHeight - lastScrollHeightRef.current;
+
+        // 恢复滚动位置（加上新增的高度）
+        if (heightDiff > 0) {
+          container.scrollTop = heightDiff;
+        }
+
+        lastScrollHeightRef.current = 0;
+      }
+      isLoadingMoreRef.current = false;
+    }
+  }, [isLoadingMore, messages.length]);
 
   // 新消息到达时自动滚动到底部
   useEffect(() => {

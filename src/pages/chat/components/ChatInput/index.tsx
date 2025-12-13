@@ -6,6 +6,8 @@
 import { Button, Input } from 'antd';
 import { Send, StopCircle } from 'lucide-react';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import type { ModelConfiguration } from '@/types/api';
+import { ModelSelector } from '../ModelSelector';
 import styles from './index.module.css';
 
 const { TextArea } = Input;
@@ -28,6 +30,8 @@ interface ChatInputProps {
   disabled?: boolean;
   /** 占位符文本 */
   placeholder?: string;
+  /** 模型变化回调 */
+  onModelChange?: (modelId: string, model: ModelConfiguration) => void;
 }
 
 /**
@@ -51,6 +55,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(
       isGenerating = false,
       disabled = false,
       placeholder = '输入消息...',
+      onModelChange,
     },
     ref,
   ) => {
@@ -94,17 +99,23 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(
     return (
       <div className={styles.chatInput}>
         <div className={styles.inputContainer}>
-          <TextArea
-            ref={textAreaRef}
-            value={value}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder={placeholder}
-            autoSize={{ minRows: 1, maxRows: 8 }}
-            disabled={disabled || isGenerating}
-            className={styles.textarea}
-            aria-label="消息输入框"
-          />
+          <div className={styles.textareaWrapper}>
+            <TextArea
+              ref={textAreaRef}
+              value={value}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder={placeholder}
+              rows={3}
+              autoSize={{ minRows: 3, maxRows: 8 }}
+              disabled={disabled || isGenerating}
+              className={styles.textarea}
+              aria-label="消息输入框"
+            />
+            <div className={styles.modelSelectorWrapper}>
+              <ModelSelector onChange={onModelChange} disabled={disabled || isGenerating} />
+            </div>
+          </div>
           <div className={styles.actions}>
             {isGenerating ? (
               <Button

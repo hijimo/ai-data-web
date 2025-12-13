@@ -8,8 +8,8 @@ import { message } from 'antd';
 import { useSearchParams } from 'react-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useChatHandler } from '@/hooks/chat/useChatHandler';
+import { useMessagesPagination } from '@/hooks/chat/useMessagesPagination';
 import { useSessionOperations } from '@/hooks/chat/useSessionOperations';
-import { getMessages } from '@/services/api/messages/messages';
 import { getSessions } from '@/services/api/sessions/sessions';
 import { ChatUI, type ChatUIRef } from './components/ChatUI';
 import { SessionList } from './components/SessionList';
@@ -131,31 +131,19 @@ const ChatPage: React.FC = () => {
     enabled: !!debouncedKeyword, // 有搜索关键词时才执行搜索
   });
 
-  // 获取消息列表 API 实例
-  const messagesApi = getMessages();
-
-  // 使用 React Query 加载当前会话的消息
+  // 使用消息分页 Hook 加载消息
   const {
-    data: messagesData,
+    messages: paginatedMessages,
     isLoading: isLoadingMessages,
-    error: messagesError,
-  } = useQuery({
-    queryKey: ['messages', currentSessionId],
-    queryFn: async () => {
-      if (!currentSessionId) return null;
-      try {
-        const response = await messagesApi.getChatSessionsIdMessages(
-          { id: currentSessionId },
-          { pageNo: 1, pageSize: 50 },
-        );
-        return response;
-      } catch (err) {
-        message.error('加载消息失败');
-        throw err;
-      }
-    },
-    retry: 2,
-    enabled: !!currentSessionId, // 仅在有 sessionId 时加载
+    isFetchingNextPage: isLoadingMoreMessages,
+    hasNextPage: hasMoreMessages,
+    loadMore: loadMoreMessages,
+    totalCount: totalMessagesCount,
+    loadedCount: loadedMessagesCount,
+  } = useMessagesPagination({
+    sessionId: currentSessionId,
+    pageSize: 20,
+    enabled: !!currentSessionId,
   });
 
   // 根据是否有搜索关键词决定显示哪个数据
@@ -172,25 +160,30 @@ const ChatPage: React.FC = () => {
 
   // 合并真实消息和流式消息
   const displayMessages = useMemo(() => {
-    const messages = messagesData?.data?.data || [];
-
     // 如果正在流式传输，更新临时消息的内容
     if (streamState.isStreaming && tempMessageId) {
       // 使用输出内容或完整内容
       const streamContent = streamState.outputContent || streamState.fullContent;
-      return messages.map((msg) =>
+      return paginatedMessages.map((msg) =>
         msg.id === tempMessageId ? { ...msg, content: streamContent } : msg,
       );
     }
 
-    return messages;
+    return paginatedMessages;
   }, [
-    messagesData,
+    paginatedMessages,
     streamState.isStreaming,
     streamState.outputContent,
     streamState.fullContent,
     tempMessageId,
   ]);
+
+  // 加载更多历史消息
+  const handleLoadMore = useCallback(() => {
+    if (hasMoreMessages && !isLoadingMoreMessages) {
+      loadMoreMessages();
+    }
+  }, [hasMoreMessages, isLoadingMoreMessages, loadMoreMessages]);
 
   // 处理会话选择
   const handleSelectSession = useCallback(
@@ -268,13 +261,13 @@ const ChatPage: React.FC = () => {
 
   // 处理发送消息（使用流式响应）
   const handleSendMessage = useCallback(
-    async (content: string) => {
+    async (content: string, modelId?: string) => {
       if (!currentSessionId) {
         message.warning('请先选择一个会话');
         return;
       }
       try {
-        await sendStreamMessage(content);
+        await sendStreamMessage(content, modelId);
         // await sendMessage(content);
       } catch (error) {
         // 错误已在 hook 中处理
@@ -330,6 +323,11 @@ const ChatPage: React.FC = () => {
           onToggleCollapse={handleToggleCollapse}
           onSendMessage={handleSendMessage}
           onStopGeneration={handleStopGeneration}
+          onLoadMore={handleLoadMore}
+          isLoadingMore={isLoadingMoreMessages}
+          hasMoreMessages={hasMoreMessages}
+          totalMessagesCount={totalMessagesCount}
+          loadedMessagesCount={loadedMessagesCount}
         />
       </div>
     </div>

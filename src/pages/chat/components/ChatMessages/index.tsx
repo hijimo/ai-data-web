@@ -4,6 +4,7 @@
  * 参考 chatbot-ui-main 的流式输出实现
  */
 
+import { Spin } from 'antd';
 import React, { useEffect, useRef } from 'react';
 import type { MessageDetailResponse } from '@/types/api/messageDetailResponse';
 import type { StreamState } from '@/types/stream';
@@ -27,6 +28,14 @@ interface ChatMessagesProps {
   onDeleteMessage?: (messageId: string) => void;
   /** 滚动容器引用（可选，用于父组件控制滚动） */
   scrollContainerRef?: React.RefObject<HTMLDivElement>;
+  /** 是否正在加载更多历史消息 */
+  isLoadingMore?: boolean;
+  /** 是否还有更多消息 */
+  hasMoreMessages?: boolean;
+  /** 总消息数 */
+  totalMessagesCount?: number;
+  /** 已加载消息数 */
+  loadedMessagesCount?: number;
 }
 
 /**
@@ -95,6 +104,10 @@ export const ChatMessages: React.FC<ChatMessagesProps> = ({
   onEditMessage,
   onDeleteMessage,
   scrollContainerRef,
+  isLoadingMore = false,
+  hasMoreMessages = false,
+  totalMessagesCount = 0,
+  loadedMessagesCount = 0,
 }) => {
   const internalScrollRef = useRef<HTMLDivElement>(null);
   const scrollRef = scrollContainerRef || internalScrollRef;
@@ -110,6 +123,23 @@ export const ChatMessages: React.FC<ChatMessagesProps> = ({
   return (
     <div ref={scrollRef} className={styles.chatMessages} role="log" aria-live="polite">
       <div className={styles.messagesContainer}>
+        {/* 加载更多提示 */}
+        {isLoadingMore && (
+          <div className={styles.loadingMore}>
+            <Spin size="small" />
+            <span style={{ marginLeft: '8px' }}>加载历史消息中...</span>
+          </div>
+        )}
+
+        {/* 已加载全部消息提示 */}
+        {!hasMoreMessages && messages.length > 0 && (
+          <div className={styles.allLoaded}>
+            <span>
+              已加载全部消息 ({loadedMessagesCount}/{totalMessagesCount})
+            </span>
+          </div>
+        )}
+
         {messages.length === 0 ? (
           <div className={styles.emptyState}>
             <p>暂无消息，开始对话吧</p>

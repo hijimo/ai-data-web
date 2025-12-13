@@ -132,7 +132,7 @@ export const useChatHandler = (sessionId: string) => {
   /**
    * 发送流式消息
    */
-  const sendStreamMessage = async (content: string) => {
+  const sendStreamMessage = async (content: string, modelId?: string) => {
     if (!sessionId) {
       message.error('会话 ID 不能为空');
       return;
@@ -183,6 +183,7 @@ export const useChatHandler = (sessionId: string) => {
       await streamResponse.streamMessage({
         sessionId,
         message: content,
+        modelId,
       });
 
       // 流式完成后，刷新消息列表获取真实数据

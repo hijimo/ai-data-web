@@ -41,9 +41,19 @@ interface ChatUIProps {
   /** 切换侧边栏折叠状态 */
   onToggleCollapse?: () => void;
   /** 发送消息回调 */
-  onSendMessage?: (content: string) => void;
+  onSendMessage?: (content: string, modelId?: string) => void;
   /** 停止生成回调 */
   onStopGeneration?: () => void;
+  /** 加载更多历史消息回调 */
+  onLoadMore?: () => void;
+  /** 是否正在加载更多 */
+  isLoadingMore?: boolean;
+  /** 是否还有更多消息 */
+  hasMoreMessages?: boolean;
+  /** 总消息数 */
+  totalMessagesCount?: number;
+  /** 已加载消息数 */
+  loadedMessagesCount?: number;
 }
 
 /**
@@ -71,6 +81,11 @@ export const ChatUI = forwardRef<ChatUIRef, ChatUIProps>(
       onToggleCollapse,
       onSendMessage,
       onStopGeneration,
+      onLoadMore,
+      isLoadingMore = false,
+      hasMoreMessages = false,
+      totalMessagesCount = 0,
+      loadedMessagesCount = 0,
     },
     ref,
   ) => {
@@ -78,12 +93,18 @@ export const ChatUI = forwardRef<ChatUIRef, ChatUIProps>(
     const [settingsOpen, setSettingsOpen] = useState(false);
     // 用户输入
     const [userInput, setUserInput] = useState('');
+    // 当前选中的模型 ID
+    const [selectedModelId, setSelectedModelId] = useState<string>('');
     // 输入框引用
     const inputRef = useRef<ChatInputRef>(null);
 
     // 滚动控制
     const { scrollContainerRef, scrollToTop, scrollToBottom, showScrollToTop, showScrollToBottom } =
-      useScroll(messages);
+      useScroll({
+        messages,
+        onLoadMore,
+        isLoadingMore,
+      });
 
     // 暴露方法给父组件
     useImperativeHandle(ref, () => ({
@@ -100,9 +121,14 @@ export const ChatUI = forwardRef<ChatUIRef, ChatUIProps>(
     // 发送消息
     const handleSend = () => {
       if (userInput.trim() && onSendMessage) {
-        onSendMessage(userInput.trim());
+        onSendMessage(userInput.trim(), selectedModelId || undefined);
         setUserInput(''); // 清空输入框
       }
+    };
+
+    // 处理模型变化
+    const handleModelChange = (modelId: string) => {
+      setSelectedModelId(modelId);
     };
 
     // 停止生成
@@ -145,6 +171,10 @@ export const ChatUI = forwardRef<ChatUIRef, ChatUIProps>(
             isGenerating={isGenerating}
             streamState={streamState}
             scrollContainerRef={scrollContainerRef}
+            isLoadingMore={isLoadingMore}
+            hasMoreMessages={hasMoreMessages}
+            totalMessagesCount={totalMessagesCount}
+            loadedMessagesCount={loadedMessagesCount}
           />
 
           {/* 滚动控制按钮 */}
@@ -165,6 +195,7 @@ export const ChatUI = forwardRef<ChatUIRef, ChatUIProps>(
           onStop={handleStop}
           isGenerating={isGenerating}
           disabled={loading}
+          onModelChange={handleModelChange}
         />
 
         {/* 设置面板（懒加载） */}
