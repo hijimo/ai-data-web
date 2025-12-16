@@ -6,12 +6,16 @@
 提供模型提供商、模型信息和参数规则的查询接口
  * OpenAPI spec version: 1.0.0
  */
+import type { ChatHistoryMessage } from './chatHistoryMessage';
 import type { ChatOptions } from './chatOptions';
 
 /**
  * 发送对话消息的请求体
  */
 export interface ChatRequest {
+  /** 历史消息（可选，用于多轮对话）
+@Description 历史对话消息列表，按时间顺序排列 */
+  history?: ChatHistoryMessage[];
   /** 用户消息内容
 @Description 用户发送的消息文本内容
 @Example 你好，请介绍一下你自己 */
