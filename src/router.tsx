@@ -1,4 +1,5 @@
 import {
+  BookOutlined,
   HomeOutlined,
   MessageOutlined,
   SettingOutlined,
@@ -18,6 +19,8 @@ import Layout from './components/Layout/Layout';
 import { ResourceContextProvider } from './contexts/resource';
 import Chat from './pages/chat';
 import Index from './pages/Index';
+import KnowledgeEntries from './pages/knowledge/entries';
+import KnowledgeSpaces from './pages/knowledge/spaces';
 import Login from './pages/Login';
 import ModelSettings from './pages/model-settings';
 import Notfound from './pages/Notfound';
@@ -68,6 +71,14 @@ const resources: ResourceProps[] = [
     meta: {
       label: '模型设置',
       icon: <SettingOutlined />,
+    },
+  },
+  {
+    name: 'knowledge-spaces',
+    list: '/knowledge/spaces',
+    meta: {
+      label: '知识库管理',
+      icon: <BookOutlined />,
     },
   },
 ];
@@ -143,6 +154,14 @@ const router = createBrowserRouter([
           {
             path: '/model-settings',
             element: <ModelSettings />,
+          },
+          {
+            path: '/knowledge/spaces',
+            element: <KnowledgeSpaces />,
+          },
+          {
+            path: '/knowledge/spaces/:spaceId',
+            element: <KnowledgeEntries />,
           },
           {
             path: '*',
