@@ -2,14 +2,21 @@
  * 知识库详情页面
  * 展示知识库信息和知识节点列表
  */
-import { ArrowLeftOutlined, MoreOutlined, ShareAltOutlined, StarOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  MoreOutlined,
+  SearchOutlined,
+  ShareAltOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
 import { Button, Spin, Typography } from 'antd';
 import { useNavigate, useParams } from 'react-router';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useLexiangEntries } from '@/hooks/services/useLexiangEntries';
 import { useLexiangSpaceDetail } from '@/hooks/services/useLexiangSpaces';
 import type { LexiangEntryItem } from '@/types/api';
 import EntriesTable from './components/EntriesTable';
+import SearchDrawer, { type SearchDrawerRef } from './components/SearchDrawer';
 import UploadButton from './components/UploadButton';
 
 const { Title, Text } = Typography;
@@ -20,6 +27,7 @@ const { Title, Text } = Typography;
 const KnowledgeEntriesPage: React.FC = () => {
   const { spaceId } = useParams<{ spaceId: string }>();
   const navigate = useNavigate();
+  const searchDrawerRef = useRef<SearchDrawerRef>(null);
 
   // 获取知识库详情
   const { data: spaceData, isLoading: spaceLoading } = useLexiangSpaceDetail(spaceId || '');
@@ -47,6 +55,11 @@ const KnowledgeEntriesPage: React.FC = () => {
     refetch();
   }, [refetch]);
 
+  // 打开搜索抽屉
+  const handleOpenSearch = useCallback(() => {
+    searchDrawerRef.current?.open();
+  }, []);
+
   // 点击条目
   const handleEntryClick = (entry: LexiangEntryItem) => {
     if (entry.entryType === 'folder' && entry.id) {
@@ -70,6 +83,10 @@ const KnowledgeEntriesPage: React.FC = () => {
           </Button>
         </div>
         <div className="flex items-center gap-2">
+          {/* 搜索按钮 */}
+          <Button type="text" icon={<SearchOutlined />} onClick={handleOpenSearch}>
+            搜索
+          </Button>
           {spaceId && (
             <UploadButton
               spaceId={spaceId}
@@ -160,6 +177,9 @@ const KnowledgeEntriesPage: React.FC = () => {
           />
         </div>
       </Spin>
+
+      {/* AI 搜索抽屉 */}
+      <SearchDrawer ref={searchDrawerRef} />
     </div>
   );
 };

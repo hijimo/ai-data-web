@@ -7,6 +7,13 @@
  * OpenAPI spec version: 1.0.0
  */
 
+export * from './aIQARequestSwagger';
+export * from './aIQARequestSwaggerBody';
+export * from './aIQARequestSwaggerLanguage';
+export * from './aIQARequestSwaggerQaMode';
+export * from './aISearchRequestSwagger';
+export * from './aITargetSwagger';
+export * from './aITargetSwaggerType';
 export * from './abortRequest';
 export * from './alertListDataResponse';
 export * from './anyDataResponse';
@@ -64,6 +71,12 @@ export * from './healthDataResponse';
 export * from './healthHealthStatus';
 export * from './healthHealthStatusDependencies';
 export * from './healthStatusResponse';
+export * from './lexiangAIQADataResponse';
+export * from './lexiangAIQAResponse';
+export * from './lexiangAISearchDataResponse';
+export * from './lexiangAISearchResponse';
+export * from './lexiangAISearchResultItem';
+export * from './lexiangAdditionalContent';
 export * from './lexiangDocFileDataResponse';
 export * from './lexiangDocFileResponse';
 export * from './lexiangEntryContentDataResponse';
@@ -74,6 +87,8 @@ export * from './lexiangEntryListDataResponse';
 export * from './lexiangEntryResponse';
 export * from './lexiangFeedbackItem';
 export * from './lexiangFeedbackListDataResponse';
+export * from './lexiangReferenceChunk';
+export * from './lexiangReferenceDoc';
 export * from './lexiangSpaceDataResponse';
 export * from './lexiangSpaceItem';
 export * from './lexiangSpaceListDataResponse';
