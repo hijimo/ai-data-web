@@ -5,11 +5,12 @@
 import { ArrowLeftOutlined, MoreOutlined, ShareAltOutlined, StarOutlined } from '@ant-design/icons';
 import { Button, Spin, Typography } from 'antd';
 import { useNavigate, useParams } from 'react-router';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useLexiangEntries } from '@/hooks/services/useLexiangEntries';
 import { useLexiangSpaceDetail } from '@/hooks/services/useLexiangSpaces';
 import type { LexiangEntryItem } from '@/types/api';
 import EntriesTable from './components/EntriesTable';
+import UploadButton from './components/UploadButton';
 
 const { Title, Text } = Typography;
 
@@ -24,7 +25,11 @@ const KnowledgeEntriesPage: React.FC = () => {
   const { data: spaceData, isLoading: spaceLoading } = useLexiangSpaceDetail(spaceId || '');
 
   // 获取知识节点列表
-  const { data: entriesData, isLoading: entriesLoading } = useLexiangEntries({
+  const {
+    data: entriesData,
+    isLoading: entriesLoading,
+    refetch,
+  } = useLexiangEntries({
     spaceId: spaceId || '',
     limit: 100,
   });
@@ -36,6 +41,11 @@ const KnowledgeEntriesPage: React.FC = () => {
   const handleBack = () => {
     navigate('/knowledge/spaces');
   };
+
+  // 上传成功后刷新列表
+  const handleUploadSuccess = useCallback(() => {
+    refetch();
+  }, [refetch]);
 
   // 点击条目
   const handleEntryClick = (entry: LexiangEntryItem) => {
@@ -60,6 +70,13 @@ const KnowledgeEntriesPage: React.FC = () => {
           </Button>
         </div>
         <div className="flex items-center gap-2">
+          {spaceId && (
+            <UploadButton
+              spaceId={spaceId}
+              parentId={space?.rootEntryId}
+              onSuccess={handleUploadSuccess}
+            />
+          )}
           <Button type="text" icon={<StarOutlined />} />
           <Button type="text" icon={<ShareAltOutlined />} />
           <Button type="text" icon={<MoreOutlined />} />

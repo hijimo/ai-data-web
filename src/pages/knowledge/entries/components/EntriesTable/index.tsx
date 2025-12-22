@@ -2,12 +2,13 @@
  * 知识库条目表格组件
  */
 import { FileOutlined, FileTextOutlined, FolderOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
+import { Popconfirm, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 import 'dayjs/locale/zh-cn';
+import { useDeleteLexiangEntry } from '@/hooks/services/useLexiangEntries';
 import type { LexiangEntryItem } from '@/types/api';
 
 // 配置 dayjs 相对时间插件
@@ -42,6 +43,13 @@ const getEntryTypeIcon = (entryType?: string): React.ReactNode => {
  * 知识库条目表格
  */
 const EntriesTable: React.FC<EntriesTableProps> = ({ dataSource, loading, onEntryClick }) => {
+  const deleteEntry = useDeleteLexiangEntry();
+
+  // 处理删除
+  const handleDelete = (id: string) => {
+    deleteEntry.mutate(id);
+  };
+
   const columns: TableColumnsType<LexiangEntryItem> = [
     {
       title: '名称',
@@ -71,6 +79,22 @@ const EntriesTable: React.FC<EntriesTableProps> = ({ dataSource, loading, onEntr
       key: 'updatedAt',
       width: 120,
       render: (value) => (value ? dayjs(value).fromNow() : '--'),
+    },
+    {
+      title: '操作',
+      key: 'action',
+      width: 80,
+      render: (_, record) => (
+        <Popconfirm
+          title="确认删除"
+          description={`确定要删除「${record.name}」吗？`}
+          onConfirm={() => record.id && handleDelete(record.id)}
+          okText="确定"
+          cancelText="取消"
+        >
+          <a className="text-red-500 hover:text-red-600">删除</a>
+        </Popconfirm>
+      ),
     },
   ];
 
