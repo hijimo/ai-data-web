@@ -226,8 +226,8 @@ importers:
         specifier: ^2.12.7
         version: 2.12.7(@types/node@25.0.10)(typescript@5.9.3)
       openai:
-        specifier: ^6.16.0
-        version: 6.16.0(ws@8.18.3)(zod@4.1.12)
+        specifier: ^6.17.0
+        version: 6.17.0(ws@8.18.3)(zod@4.1.12)
       orval:
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.9.3)
@@ -4584,8 +4584,8 @@ packages:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
 
-  openai@6.16.0:
-    resolution: {integrity: sha512-fZ1uBqjFUjXzbGc35fFtYKEOxd20kd9fDpFeqWtsOZWiubY8CZ1NAlXHW3iathaFvqmNtCWMIsosCuyeI7Joxg==}
+  openai@6.17.0:
+    resolution: {integrity: sha512-NHRpPEUPzAvFOAFs9+9pC6+HCw/iWsYsKCMPXH5Kw7BpMxqd8g/A07/1o7Gx2TWtCnzevVRyKMRFqyiHyAlqcA==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -11319,7 +11319,7 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openai@6.16.0(ws@8.18.3)(zod@4.1.12):
+  openai@6.17.0(ws@8.18.3)(zod@4.1.12):
     optionalDependencies:
       ws: 8.18.3
       zod: 4.1.12
