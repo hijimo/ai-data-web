@@ -55,7 +55,7 @@
     "react-router-dom": "^7.13.0",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
-    "zustand": "^5.0.10"
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
